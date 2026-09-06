@@ -166,6 +166,22 @@ body {
   width: 100%;
   height: 170px;
   object-fit: cover;
+  transition: transform .8s cubic-bezier(.23,1,.32,1), filter .6s ease;
+}
+
+.country-pathway-card {
+  transition: transform .55s cubic-bezier(.23,1,.32,1), box-shadow .45s ease;
+}
+
+.country-pathway-card:hover {
+  animation: none;
+  transform: translateY(-6px);
+  box-shadow: 0 18px 38px hsl(var(--foreground) / 0.10);
+}
+
+.country-pathway-card:hover .country-card-image-img {
+  transform: scale(1.045);
+  filter: saturate(1.05) contrast(1.02);
 }
 
 .home-hero {
@@ -228,11 +244,15 @@ body {
   border-radius: 999px;
   box-shadow: 0 0 0 16px rgba(255,255,255,.05), 0 0 0 34px rgba(255,255,255,.025);
   filter: blur(.2px);
+  translate: var(--hero-orb-x, 0px) var(--hero-orb-y, 0px);
+  will-change: translate, transform;
 }
 
 .home-hero-orb-one {
   top: 18%;
   right: 26%;
+  --hero-orb-x: var(--hero-orb-one-x, 0px);
+  --hero-orb-y: var(--hero-orb-one-y, 0px);
   animation: hero-float-one 11s ease-in-out infinite;
 }
 
@@ -242,6 +262,8 @@ body {
   width: 250px;
   height: 250px;
   opacity: .55;
+  --hero-orb-x: var(--hero-orb-two-x, 0px);
+  --hero-orb-y: var(--hero-orb-two-y, 0px);
   animation: hero-float-two 14s ease-in-out infinite;
 }
 
@@ -257,6 +279,10 @@ body {
   inset: 0 0 0 auto;
   -webkit-mask-image: linear-gradient(90deg, #0000, #000 35%);
   mask-image: linear-gradient(90deg, #0000, #000 35%);
+  translate: var(--hero-photo-x, 0px) var(--hero-photo-y, 0px);
+  scale: 1.035;
+  will-change: translate;
+  transition: translate .2s linear;
 }
 
 .home-hero-content {
