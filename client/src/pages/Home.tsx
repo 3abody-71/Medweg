@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import {
   ArrowRight,
@@ -49,7 +49,7 @@ function CountryCard({
 }) {
   return (
     <article
-      className="fade-up country-pathway-card group overflow-hidden rounded-2xl border border-border bg-card shadow-sm transition-shadow hover:shadow-md"
+      className="fade-up group overflow-hidden rounded-2xl border border-border bg-card shadow-sm transition-shadow hover:shadow-md"
       style={{ animationDelay: `${index * 45}ms` }}
       data-testid={`card-pathway-${country.id}`}
     >
@@ -136,7 +136,6 @@ export default function Home() {
   const { profile, savedCountryIds, toggleCountry } = useApp();
   const [query, setQuery] = useState("");
   const [region, setRegion] = useState("All");
-  const heroRef = useRef<HTMLElement | null>(null);
 
   const regions = useMemo(
     () => ["All", ...Array.from(new Set(countries.map((c) => c.region)))],
@@ -152,75 +151,10 @@ export default function Home() {
     );
   }, [query, region]);
 
-  useEffect(() => {
-    const hero = heroRef.current;
-    if (!hero || window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      return;
-    }
-
-    const photo = hero.querySelector<HTMLElement>(".home-hero-photo");
-    const orbOne = hero.querySelector<HTMLElement>(".home-hero-orb-one");
-    const orbTwo = hero.querySelector<HTMLElement>(".home-hero-orb-two");
-    if (!photo || !orbOne || !orbTwo) return;
-
-    const pointer = { x: 0, y: 0, targetX: 0, targetY: 0, active: false };
-    let frame = 0;
-
-    const settle = () => {
-      pointer.x += (pointer.targetX - pointer.x) * 0.085;
-      pointer.y += (pointer.targetY - pointer.y) * 0.085;
-
-      photo.style.setProperty("--hero-photo-x", `${pointer.x * -8}px`);
-      photo.style.setProperty("--hero-photo-y", `${pointer.y * -5}px`);
-      orbOne.style.setProperty("--hero-orb-one-x", `${pointer.x * -12}px`);
-      orbOne.style.setProperty("--hero-orb-one-y", `${pointer.y * -8}px`);
-      orbTwo.style.setProperty("--hero-orb-two-x", `${pointer.x * 7}px`);
-      orbTwo.style.setProperty("--hero-orb-two-y", `${pointer.y * 6}px`);
-
-      if (
-        pointer.active ||
-        Math.abs(pointer.targetX - pointer.x) > 0.01 ||
-        Math.abs(pointer.targetY - pointer.y) > 0.01
-      ) {
-        frame = requestAnimationFrame(settle);
-      } else {
-        frame = 0;
-      }
-    };
-
-    const wake = () => {
-      if (!frame) frame = requestAnimationFrame(settle);
-    };
-
-    const handlePointerMove = (event: PointerEvent) => {
-      const rect = hero.getBoundingClientRect();
-      pointer.targetX = (event.clientX - rect.left) / rect.width - 0.5;
-      pointer.targetY = (event.clientY - rect.top) / rect.height - 0.5;
-      pointer.active = true;
-      wake();
-    };
-
-    const handlePointerLeave = () => {
-      pointer.targetX = 0;
-      pointer.targetY = 0;
-      pointer.active = false;
-      wake();
-    };
-
-    hero.addEventListener("pointermove", handlePointerMove);
-    hero.addEventListener("pointerleave", handlePointerLeave);
-
-    return () => {
-      hero.removeEventListener("pointermove", handlePointerMove);
-      hero.removeEventListener("pointerleave", handlePointerLeave);
-      if (frame) cancelAnimationFrame(frame);
-    };
-  }, []);
-
   return (
     <div className="space-y-10">
       {/* Hero */}
-      <section ref={heroRef} className="home-hero fade-up overflow-hidden rounded-2xl p-6 shadow-lg sm:p-8 md:p-10">
+      <section className="home-hero fade-up overflow-hidden rounded-2xl p-6 shadow-lg sm:p-8 md:p-10">
         <div className="home-hero-background" aria-hidden="true">
           <span className="home-hero-orb home-hero-orb-one" />
           <span className="home-hero-orb home-hero-orb-two" />
