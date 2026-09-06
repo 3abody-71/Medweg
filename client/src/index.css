@@ -171,6 +171,7 @@ body {
 .home-hero {
   color: #fff;
   isolation: isolate;
+  min-height: 250px;
   background: linear-gradient(120deg, #2784b0, #3897c7 63%, #4fb7cf);
   position: relative;
   overflow: hidden;
@@ -249,14 +250,14 @@ body {
   z-index: 0;
   object-fit: cover;
   object-position: center;
-  opacity: 0.38;
+  opacity: 0.3;
   mix-blend-mode: screen;
-  width: 65%;
+  width: 43%;
   height: 100%;
   position: absolute;
   inset: 0 0 0 auto;
-  -webkit-mask-image: linear-gradient(90deg, #0000 0%, #000 46%);
-  mask-image: linear-gradient(90deg, #0000 0%, #000 46%);
+  -webkit-mask-image: linear-gradient(90deg, #0000, #000 35%);
+  mask-image: linear-gradient(90deg, #0000, #000 35%);
 }
 
 .home-hero-content {
