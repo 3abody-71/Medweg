@@ -27,7 +27,7 @@ const NAV_ITEMS = [
   { href: "/community", label: "Community", icon: Users },
 ];
 
-const CONTACT_EMAIL = "contact@medpathguide.com";
+const CONTACT_EMAIL = "contact@medweg.com";
 const CONTACT_PHONE = "+249 000 000 000";
 
 export default function SiteLayout({ children }: { children: React.ReactNode }) {
@@ -62,10 +62,10 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
             data-testid="link-logo"
           >
             <span className="brand-mark grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-primary text-primary-foreground">
-              <img src={assetPath("/assets/media/medpath-compass-permanent.png")} alt="MedPath compass" className="h-8 w-8 object-contain" />
+              <img src={assetPath("/assets/media/medweg-compass.png")} alt="Medweg compass" className="h-8 w-8 object-contain" />
             </span>
             <span>
-              <span className="brand-wordmark block">MedPath</span>
+              <span className="brand-wordmark block">Medweg</span>
               <span className="guide">Guide</span>
             </span>
           </Link>
@@ -101,7 +101,7 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
               <DropdownMenuContent align="end" className="w-60">
                 <DropdownMenuItem asChild>
                   <a
-                    href={`mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent("MedPath Guide inquiry")}`}
+                    href={`mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent("Medweg inquiry")}`}
                   >
                     <Mail size={15} /> Email — {CONTACT_EMAIL}
                   </a>
@@ -139,7 +139,7 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
                 </Link>
               ))}
               <a
-                href={`mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent("MedPath Guide inquiry")}`}
+                href={`mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent("Medweg inquiry")}`}
                 className="topbar-link flex items-center gap-3 rounded-lg px-3 py-3"
                 data-testid="link-contact-mobile-menu"
               >
@@ -167,9 +167,9 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
         <div className="mx-auto flex max-w-[1450px] flex-col items-start justify-between gap-4 px-4 py-8 sm:px-6 md:flex-row md:items-center lg:px-10">
           <div className="flex items-center gap-3">
             <span className="grid h-8 w-8 shrink-0 place-items-center rounded-lg bg-primary text-primary-foreground">
-              <img src={assetPath("/assets/media/medpath-compass-permanent.png")} alt="MedPath compass" className="h-7 w-7 object-contain" />
+              <img src={assetPath("/assets/media/medweg-compass.png")} alt="Medweg compass" className="h-7 w-7 object-contain" />
             </span>
-            <span className="text-xs font-bold">MedPath Guide</span>
+            <span className="text-xs font-bold">Medweg</span>
           </div>
           <p className="text-[11px] leading-5 text-muted-foreground">
             For education only. Verify every detail with the official licensing body.

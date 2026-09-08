@@ -1,10 +1,10 @@
-# MedPath Guide — Live Website Source
+# Medweg — Live Website Source
 
-This repository contains the corrected source code for the MedPath Guide website.
+This repository contains the corrected source code for the Medweg website.
 
 The current GitHub Pages website is:
 
-<https://3abody-71.github.io/My-website/>
+<https://3abody-71.github.io/Medweg/>
 
 The older Manus preview link is not automatically updated when this GitHub repository changes. Use the GitHub Pages link above to view the version built from the `main` branch.
 

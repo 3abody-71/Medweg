@@ -87,32 +87,32 @@ function loadJson<T>(key: string, fallback: T): T {
 export function AppProvider({ children }: { children: React.ReactNode }) {
   const [profile, setProfile] = useState<Profile>(() => ({
     ...DEFAULT_PROFILE,
-    ...loadJson<Partial<Profile>>("medpath-profile", {}),
+    ...loadJson<Partial<Profile>>("medweg-profile", {}),
   }));
   const [savedSpecialtyIds, setSavedSpecialtyIds] = useState<string[]>(() =>
-    loadJson("medpath-saved-specialties", [])
+    loadJson("medweg-saved-specialties", [])
   );
   const [savedCountryIds, setSavedCountryIds] = useState<string[]>(() =>
-    loadJson("medpath-saved-countries", [])
+    loadJson("medweg-saved-countries", [])
   );
   const [compareIds, setCompareIds] = useState<string[]>(() =>
-    loadJson("medpath-compare", [])
+    loadJson("medweg-compare", [])
   );
 
   useEffect(() => {
-    localStorage.setItem("medpath-profile", JSON.stringify(profile));
+    localStorage.setItem("medweg-profile", JSON.stringify(profile));
   }, [profile]);
 
   useEffect(() => {
-    localStorage.setItem("medpath-saved-specialties", JSON.stringify(savedSpecialtyIds));
+    localStorage.setItem("medweg-saved-specialties", JSON.stringify(savedSpecialtyIds));
   }, [savedSpecialtyIds]);
 
   useEffect(() => {
-    localStorage.setItem("medpath-saved-countries", JSON.stringify(savedCountryIds));
+    localStorage.setItem("medweg-saved-countries", JSON.stringify(savedCountryIds));
   }, [savedCountryIds]);
 
   useEffect(() => {
-    localStorage.setItem("medpath-compare", JSON.stringify(compareIds));
+    localStorage.setItem("medweg-compare", JSON.stringify(compareIds));
   }, [compareIds]);
 
   const toggleSpecialty = (id: string) => {
@@ -128,7 +128,7 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
   };
 
   const saveProfile = () => {
-    localStorage.setItem("medpath-profile", JSON.stringify(profile));
+    localStorage.setItem("medweg-profile", JSON.stringify(profile));
   };
 
   const value = useMemo(

@@ -1,8 +1,8 @@
 from pathlib import Path
 from PIL import Image, ImageOps, ImageDraw, ImageFont
 
-root = Path('/home/ubuntu/My-website/client/public/assets/germany/hospitals')
-out = Path('/home/ubuntu/My-website/tmp/germany-hospital-contact-sheet.jpg')
+root = Path('/home/ubuntu/Medweg/client/public/assets/germany/hospitals')
+out = Path('/home/ubuntu/Medweg/tmp/germany-hospital-contact-sheet.jpg')
 out.parent.mkdir(parents=True, exist_ok=True)
 files = sorted(p for p in root.iterdir() if p.suffix.lower() in {'.jpg', '.jpeg', '.png', '.webp'})
 thumb_w, thumb_h = 360, 230

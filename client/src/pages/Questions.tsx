@@ -7,7 +7,7 @@ export default function Questions() {
   const { profile } = useApp();
   const [question, setQuestion] = useState("");
 
-  const mailtoHref = `mailto:contact@medpathguide.com?subject=${encodeURIComponent("MedPath Guide inquiry")}&body=${encodeURIComponent(question || "Your next question")}`;
+  const mailtoHref = `mailto:contact@medweg.com?subject=${encodeURIComponent("Medweg inquiry")}&body=${encodeURIComponent(question || "Your next question")}`;
 
   return (
     <div className="space-y-8">
@@ -80,10 +80,10 @@ export default function Questions() {
         <p className="mt-2 text-sm leading-6 text-muted-foreground">
           Write directly to{" "}
           <a
-            href="mailto:contact@medpathguide.com"
+            href="mailto:contact@medweg.com"
             className="font-bold text-primary hover:underline"
           >
-            contact@medpathguide.com
+            contact@medweg.com
           </a>{" "}
           with your question and a short note about your profile.{" "}
           {profile.name ? `${profile.name.split(" ")[0]},` : ""} the more context

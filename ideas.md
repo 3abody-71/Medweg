@@ -1,8 +1,8 @@
-# MedPath Guide — Fidelity Reference
+# Medweg — Fidelity Reference
 
 ## Ground-Truth Spec
 
-This permanent project is an implementation of the user’s existing **MedPath Guide** website, not a new visual concept. The live website at `https://specpathway-heydt8xx.manus.space/` and the supplied React/Vite source are the visual and functional source of truth. The permanent copy must retain the calm, editorial medical-career guidance experience: a white canvas, deep teal-blue surfaces, warm gold accents, destination photography, compact information cards, and direct pathways from country exploration into individual detail pages.
+This permanent project is an implementation of the user’s existing **Medweg** website, not a new visual concept. The live website at `https://specpathway-heydt8xx.manus.space/` and the supplied React/Vite source are the visual and functional source of truth. The permanent copy must retain the calm, editorial medical-career guidance experience: a white canvas, deep teal-blue surfaces, warm gold accents, destination photography, compact information cards, and direct pathways from country exploration into individual detail pages.
 
 ## Chosen Design Direction: Clinical Atlas
 
@@ -26,7 +26,7 @@ This permanent project is an implementation of the user’s existing **MedPath G
 
 **Brand Voice:** Clear, candid, and guiding—not promotional. Example lines: “Find the country that fits your next medical chapter.” and “Verify the route, then make the next move with context.”
 
-**Wordmark & Logo:** A compass-grid symbol alongside a compact MedPath Guide wordmark. The mark should feel like a direction-finding instrument rather than a generic medical icon.
+**Wordmark & Logo:** A compass-grid symbol alongside a compact Medweg wordmark. The mark should feel like a direction-finding instrument rather than a generic medical icon.
 
 **Signature Brand Color:** Atlas Teal — `#0d7c9e`.
 
@@ -34,4 +34,4 @@ This permanent project is an implementation of the user’s existing **MedPath G
 
 - Every page, including sparse utility pages, includes at least one Clinical Atlas cue: a route-orientation panel, compass reference, or practical guidance block.
 - Specialty cards are framed as comparable training routes with compact factual cues, rather than generic category tiles.
-- Empty states teach the next research action in the MedPath voice instead of merely reporting that no content exists.
+- Empty states teach the next research action in the Medweg voice instead of merely reporting that no content exists.

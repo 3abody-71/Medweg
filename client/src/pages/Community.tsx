@@ -39,7 +39,7 @@ const STARTER_POSTS: CommunityPost[] = [
     title: "What should I compare before choosing a country?",
     body: "A useful starting point is to compare registration steps, language evidence, training length, cost, and how realistic the application timeline is for your current stage.",
     topic: "Countries",
-    author: "MedPath starter",
+    author: "Medweg starter",
     time: "Community guide",
     replies: 0,
     likes: 0,
@@ -50,7 +50,7 @@ const STARTER_POSTS: CommunityPost[] = [
     title: "How are you narrowing down your specialty options?",
     body: "Share the kind of work that gives you energy: acute decisions, continuity of care, procedures, diagnostics, research, or working closely with families.",
     topic: "Specialties",
-    author: "MedPath starter",
+    author: "Medweg starter",
     time: "Community guide",
     replies: 0,
     likes: 0,
@@ -61,7 +61,7 @@ const STARTER_POSTS: CommunityPost[] = [
     title: "Where do you keep your licensing checklist?",
     body: "A country-by-country checklist can make a complicated route easier to manage. What do you track first: exams, language, documents, registration, or applications?",
     topic: "Exams & licensing",
-    author: "MedPath starter",
+    author: "Medweg starter",
     time: "Community guide",
     replies: 0,
     likes: 0,
@@ -71,7 +71,7 @@ const STARTER_POSTS: CommunityPost[] = [
 
 function loadPosts(): CommunityPost[] {
   try {
-    const raw = localStorage.getItem("medpath-community-posts");
+    const raw = localStorage.getItem("medweg-community-posts");
     return raw ? (JSON.parse(raw) as CommunityPost[]) : STARTER_POSTS;
   } catch {
     return STARTER_POSTS;
@@ -80,7 +80,7 @@ function loadPosts(): CommunityPost[] {
 
 function savePosts(posts: CommunityPost[]) {
   try {
-    localStorage.setItem("medpath-community-posts", JSON.stringify(posts));
+    localStorage.setItem("medweg-community-posts", JSON.stringify(posts));
   } catch {
     // Local storage is a convenience; the page remains usable if it is unavailable.
   }
