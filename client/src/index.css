@@ -456,6 +456,35 @@ body {
   display: none !important;
 }
 
+.country-costs-table table {
+  table-layout: fixed;
+}
+
+@media (max-width: 767px) {
+  .country-costs-table th,
+  .country-costs-table td {
+    overflow-wrap: anywhere;
+    padding: 0.5rem;
+    font-size: 0.68rem;
+    line-height: 1rem;
+  }
+
+  .country-costs-table th:nth-child(1),
+  .country-costs-table td:nth-child(1) {
+    width: 29%;
+  }
+
+  .country-costs-table th:nth-child(2),
+  .country-costs-table td:nth-child(2) {
+    width: 25%;
+  }
+
+  .country-costs-table th:nth-child(3),
+  .country-costs-table td:nth-child(3) {
+    width: 46%;
+  }
+}
+
 @media (max-width: 767px) {
   .pathway-costs-table {
     display: block;
