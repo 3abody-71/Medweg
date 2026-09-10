@@ -440,6 +440,18 @@ body {
   transition: opacity .55s cubic-bezier(.23,1,.32,1), transform .55s cubic-bezier(.23,1,.32,1);
 }
 
+.responsive-table {
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-x: contain;
+  scrollbar-width: thin;
+  touch-action: pan-x pan-y;
+}
+
+.responsive-table:focus-visible {
+  outline: 2px solid hsl(var(--accent));
+  outline-offset: 3px;
+}
+
 /* Keep wide content usable on phones and iPad portrait without shrinking text. */
 @media (max-width: 1023px) {
   .topbar .btn-contact {
