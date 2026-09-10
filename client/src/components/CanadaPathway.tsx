@@ -402,15 +402,15 @@ export default function CanadaPathway() {
                 translations, travel, provincial registration, and application
                 costs change. Check the current official fee before paying.
               </p>
-              <div className="pathway-costs-table responsive-table mt-5 min-w-0 max-w-full overflow-x-auto rounded-xl border border-[#efd7d8] bg-white" tabIndex={0} role="region" aria-label="Canada pathway costs table">
-                <table className="w-full min-w-[640px] text-left text-sm">
+              <div className="pathway-costs-table mt-5 min-w-0 max-w-full overflow-hidden rounded-xl border border-[#efd7d8] bg-white" role="region" aria-label="Canada pathway costs table">
+                <table className="w-full table-fixed text-left text-sm">
                   <thead className="bg-[#fff0f1] text-xs uppercase tracking-wider text-[#8e3541]">
                     <tr>
-                      <th className="px-4 py-3 font-extrabold">Item</th>
-                      <th className="px-4 py-3 font-extrabold">
+                      <th className="w-[29%] break-words px-2 py-2 text-[10px] leading-4 font-extrabold sm:px-4 sm:py-3 sm:text-xs">Item</th>
+                      <th className="w-[25%] break-words px-2 py-2 text-[10px] leading-4 font-extrabold sm:px-4 sm:py-3 sm:text-xs">
                         Planning amount
                       </th>
-                      <th className="px-4 py-3 font-extrabold">
+                      <th className="w-[46%] break-words px-2 py-2 text-[10px] leading-4 font-extrabold sm:px-4 sm:py-3 sm:text-xs">
                         Planning note
                       </th>
                     </tr>
@@ -421,11 +421,11 @@ export default function CanadaPathway() {
                         key={cost.item}
                         className="border-t border-[#f1e3e4] align-top"
                       >
-                        <td className="px-4 py-3 font-bold">{cost.item}</td>
-                        <td className="px-4 py-3 font-extrabold text-[#a52b3b]">
+                        <td className="break-words px-2 py-2 text-[11px] leading-4 font-bold sm:px-4 sm:py-3 sm:text-sm">{cost.item}</td>
+                        <td className="break-words px-2 py-2 text-[11px] leading-4 font-extrabold text-[#a52b3b] sm:px-4 sm:py-3 sm:text-sm">
                           {cost.amount}
                         </td>
-                        <td className="px-4 py-3 leading-5 text-muted-foreground">
+                        <td className="break-words px-2 py-2 text-[10px] leading-4 text-muted-foreground sm:px-4 sm:py-3 sm:text-xs sm:leading-5">
                           {cost.note}
                         </td>
                       </tr>

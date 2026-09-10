@@ -453,15 +453,11 @@ body {
 }
 
 .pathway-costs-cards {
-  display: none;
+  display: none !important;
 }
 
 @media (max-width: 767px) {
   .pathway-costs-table {
-    display: none;
-  }
-
-  .pathway-costs-cards {
     display: block;
   }
 }
