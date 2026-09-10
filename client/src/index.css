@@ -452,6 +452,20 @@ body {
   outline-offset: 3px;
 }
 
+.pathway-costs-cards {
+  display: none;
+}
+
+@media (max-width: 767px) {
+  .pathway-costs-table {
+    display: none;
+  }
+
+  .pathway-costs-cards {
+    display: block;
+  }
+}
+
 /* Keep wide content usable on phones and iPad portrait without shrinking text. */
 @media (max-width: 1023px) {
   .topbar .btn-contact {
