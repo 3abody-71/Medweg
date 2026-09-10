@@ -147,6 +147,8 @@ export const usaPathway = {
     { item: "ERAS Token", amount: "$185", note: "ECFMG ERAS token request." },
     { item: "ERAS applications", amount: "$330", note: "Illustration: 30 programs in one specialty during the 2027 ERAS season." },
     { item: "NRMP Main Residency Match", amount: "$85", note: "Standard registration fee, before any late or extra-rank fees." },
+    { item: "State medical license application", amount: "$100–$1,000+", note: "Planning range only; the fee depends on the state board, background check, fingerprinting, and document review." },
+    { item: "U.S. visa application", amount: "$185", note: "Typical Department of State nonimmigrant visa application fee; reciprocity, issuance, travel, and program costs may be separate." },
   ] satisfies UsaCostItem[],
   optionalCostItems: [
     { item: "USMLE Step 3", amount: "$955", note: "2026–2027 application fee; not required for every applicant at the same stage.", optional: true },

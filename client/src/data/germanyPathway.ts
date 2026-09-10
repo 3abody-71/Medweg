@@ -254,33 +254,33 @@ export const germanyPathway = {
   costItems: [
     {
       item: "German language study and B2 exam",
-      amount: "Varies by provider",
-      note: "Course fees, exam fees, books, and preparation time depend on your starting level and location.",
+      amount: "€1,200–€4,500",
+      note: "Planning range for a B2 course, exam, books, and preparation; provider, hours, and starting level change the total.",
     },
     {
       item: "Fachsprachprüfung / C1 Medizin",
-      amount: "Set locally",
-      note: "The medical-language exam fee and accepted certificate route vary by state, chamber, and exam provider.",
+      amount: "€350–€650",
+      note: "Typical Fachsprachprüfung range; the responsible chamber or authority sets the actual fee and retakes are separate.",
     },
     {
       item: "Recognition / Approbation application",
-      amount: "State-specific",
-      note: "Berlin's 2026 third-country example lists EUR 430; other authorities can charge different fees.",
+      amount: "€200–€600",
+      note: "Official Hesse guidance lists €200–€600 for issuing the licence, with an additional €150–€350 possible for the professional licence; other Länder differ.",
     },
     {
       item: "Translations, certifications, and legalisation",
-      amount: "Document-dependent",
-      note: "Budget for authorised German translations, certified copies, apostilles, and country-specific verification where requested.",
+      amount: "€500–€2,000",
+      note: "Planning range for authorised translations, certified copies, apostilles, and document verification; page count and country of origin matter.",
     },
     {
       item: "Kenntnisprüfung and preparation",
-      amount: "Set by authority",
-      note: "The examination fee, preparation course, travel, and any permitted retake are separate from the application fee.",
+      amount: "€390–€1,100",
+      note: "Planning range for the Kenntnisprüfung fee; preparation, travel, and any permitted retake are separate.",
     },
     {
       item: "Visa and relocation buffer",
-      amount: "Case-dependent",
-      note: "Include the visa fee, travel, rent deposit, insurance, blocked-account or livelihood evidence, and living costs before payroll begins.",
+      amount: "€75 + €2,000–€6,000",
+      note: "€75 is the typical national visa fee; add a relocation buffer for travel, deposit, insurance, and living costs before payroll begins.",
     },
   ] satisfies GermanyCostItem[],
   salaryBands: [
