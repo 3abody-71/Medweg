@@ -392,7 +392,7 @@ export default function CanadaPathway() {
         </div>
         <div className="mt-7 overflow-hidden rounded-2xl border border-[#e4c0c3] bg-[#fff8f8] shadow-sm">
           <div className="grid gap-0 lg:grid-cols-[1fr_250px]">
-            <div className="p-6 sm:p-7">
+            <div className="min-w-0 p-6 sm:p-7">
               <div className="eyebrow text-[#a52b3b]">Planning costs / CAD</div>
               <h3 className="mt-1 text-2xl font-extrabold">
                 Budget for the pathway, not only the exam
@@ -402,7 +402,7 @@ export default function CanadaPathway() {
                 translations, travel, provincial registration, and application
                 costs change. Check the current official fee before paying.
               </p>
-              <div className="mt-5 overflow-x-auto rounded-xl border border-[#efd7d8] bg-white">
+              <div className="responsive-table min-w-0 max-w-full mt-5 overflow-x-auto rounded-xl border border-[#efd7d8] bg-white" tabIndex={0} role="region" aria-label="Canada pathway costs table">
                 <table className="w-full min-w-[640px] text-left text-sm">
                   <thead className="bg-[#fff0f1] text-xs uppercase tracking-wider text-[#8e3541]">
                     <tr>
@@ -475,9 +475,9 @@ export default function CanadaPathway() {
         />
         <div
           id="life-canada-heading"
-          className="mt-5 overflow-hidden rounded-2xl border border-border bg-card shadow-sm"
+          className="mt-5 min-w-0 overflow-hidden rounded-2xl border border-border bg-card shadow-sm"
         >
-          <div className="overflow-x-auto">
+          <div className="responsive-table min-w-0 max-w-full overflow-x-auto" tabIndex={0} role="region" aria-label="Canada salary table by role">
             <table className="w-full min-w-[760px] text-left text-sm">
               <thead className="bg-secondary/70 text-xs uppercase tracking-wider text-muted-foreground">
                 <tr>
