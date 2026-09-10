@@ -70,7 +70,7 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
             </span>
           </Link>
 
-          <nav className="hidden items-center gap-7 md:flex">
+          <nav className="hidden items-center gap-5 lg:flex xl:gap-7">
             {NAV_ITEMS.map(({ href, label, icon: Icon }) => (
               <Link
                 key={href}
@@ -115,7 +115,7 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
             </DropdownMenu>
 
             <button
-              className="icon-button md:hidden"
+              className="icon-button lg:hidden"
               data-testid="button-mobile-menu"
               onClick={() => setMobileOpen((v) => !v)}
               aria-label="Menu"
@@ -126,7 +126,7 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
         </div>
 
         {mobileOpen && (
-          <div className="border-t border-border bg-card md:hidden">
+          <div className="border-t border-border bg-card lg:hidden">
             <nav className="mx-auto flex max-w-[1450px] flex-col px-4 py-3">
               {NAV_ITEMS.map(({ href, label, icon: Icon }) => (
                 <Link

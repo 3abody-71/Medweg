@@ -154,7 +154,7 @@ export default function Home() {
   return (
     <div className="space-y-10">
       {/* Hero */}
-      <section className="home-hero fade-up overflow-hidden rounded-2xl p-6 shadow-lg sm:p-8 md:p-10">
+      <section className="home-hero fade-up overflow-hidden rounded-2xl p-6 shadow-lg sm:p-8 lg:p-10">
         <div className="home-hero-background" aria-hidden="true">
           <span className="home-hero-orb home-hero-orb-one" />
           <span className="home-hero-orb home-hero-orb-two" />
@@ -166,7 +166,7 @@ export default function Home() {
           className="home-hero-photo"
           aria-hidden="true"
         />
-        <div className="home-hero-content relative mx-auto flex max-w-[1200px] items-center justify-between gap-8">
+        <div className="home-hero-content relative mx-auto flex max-w-[1200px] flex-col items-start justify-between gap-6 lg:flex-row lg:items-center lg:gap-8">
           <div>
             <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-white/90">
               <Globe size={15} />
@@ -193,7 +193,7 @@ export default function Home() {
               <span className="text-xs text-white/80">Markets covered</span>
             </div>
           </div>
-          <div className="hidden w-[240px] shrink-0 rounded-2xl bg-white/10 p-4 backdrop-blur-sm md:block">
+          <div className="hidden w-[240px] shrink-0 rounded-2xl bg-white/10 p-4 backdrop-blur-sm lg:block">
             <div className="flex items-center justify-between text-white">
               <span className="text-xs font-bold">Markets covered</span>
               <span className="text-sm font-extrabold">{countries.length}</span>
@@ -265,8 +265,8 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="mt-5 flex flex-wrap items-center gap-2">
-          <label className="relative flex-1 min-w-[220px]">
+        <div className="mt-5 flex flex-col items-stretch gap-3 sm:flex-row sm:flex-wrap sm:items-center">
+          <label className="relative min-w-0 flex-1 sm:min-w-[220px]">
             <Search
               size={17}
               className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground"

@@ -48,6 +48,7 @@ body {
   background: hsl(var(--background));
   color: hsl(var(--foreground));
   -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
 }
 
 .brand-mark {
@@ -437,6 +438,58 @@ body {
   opacity: 1;
   transform: translateY(0);
   transition: opacity .55s cubic-bezier(.23,1,.32,1), transform .55s cubic-bezier(.23,1,.32,1);
+}
+
+/* Keep wide content usable on phones and iPad portrait without shrinking text. */
+@media (max-width: 1023px) {
+  .topbar .btn-contact {
+    padding-inline: 0.75rem;
+  }
+
+  .home-hero-content {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .home-hero-photo {
+    width: 65%;
+    opacity: 0.22;
+  }
+}
+
+@media (max-width: 767px) {
+  .home-hero {
+    min-height: 0;
+    padding: 1.25rem;
+  }
+
+  .home-hero h1 {
+    font-size: clamp(1.9rem, 8vw, 2.5rem);
+  }
+
+  .home-hero-photo {
+    width: 100%;
+    opacity: 0.16;
+    -webkit-mask-image: linear-gradient(180deg, #000 0%, #000 55%, #0000 100%);
+    mask-image: linear-gradient(180deg, #000 0%, #000 55%, #0000 100%);
+  }
+
+  .home-hero-orb-one {
+    right: -80px;
+  }
+
+  .home-hero-orb-two {
+    right: -145px;
+  }
+
+  .filter-pill {
+    min-height: 2.25rem;
+  }
+
+  .country-card-image,
+  .country-card-image-img {
+    height: 145px;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
