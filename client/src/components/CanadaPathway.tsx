@@ -402,7 +402,7 @@ export default function CanadaPathway() {
                 translations, travel, provincial registration, and application
                 costs change. Check the current official fee before paying.
               </p>
-              <div className="responsive-table min-w-0 max-w-full mt-5 overflow-x-auto rounded-xl border border-[#efd7d8] bg-white" tabIndex={0} role="region" aria-label="Canada pathway costs table">
+              <div className="responsive-table mt-5 hidden min-w-0 max-w-full overflow-x-auto rounded-xl border border-[#efd7d8] bg-white md:block" tabIndex={0} role="region" aria-label="Canada pathway costs table">
                 <table className="w-full min-w-[640px] text-left text-sm">
                   <thead className="bg-[#fff0f1] text-xs uppercase tracking-wider text-[#8e3541]">
                     <tr>
@@ -432,6 +432,17 @@ export default function CanadaPathway() {
                     ))}
                   </tbody>
                 </table>
+              </div>
+              <div className="mt-5 space-y-3 md:hidden" aria-label="Canada pathway costs">
+                {canadaPathway.costItems.map(cost => (
+                  <article key={cost.item} className="rounded-xl border border-[#efd7d8] bg-white p-4">
+                    <div className="flex items-start justify-between gap-3">
+                      <h4 className="text-sm font-extrabold text-[#6d2430]">{cost.item}</h4>
+                      <span className="shrink-0 text-sm font-extrabold text-[#a52b3b]">{cost.amount}</span>
+                    </div>
+                    <p className="mt-2 text-xs leading-5 text-muted-foreground">{cost.note}</p>
+                  </article>
+                ))}
               </div>
               <div className="mt-5 flex flex-wrap gap-x-5 gap-y-2">
                 <SourceLink
