@@ -51,8 +51,8 @@ export default function CountryDetail() {
       <div className="overflow-hidden rounded-2xl border border-border bg-card shadow-sm">
         <div className="country-card-image h-56">
           <img
-            src={assetPath(country.image)}
-            alt={country.name}
+            src={assetPath(country.id === "ireland" ? "/assets/ireland/galway-hero.jpg" : country.image)}
+            alt={country.id === "ireland" ? "Galway city street with Irish flags and live music" : country.name}
             className="h-full w-full object-cover"
           />
           <span className="absolute left-4 top-4 rounded-lg bg-white/92 px-3 py-1.5 text-sm font-extrabold shadow-sm">
