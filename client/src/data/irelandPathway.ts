@@ -30,7 +30,17 @@ export const irelandPathway = {
     { role: "Specialist Registrar", annual: "€78,786–€98,091", note: "Training salary range in the cited HSE scale." },
     { role: "Senior Registrar", annual: "€83,847–€102,619", note: "Basic salary; on-call and other payments may increase total remuneration." },
   ],
-  hospitals: ["Beaumont Hospital — Dublin", "Mater Misericordiae University Hospital — Dublin", "St James’s Hospital — Dublin", "St Vincent’s University Hospital — Dublin", "Tallaght University Hospital — Dublin", "Cork University Hospital — Cork", "University Hospital Galway — Galway", "University Hospital Limerick — Limerick", "University Hospital Waterford — Waterford"],
+  hospitals: [
+    { name: "Beaumont Hospital", location: "Dublin", image: "/assets/ireland/hospitals/beaumont.jpg", source: "Wikimedia Commons / RavensFists (public domain)", sourceUrl: "https://commons.wikimedia.org/wiki/File:Beamont_Hospital_1.jpg" },
+    { name: "Mater Misericordiae University Hospital", location: "Dublin", image: "/assets/ireland/hospitals/mater.jpg", source: "Wikimedia Commons / DubhEire (CC0)", sourceUrl: "https://commons.wikimedia.org/wiki/File:Mater_Misericordiae_University_Hospital,_Dublin.JPG" },
+    { name: "St James’s Hospital", location: "Dublin", image: "/assets/ireland/hospitals/st-james.jpg", source: "Wikimedia Commons / Darren J. Prior (CC BY-SA 4.0)", sourceUrl: "https://commons.wikimedia.org/wiki/File:St._James%27s_Hospital,_Dublin_(2019).jpg" },
+    { name: "St Vincent’s University Hospital", location: "Dublin", image: "/assets/ireland/hospitals/st-vincents.png", source: "Wikimedia Commons / Autarch (CC BY-SA 4.0)", sourceUrl: "https://commons.wikimedia.org/wiki/File:StVincentsUniversityHospitalMainEntranceRotatedCropped.png" },
+    { name: "Tallaght University Hospital", location: "Dublin", image: "/assets/ireland/hospitals/tallaght.jpg", source: "Wikimedia Commons / Darren J. Prior (CC BY-SA 4.0)", sourceUrl: "https://commons.wikimedia.org/wiki/File:Tallaght_Hospital_(2019).jpg" },
+    { name: "Cork University Hospital", location: "Cork", image: "/assets/ireland/hospitals/cork.jpg", source: "Wikimedia Commons / Ear-phone (CC BY 4.0)", sourceUrl: "https://commons.wikimedia.org/wiki/File:Cork_University_Hospital.jpg" },
+    { name: "University Hospital Galway", location: "Galway", image: "/assets/ireland/hospitals/galway.jpg", source: "Wikimedia Commons / Sulmac (public domain)", sourceUrl: "https://commons.wikimedia.org/wiki/File:Galway_University_Hospital.jpg" },
+    { name: "University Hospital Limerick", location: "Limerick", image: "/assets/ireland/hospitals/limerick.png", source: "Wikimedia Commons / Ear-phone (CC BY-SA 4.0)", sourceUrl: "https://commons.wikimedia.org/wiki/File:University_Hospital_Limerick.png" },
+    { name: "University Hospital Waterford", location: "Waterford", image: "/assets/ireland/hospitals/waterford.jpg", source: "Wikimedia Commons / Darrin Antrobus (CC BY-SA 2.0)", sourceUrl: "https://commons.wikimedia.org/wiki/File:An_entrance_at_Waterford_Regional_Hospital_(geograph_3725280).jpg" },
+  ],
   sources: [
     ["Medical Council of Ireland", "https://www.medicalcouncil.ie/"],
     ["RCSI Trauma & Orthopaedic Surgery", "https://www.rcsi.com/dublin/about/faculty-of-surgery/training/surgery/trauma-and-orthopaedic-surgery"],
