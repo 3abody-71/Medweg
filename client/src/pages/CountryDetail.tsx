@@ -7,6 +7,7 @@ import UsaPathway from "../components/UsaPathway";
 import CanadaPathway from "../components/CanadaPathway";
 import UkPathway from "../components/UkPathway";
 import IrelandPathway from "../components/IrelandPathway";
+import AustraliaPathway from "../components/AustraliaPathway";
 import { assetPath } from "../lib/assetPath";
 
 export default function CountryDetail() {
@@ -93,12 +94,15 @@ export default function CountryDetail() {
         <UkPathway />
       ) : country.id === "ireland" ? (
         <IrelandPathway />
+      ) : country.id === "australia" ? (
+        <AustraliaPathway />
       ) : null}
       {country.id !== "usa" &&
         country.id !== "germany" &&
         country.id !== "canada" &&
         country.id !== "uk" &&
-        country.id !== "ireland" && (
+        country.id !== "ireland" &&
+        country.id !== "australia" && (
           <>
             {/* At a glance */}
             <section>
