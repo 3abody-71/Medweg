@@ -17,7 +17,7 @@ export default function AustraliaPathway() {
     <section className="overflow-hidden rounded-2xl border border-border bg-card shadow-sm">
       <div className="grid lg:grid-cols-[1.05fr_0.95fr]">
         <div className="relative min-h-[350px] overflow-hidden bg-[#153c4a]">
-          <img src={assetPath("/assets/australia/australia-guide.jpg")} alt="Australian landscape used for the Australia medical guide" className="absolute inset-0 h-full w-full object-cover" loading="eager" />
+          <img src={assetPath("/assets/australia/australia-hero-pinterest.jpg")} alt="Australian landscape used for the Australia medical guide" className="absolute inset-0 h-full w-full object-cover" loading="eager" />
           <div className="absolute inset-0 bg-gradient-to-tr from-[#0b2b38]/95 via-[#123f52]/35 to-[#d9a441]/35" />
           <div className="absolute inset-x-0 bottom-0 p-6 text-white sm:p-8"><div className="text-xs font-extrabold uppercase tracking-[0.22em] text-white/75">Australia guide for IMGs</div><h2 className="mt-2 max-w-xl text-3xl font-extrabold tracking-tight sm:text-4xl">A practical route to medical training in Australia.</h2><p className="mt-3 max-w-xl text-sm leading-6 text-white/85">A calm overview of English evidence, AMC assessment, Ahpra registration, supervised practice, specialty training, and major teaching hospitals.</p></div>
         </div>
