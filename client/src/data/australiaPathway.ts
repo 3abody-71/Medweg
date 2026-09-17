@@ -36,6 +36,20 @@ export const australiaPathway = {
     ["Different opportunities", "General practice, psychiatry, emergency medicine, internal medicine-related specialties, anaesthesia, and rural medicine may offer different opportunities depending on state, location, registration, and applicant profile."],
     ["Specialist pathway", "Already-qualified specialists may undergo college assessment, comparability assessment, supervised practice or additional training, and specialist registration."],
   ],
+  advantages: [
+    "English-speaking clinical environment and widely used postgraduate resources",
+    "Strong public hospitals, academic centres, and specialist college training",
+    "Multiple IMG routes, including standard, competent authority, and specialist pathways",
+    "Potential opportunities in regional and rural services beyond the largest metropolitan markets",
+    "High quality of life, workplace protections, and a multicultural patient population",
+  ],
+  disadvantages: [
+    "Registration can be lengthy, expensive, and highly dependent on your documents and prior training",
+    "Hospital employment and specialty training are competitive, especially in major cities",
+    "AMC exams, English testing, verification, travel, and registration create substantial upfront costs",
+    "Requirements and recruitment opportunities vary by state, hospital, specialty, and annual workforce needs",
+    "Distance from family, high housing costs in major cities, and limited positions in some specialties can affect planning",
+  ],
   hospitals: [
     { state: "Victoria", city: "Melbourne", name: "The Royal Melbourne Hospital", image: "/assets/australia/hospitals/royal-melbourne.jpg", body: "A major tertiary and teaching hospital within the Melbourne biomedical precinct, with broad clinical, research, and training activity.", url: "https://www.thermh.org.au/", photoCredit: "U.S. Navy / Wikimedia Commons" },
     { state: "New South Wales", city: "Sydney", name: "Royal Prince Alfred Hospital", image: "/assets/australia/hospitals/royal-prince-alfred.jpg", body: "A large academic hospital in Camperdown linked with the University of Sydney and a broad range of specialist services.", url: "https://www.slhd.nsw.gov.au/rpa/", photoCredit: "JBar / Wikimedia Commons" },
