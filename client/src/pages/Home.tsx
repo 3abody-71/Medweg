@@ -239,22 +239,7 @@ export default function Home() {
         </span>
       </div>
 
-      {/* Country pathways */}
       <section>
-        <div className="flex items-start justify-between gap-4">
-          <div>
-            <div className="eyebrow">Country pathways</div>
-            <p className="mt-2 max-w-2xl text-sm text-muted-foreground">
-              Tap a country to see its licensing body, language evidence,
-              residency range, and a practical sequence of steps.
-            </p>
-          </div>
-          <div className="hidden shrink-0 items-center gap-1.5 text-xs font-bold text-muted-foreground sm:flex">
-            <Search size={16} />
-            {countries.length} supported markets
-          </div>
-        </div>
-
         <div className="mt-5 flex flex-wrap items-center gap-2">
             <span className="text-xs font-bold text-muted-foreground">
               Filter by region
