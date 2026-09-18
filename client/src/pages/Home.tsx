@@ -10,7 +10,6 @@ import {
   HelpCircle,
   Users,
   Search,
-  X,
 } from "lucide-react";
 import countries from "../data/countries.json";
 import { useApp } from "../contexts/AppContext";
@@ -134,7 +133,6 @@ function CountryCard({
 
 export default function Home() {
   const { profile, savedCountryIds, toggleCountry } = useApp();
-  const [query, setQuery] = useState("");
   const [region, setRegion] = useState("All");
 
   const regions = useMemo(
@@ -143,13 +141,8 @@ export default function Home() {
   );
 
   const filtered = useMemo(() => {
-    const q = query.toLowerCase();
-    return countries.filter(
-      (c) =>
-        (region === "All" || c.region === region) &&
-        `${c.name} ${c.region} ${c.summary}`.toLowerCase().includes(q)
-    );
-  }, [query, region]);
+    return countries.filter((c) => region === "All" || c.region === region);
+  }, [region]);
 
   return (
     <div className="space-y-10">
@@ -251,9 +244,6 @@ export default function Home() {
         <div className="flex items-start justify-between gap-4">
           <div>
             <div className="eyebrow">Country pathways</div>
-            <h2 className="mt-1 text-2xl font-extrabold tracking-tight">
-              Where could you train?
-            </h2>
             <p className="mt-2 max-w-2xl text-sm text-muted-foreground">
               Tap a country to see its licensing body, language evidence,
               residency range, and a practical sequence of steps.
@@ -265,33 +255,7 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="mt-5 flex flex-col items-stretch gap-3 sm:flex-row sm:flex-wrap sm:items-center">
-          <label className="relative min-w-0 flex-1 sm:min-w-[220px]">
-            <Search
-              size={17}
-              className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground"
-            />
-            <input
-              type="text"
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-              placeholder="Search countries or regions"
-              aria-label="Search country pathways"
-              className="h-10 w-full rounded-lg border border-border bg-card pl-9 pr-9 text-sm outline-hidden focus:border-primary/50 focus:ring-2 focus:ring-primary/15"
-              data-testid="input-search-countries"
-            />
-            {query && (
-              <button
-                onClick={() => setQuery("")}
-                className="icon-button absolute right-0 top-1/2 h-8 w-8 -translate-y-1/2"
-                data-testid="button-clear-country-search"
-                aria-label="Clear search"
-              >
-                <X size={14} />
-              </button>
-            )}
-          </label>
-          <div className="flex flex-wrap items-center gap-2">
+        <div className="mt-5 flex flex-wrap items-center gap-2">
             <span className="text-xs font-bold text-muted-foreground">
               Filter by region
             </span>
@@ -305,7 +269,6 @@ export default function Home() {
                 {r}
               </button>
             ))}
-          </div>
         </div>
 
         {filtered.length === 0 ? (
@@ -321,7 +284,6 @@ export default function Home() {
             </p>
             <button
               onClick={() => {
-                setQuery("");
                 setRegion("All");
               }}
               className="mt-4 text-xs font-bold text-primary hover:underline"
