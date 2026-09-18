@@ -1,4 +1,3 @@
-import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import {
   ArrowRight,
@@ -9,7 +8,6 @@ import {
   Globe,
   HelpCircle,
   Users,
-  Search,
 } from "lucide-react";
 import countries from "../data/countries.json";
 import { useApp } from "../contexts/AppContext";
@@ -133,16 +131,6 @@ function CountryCard({
 
 export default function Home() {
   const { profile, savedCountryIds, toggleCountry } = useApp();
-  const [region, setRegion] = useState("All");
-
-  const regions = useMemo(
-    () => ["All", ...Array.from(new Set(countries.map((c) => c.region)))],
-    []
-  );
-
-  const filtered = useMemo(() => {
-    return countries.filter((c) => region === "All" || c.region === region);
-  }, [region]);
 
   return (
     <div className="space-y-10">
@@ -240,59 +228,20 @@ export default function Home() {
       </div>
 
       <section>
-        <div className="mt-5 flex flex-wrap items-center gap-2">
-            <span className="text-xs font-bold text-muted-foreground">
-              Filter by region
-            </span>
-            {regions.map((r) => (
-              <button
-                key={r}
-                onClick={() => setRegion(r)}
-                className={`filter-pill rounded-full px-3 py-1.5 text-xs font-bold ${region === r ? "active" : ""}`}
-                data-testid={`button-region-${r.toLowerCase().replace(" ", "-")}`}
-              >
-                {r}
-              </button>
-            ))}
+        <div className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          {countries.map((country, index) => {
+            const saved = savedCountryIds.includes(country.id);
+            return (
+              <CountryCard
+                key={country.id}
+                country={country}
+                saved={saved}
+                onSave={() => toggleCountry(country.id)}
+                index={index}
+              />
+            );
+          })}
         </div>
-
-        {filtered.length === 0 ? (
-          <div className="mt-8 rounded-xl border border-dashed border-border bg-card/60 p-10 text-center">
-            <div>
-              <Search size={20} className="mx-auto text-muted-foreground" />
-            </div>
-            <h3 className="mt-3 font-bold">
-              No pathways match that search
-            </h3>
-            <p className="mt-1 text-sm text-muted-foreground">
-              Try a country name or choose another region.
-            </p>
-            <button
-              onClick={() => {
-                setRegion("All");
-              }}
-              className="mt-4 text-xs font-bold text-primary hover:underline"
-              data-testid="button-clear-region"
-            >
-              Clear filters
-            </button>
-          </div>
-        ) : (
-          <div className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {filtered.map((country, index) => {
-              const saved = savedCountryIds.includes(country.id);
-              return (
-                <CountryCard
-                  key={country.id}
-                  country={country}
-                  saved={saved}
-                  onSave={() => toggleCountry(country.id)}
-                  index={index}
-                />
-              );
-            })}
-          </div>
-        )}
       </section>
 
       {/* A note on the numbers */}
