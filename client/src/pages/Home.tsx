@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 import {
   ArrowRight,
-  Bookmark,
   Calendar,
   Banknote,
   Compass,
@@ -35,13 +34,9 @@ function StatRow({
 
 function CountryCard({
   country,
-  saved,
-  onSave,
   index,
 }: {
   country: (typeof countries)[number];
-  saved: boolean;
-  onSave: () => void;
   index: number;
 }) {
   return (
@@ -77,21 +72,6 @@ function CountryCard({
             </span>
           </span>
         </Link>
-        <button
-          onClick={onSave}
-          className={`inline-flex items-center gap-1.5 rounded-lg px-2.5 py-2 text-xs font-bold ${
-            saved ? "bg-secondary text-primary" : "btn-quiet"
-          }`}
-          aria-label={
-            saved ? `Remove ${country.name} from saved` : `Save ${country.name}`
-          }
-          data-testid={`button-save-${country.name
-            .toLowerCase()
-            .replace(" ", "-")}`}
-        >
-          {saved ? <Bookmark size={14} /> : <Bookmark size={14} />}
-          {saved ? "Saved" : "Save"}
-        </button>
       </div>
       <Link to={`/countries/${country.id}`} className="block p-4 pt-3">
         <p className="country-card-summary mt-4 text-xs leading-5 text-muted-foreground">
@@ -125,7 +105,7 @@ function CountryCard({
 }
 
 export default function Home() {
-  const { profile, savedCountryIds, toggleCountry } = useApp();
+  const { profile } = useApp();
   const orderedCountries = [...countries].sort(
     (a, b) => Number(b.id === "usa") - Number(a.id === "usa")
   );
@@ -231,13 +211,10 @@ export default function Home() {
       <section>
         <div className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {orderedCountries.map((country, index) => {
-            const saved = savedCountryIds.includes(country.id);
             return (
               <CountryCard
                 key={country.id}
                 country={country}
-                saved={saved}
-                onSave={() => toggleCountry(country.id)}
                 index={index}
               />
             );
