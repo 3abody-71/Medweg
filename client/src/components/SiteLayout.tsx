@@ -27,7 +27,7 @@ const NAV_ITEMS = [
   { href: "/community", label: "Community", icon: Users },
 ];
 
-const CONTACT_EMAIL = "contact@medweg.com";
+const CONTACT_EMAIL = "abodysaif2005@gmail.com";
 const CONTACT_PHONE = "+201203298818";
 
 export default function SiteLayout({ children }: { children: React.ReactNode }) {
