@@ -156,6 +156,7 @@ body {
 }
 
 .country-card-image {
+  height: 300px;
   position: relative;
   overflow: hidden;
 }
@@ -163,13 +164,13 @@ body {
 .country-card-image-img {
   display: block;
   width: 100%;
-  height: auto;
-  object-fit: initial;
-  object-position: initial;
+  height: 300px;
+  object-fit: cover;
+  object-position: center;
 }
 
 .country-card-image-usa {
-  object-position: initial;
+  object-position: center;
 }
 
 .country-card-summary {
@@ -607,6 +608,11 @@ body {
 
   .filter-pill {
     min-height: 2.25rem;
+  }
+
+  .country-card-image,
+  .country-card-image-img {
+    height: 240px;
   }
 }
 
