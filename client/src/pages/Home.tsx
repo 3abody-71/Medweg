@@ -132,7 +132,6 @@ export default function Home() {
               {profile.name ? (
                 <>Hello, {profile.name.split(" ")[0]} — </>
               ) : null}
-              Nine pathways, one clear map
             </div>
             <h1 className="mt-4 text-3xl font-extrabold leading-tight tracking-tight text-white sm:text-4xl md:text-[42px]">
               Welcome to MedWeg, your first international medical mentor,
