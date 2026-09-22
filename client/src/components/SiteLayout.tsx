@@ -182,6 +182,14 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
             <Mail size={14} />
             {CONTACT_EMAIL}
           </a>
+          <a
+            href={`tel:${CONTACT_PHONE}`}
+            className="inline-flex items-center gap-2 text-xs font-bold text-primary hover:underline"
+            data-testid="link-footer-phone"
+          >
+            <Phone size={14} />
+            {CONTACT_PHONE}
+          </a>
         </div>
       </footer>
     </div>
