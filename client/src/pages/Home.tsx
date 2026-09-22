@@ -57,7 +57,7 @@ function CountryCard({
         <img
           src={assetPath(country.image)}
           alt={`${country.name} medical pathway`}
-          className="country-card-image-img"
+          className={`country-card-image-img ${country.id === "usa" ? "country-card-image-usa" : ""}`}
           loading="lazy"
         />
       </Link>
@@ -71,9 +71,7 @@ function CountryCard({
             {country.flag}
           </span>
           <span>
-            <span className="block text-sm font-extrabold">
-              {country.name}
-            </span>
+            <span className="block text-sm font-extrabold">{country.name}</span>
             <span className="mt-0.5 block text-xs text-muted-foreground">
               {country.region}
             </span>
@@ -84,7 +82,9 @@ function CountryCard({
           className={`inline-flex items-center gap-1.5 rounded-lg px-2.5 py-2 text-xs font-bold ${
             saved ? "bg-secondary text-primary" : "btn-quiet"
           }`}
-          aria-label={saved ? `Remove ${country.name} from saved` : `Save ${country.name}`}
+          aria-label={
+            saved ? `Remove ${country.name} from saved` : `Save ${country.name}`
+          }
           data-testid={`button-save-${country.name
             .toLowerCase()
             .replace(" ", "-")}`}
@@ -94,10 +94,10 @@ function CountryCard({
         </button>
       </div>
       <Link to={`/countries/${country.id}`} className="block p-4 pt-3">
-        <p className="mt-5 text-sm leading-6 text-muted-foreground">
+        <p className="country-card-summary mt-4 text-xs leading-5 text-muted-foreground">
           {country.summary}
         </p>
-        <div className="mt-5 grid grid-cols-2 gap-3">
+        <div className="mt-4 grid grid-cols-2 gap-2.5">
           <StatRow
             icon={Calendar}
             label="Residency range"
@@ -109,20 +109,15 @@ function CountryCard({
             value={country.salaryRange}
           />
         </div>
-        <div className="mt-4 flex gap-2 rounded-lg bg-secondary/60 p-3 text-xs leading-5">
-          <Globe
-            size={15}
-            className="mt-0.5 shrink-0 text-primary"
-          />
+        <div className="country-card-citizenship mt-3 flex gap-2 rounded-lg bg-secondary/60 p-2.5 text-[11px] leading-4">
+          <Globe size={15} className="mt-0.5 shrink-0 text-primary" />
           <span>
-            <span className="font-bold">
-              Citizenship timeline (general):
-            </span>{" "}
+            <span className="font-bold">Citizenship timeline (general):</span>{" "}
             {country.citizenshipTimeline}
           </span>
         </div>
       </Link>
-      <div className="mt-5 flex items-center gap-2 border-t border-border px-4 pb-4 pt-4 text-xs font-bold text-primary">
+      <div className="mt-3 flex items-center gap-2 border-t border-border px-4 pb-3 pt-3 text-xs font-bold text-primary">
         View pathway details <ArrowRight size={14} />
       </div>
     </article>
@@ -131,6 +126,9 @@ function CountryCard({
 
 export default function Home() {
   const { profile, savedCountryIds, toggleCountry } = useApp();
+  const orderedCountries = [...countries].sort(
+    (a, b) => Number(b.id === "usa") - Number(a.id === "usa")
+  );
 
   return (
     <div className="space-y-10">
@@ -158,18 +156,19 @@ export default function Home() {
             </div>
             <h1 className="mt-4 text-3xl font-extrabold leading-tight tracking-tight text-white sm:text-4xl md:text-[42px]">
               {profile.name
-                ? `${profile.name
-                    .split(" ")[0]}, find the country that fits your next medical chapter.`
+                ? `${
+                    profile.name.split(" ")[0]
+                  }, find the country that fits your next medical chapter.`
                 : "Find the country that fits your next medical chapter."}
             </h1>
             <p className="mt-4 max-w-2xl text-sm leading-6 text-white/90 md:text-[15px]">
               Every pathway below has a different sequence of exams, language
-              evidence, registration, and applications. Start with context,
-              then verify the detail.
+              evidence, registration, and applications. Start with context, then
+              verify the detail.
             </p>
             <div className="mt-6 flex items-center gap-2 text-sm">
               <span className="stat-number text-2xl font-extrabold text-white">
-                {countries.length}
+                {orderedCountries.length}
               </span>
               <span className="text-xs text-white/80">Markets covered</span>
             </div>
@@ -177,7 +176,9 @@ export default function Home() {
           <div className="hidden w-[240px] shrink-0 rounded-2xl bg-white/10 p-4 backdrop-blur-sm lg:block">
             <div className="flex items-center justify-between text-white">
               <span className="text-xs font-bold">Markets covered</span>
-              <span className="text-sm font-extrabold">{countries.length}</span>
+              <span className="text-sm font-extrabold">
+                {orderedCountries.length}
+              </span>
             </div>
             <Link
               to="/explore"
@@ -229,7 +230,7 @@ export default function Home() {
 
       <section>
         <div className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {countries.map((country, index) => {
+          {orderedCountries.map((country, index) => {
             const saved = savedCountryIds.includes(country.id);
             return (
               <CountryCard
@@ -246,10 +247,10 @@ export default function Home() {
 
       {/* A note on the numbers */}
       <p className="text-sm leading-6 text-muted-foreground">
-        <span className="font-bold">A note on the numbers:</span>{" "}
-        Salary and requirements vary by institution, year, visa, and licensing
-        situation. Verify current details with the official licensing body and
-        individual training program before making decisions.
+        <span className="font-bold">A note on the numbers:</span> Salary and
+        requirements vary by institution, year, visa, and licensing situation.
+        Verify current details with the official licensing body and individual
+        training program before making decisions.
       </p>
     </div>
   );
