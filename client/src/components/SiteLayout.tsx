@@ -28,7 +28,7 @@ const NAV_ITEMS = [
 ];
 
 const CONTACT_EMAIL = "contact@medweg.com";
-const CONTACT_PHONE = "+249 000 000 000";
+const CONTACT_PHONE = "+201203298818";
 
 export default function SiteLayout({ children }: { children: React.ReactNode }) {
   const [scrolled, setScrolled] = useState(false);
