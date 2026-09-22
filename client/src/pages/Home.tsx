@@ -135,11 +135,8 @@ export default function Home() {
               Nine pathways, one clear map
             </div>
             <h1 className="mt-4 text-3xl font-extrabold leading-tight tracking-tight text-white sm:text-4xl md:text-[42px]">
-              {profile.name
-                ? `${
-                    profile.name.split(" ")[0]
-                  }, find the country that fits your next medical chapter.`
-                : "Find the country that fits your next medical chapter."}
+              Welcome to MedWeg, your first international medical mentor,
+              helping you find the best pathway for your medical journey.
             </h1>
             <p className="mt-4 max-w-2xl text-sm leading-6 text-white/90 md:text-[15px]">
               Every pathway below has a different sequence of exams, language
