@@ -157,7 +157,7 @@ body {
 
 .country-card-image {
   background: hsl(var(--secondary));
-  height: 245px;
+  height: 300px;
   position: relative;
   overflow: hidden;
 }
@@ -165,7 +165,8 @@ body {
 .country-card-image-img {
   display: block;
   width: 100%;
-  height: 245px;
+  height: 300px;
+  aspect-ratio: 205 / 300;
   object-fit: cover;
   object-position: center 42%;
 }
@@ -613,7 +614,7 @@ body {
 
   .country-card-image,
   .country-card-image-img {
-    height: 205px;
+    height: 300px;
   }
 }
 
