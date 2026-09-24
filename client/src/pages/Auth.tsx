@@ -96,6 +96,28 @@ export default function Auth() {
           {mode === "sign-up" && <button className="text-primary hover:underline" onClick={() => setMode("sign-in")}>Already have an account? Sign in</button>}
           {mode === "reset" && <button className="text-primary hover:underline" onClick={() => setMode("sign-in")}>Back to sign in</button>}
         </div>
+        {mode === "sign-in" && (
+          <button
+            type="button"
+            disabled={busy || !configured || !email}
+            className="btn-quiet mt-3 inline-flex w-full items-center justify-center gap-2 rounded-xl px-5 py-3 text-sm disabled:cursor-not-allowed disabled:opacity-60"
+            onClick={async () => {
+              if (!supabase || !email) return;
+              setError("");
+              setMessage("");
+              setBusy(true);
+              const { error: linkError } = await supabase.auth.signInWithOtp({
+                email,
+                options: { emailRedirectTo: `${siteUrl}/Medweg/auth` },
+              });
+              setBusy(false);
+              if (linkError) setError(linkError.message);
+              else setMessage("Login link sent. Check your email and open the link on this device.");
+            }}
+          >
+            Send me a login link
+          </button>
+        )}
       </div>
     </section>
   );
