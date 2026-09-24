@@ -18,6 +18,7 @@ import {
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
 import { assetPath } from "../lib/assetPath";
+import { useAuth } from "../contexts/AuthContext";
 
 const NAV_ITEMS = [
   { href: "/", label: "Countries", icon: Stethoscope },
@@ -34,6 +35,7 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const location = useLocation();
+  const { user, signOut } = useAuth();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
@@ -88,6 +90,16 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
           </nav>
 
           <div className="flex items-center gap-2">
+            {user ? (
+              <button className="btn-quiet hidden items-center gap-2 rounded-lg px-4 py-2 text-sm sm:inline-flex" onClick={() => void signOut()}>
+                Sign out
+              </button>
+            ) : (
+              <Link to="/auth" className="btn-quiet hidden items-center gap-2 rounded-lg px-4 py-2 text-sm sm:inline-flex">
+                <User size={15} />
+                Sign in
+              </Link>
+            )}
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <button
@@ -154,6 +166,11 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
                 <Phone size={16} />
                 {CONTACT_PHONE}
               </a>
+              <Link to={user ? "/profile" : "/auth"} className="topbar-link flex items-center gap-3 rounded-lg px-3 py-3">
+                <User size={16} />
+                {user ? "My account" : "Sign in / Create account"}
+              </Link>
+              {user && <button onClick={() => void signOut()} className="topbar-link flex items-center gap-3 rounded-lg px-3 py-3 text-left">Sign out</button>}
             </nav>
           </div>
         )}

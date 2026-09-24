@@ -42,3 +42,7 @@ pnpm run build
 The app source uses permanent `/manus-storage/...` paths supplied by the Manus project storage proxy. The matching original visual files and GIFs are included in `media-source/` as a backup. For a non-Manus deployment, upload those assets to your own storage or place them in the host's public asset directory, then update the corresponding paths in the source files.
 
 Do not commit `node_modules`, `dist`, `.env` files, API keys, passwords, or private deployment metadata.
+
+## Supabase authentication
+
+The `/auth` page uses Supabase Auth for email/password sign-up, sign-in, and password recovery. Configure the repository variables `VITE_SUPABASE_URL` and `VITE_SUPABASE_PUBLISHABLE_KEY` for the GitHub Pages workflow. In Supabase Authentication settings, set the site URL to `https://3abody-71.github.io/Medweg/` and add `https://3abody-71.github.io/Medweg/auth` to the redirect URLs.
