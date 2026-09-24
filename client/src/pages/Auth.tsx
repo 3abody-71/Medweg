@@ -91,6 +91,30 @@ export default function Auth() {
           {mode !== "reset" && <label className="block text-sm font-bold">Password<input required minLength={6} type="password" className="mt-2 w-full rounded-xl border border-border bg-background px-4 py-3 font-normal outline-none ring-primary focus:ring-2" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="At least 6 characters" autoComplete={mode === "sign-up" ? "new-password" : "current-password"} /></label>}
           <button disabled={busy || !configured} className="btn-primary inline-flex w-full items-center justify-center gap-2 rounded-xl px-5 py-3 text-sm disabled:cursor-not-allowed disabled:opacity-60" type="submit">{busy && <Loader2 size={16} className="animate-spin" />}{mode === "sign-up" ? "Create account" : mode === "reset" ? "Send reset link" : "Sign in"}</button>
         </form>
+        {mode === "sign-in" && (
+          <>
+            <div className="my-5 flex items-center gap-3 text-xs font-bold uppercase tracking-wider text-muted-foreground"><span className="h-px flex-1 bg-border" />or<span className="h-px flex-1 bg-border" /></div>
+            <button
+              type="button"
+              disabled={busy || !configured}
+              className="btn-quiet inline-flex w-full items-center justify-center gap-2 rounded-xl px-5 py-3 text-sm disabled:cursor-not-allowed disabled:opacity-60"
+              onClick={async () => {
+                if (!supabase) return;
+                setBusy(true);
+                const { error: oauthError } = await supabase.auth.signInWithOAuth({
+                  provider: "google",
+                  options: { redirectTo: `${siteUrl}/Medweg/auth` },
+                });
+                if (oauthError) {
+                  setBusy(false);
+                  setError(oauthError.message);
+                }
+              }}
+            >
+              Continue with Google
+            </button>
+          </>
+        )}
         <div className="mt-6 flex flex-wrap justify-between gap-3 border-t border-border pt-5 text-sm font-bold">
           {mode === "sign-in" && <><button className="text-primary hover:underline" onClick={() => setMode("reset")}>Forgot password?</button><button className="text-primary hover:underline" onClick={() => setMode("sign-up")}>Create account</button></>}
           {mode === "sign-up" && <button className="text-primary hover:underline" onClick={() => setMode("sign-in")}>Already have an account? Sign in</button>}
