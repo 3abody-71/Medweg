@@ -10,12 +10,12 @@ import "./index.css";
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <BrowserRouter basename={import.meta.env.BASE_URL}>
-      <AppProvider>
-        <AuthProvider>
+      <AuthProvider>
+        <AppProvider>
           <ScrollToTop />
           <App />
-        </AuthProvider>
-      </AppProvider>
+        </AppProvider>
+      </AuthProvider>
     </BrowserRouter>
   </React.StrictMode>
 );
