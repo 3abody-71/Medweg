@@ -140,22 +140,6 @@ export default function SiteLayout({
                   {label}
                 </Link>
               ))}
-              <a
-                href={`mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent("Medweg inquiry")}`}
-                className="topbar-link flex items-center gap-3 rounded-lg px-3 py-3"
-                data-testid="link-contact-mobile-menu"
-              >
-                <Mail size={16} />
-                Contact Me — {CONTACT_EMAIL}
-              </a>
-              <a
-                href={`tel:${CONTACT_PHONE}`}
-                className="topbar-link flex items-center gap-3 rounded-lg px-3 py-3"
-                data-testid="link-contact-mobile-whatsapp"
-              >
-                <Phone size={16} />
-                {CONTACT_PHONE}
-              </a>
               <Link
                 to={user ? "/profile" : "/auth"}
                 className="topbar-link flex items-center gap-3 rounded-lg px-3 py-3"
@@ -185,10 +169,10 @@ export default function SiteLayout({
           <div className="flex flex-col gap-5 rounded-2xl border border-primary/15 bg-primary/[0.06] p-5 sm:flex-row sm:items-center sm:justify-between sm:p-6">
             <div>
               <p className="text-sm font-extrabold tracking-tight text-foreground">
-                Need help planning your next step?
+                Have a question about your pathway?
               </p>
               <p className="mt-1 text-xs leading-5 text-muted-foreground">
-                Reach out for questions about the pathways covered in Medweg.
+                Contact Medweg for guidance as you compare training pathways.
               </p>
             </div>
             <DropdownMenu>
