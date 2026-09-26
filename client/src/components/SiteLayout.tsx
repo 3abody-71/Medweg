@@ -31,7 +31,11 @@ const NAV_ITEMS = [
 const CONTACT_EMAIL = "abodysaif2005@gmail.com";
 const CONTACT_PHONE = "+201203298818";
 
-export default function SiteLayout({ children }: { children: React.ReactNode }) {
+export default function SiteLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const location = useLocation();
@@ -49,7 +53,9 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
   }, [location]);
 
   const isActive = (path: string) =>
-    path === "/" ? location.pathname === "/" : location.pathname.startsWith(path);
+    path === "/"
+      ? location.pathname === "/"
+      : location.pathname.startsWith(path);
 
   return (
     <div className="min-h-screen flex flex-col bg-background">
@@ -64,7 +70,11 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
             data-testid="link-logo"
           >
             <span className="brand-mark grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-primary text-primary-foreground">
-              <img src={assetPath("/assets/media/medweg-compass.png")} alt="Medweg compass" className="h-8 w-8 object-contain" />
+              <img
+                src={assetPath("/assets/media/medweg-compass.png")}
+                alt="Medweg compass"
+                className="h-8 w-8 object-contain"
+              />
             </span>
             <span>
               <span className="brand-wordmark block">Medweg</span>
@@ -91,45 +101,25 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
 
           <div className="flex items-center gap-2">
             {user ? (
-              <button className="btn-quiet hidden items-center gap-2 rounded-lg px-4 py-2 text-sm sm:inline-flex" onClick={() => void signOut()}>
+              <button
+                className="btn-quiet hidden items-center gap-2 rounded-lg px-4 py-2 text-sm sm:inline-flex"
+                onClick={() => void signOut()}
+              >
                 Sign out
               </button>
             ) : (
-              <Link to="/auth" className="btn-quiet hidden items-center gap-2 rounded-lg px-4 py-2 text-sm sm:inline-flex">
+              <Link
+                to="/auth"
+                className="btn-quiet hidden items-center gap-2 rounded-lg px-4 py-2 text-sm sm:inline-flex"
+              >
                 <User size={15} />
                 Sign in
               </Link>
             )}
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <button
-                  className="btn-contact hidden items-center gap-2 rounded-lg px-4 py-2 text-sm sm:inline-flex"
-                  data-testid="button-contact-desktop"
-                >
-                  <Mail size={15} />
-                  Contact Me
-                </button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="end" className="w-60">
-                <DropdownMenuItem asChild>
-                  <a
-                    href={`mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent("Medweg inquiry")}`}
-                  >
-                    <Mail size={15} /> Email — {CONTACT_EMAIL}
-                  </a>
-                </DropdownMenuItem>
-                <DropdownMenuItem asChild>
-                  <a href={`tel:${CONTACT_PHONE}`}>
-                    <Phone size={15} /> {CONTACT_PHONE}
-                  </a>
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
-
             <button
               className="icon-button lg:hidden"
               data-testid="button-mobile-menu"
-              onClick={() => setMobileOpen((v) => !v)}
+              onClick={() => setMobileOpen(v => !v)}
               aria-label="Menu"
             >
               {mobileOpen ? <X size={18} /> : <Menu size={18} />}
@@ -166,11 +156,21 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
                 <Phone size={16} />
                 {CONTACT_PHONE}
               </a>
-              <Link to={user ? "/profile" : "/auth"} className="topbar-link flex items-center gap-3 rounded-lg px-3 py-3">
+              <Link
+                to={user ? "/profile" : "/auth"}
+                className="topbar-link flex items-center gap-3 rounded-lg px-3 py-3"
+              >
                 <User size={16} />
                 {user ? "My account" : "Sign in / Create account"}
               </Link>
-              {user && <button onClick={() => void signOut()} className="topbar-link flex items-center gap-3 rounded-lg px-3 py-3 text-left">Sign out</button>}
+              {user && (
+                <button
+                  onClick={() => void signOut()}
+                  className="topbar-link flex items-center gap-3 rounded-lg px-3 py-3 text-left"
+                >
+                  Sign out
+                </button>
+              )}
             </nav>
           </div>
         )}
@@ -181,32 +181,75 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
       </main>
 
       <footer className="border-t border-border bg-card/60">
-        <div className="mx-auto flex max-w-[1450px] flex-col items-start justify-between gap-4 px-4 py-8 sm:px-6 md:flex-row md:items-center lg:px-10">
-          <div className="flex items-center gap-3">
-            <span className="grid h-8 w-8 shrink-0 place-items-center rounded-lg bg-primary text-primary-foreground">
-              <img src={assetPath("/assets/media/medweg-compass.png")} alt="Medweg compass" className="h-7 w-7 object-contain" />
-            </span>
-            <span className="text-xs font-bold">Medweg</span>
+        <div className="mx-auto flex max-w-[1450px] flex-col gap-6 px-4 py-8 sm:px-6 lg:px-10">
+          <div className="flex flex-col gap-5 rounded-2xl border border-primary/15 bg-primary/[0.06] p-5 sm:flex-row sm:items-center sm:justify-between sm:p-6">
+            <div>
+              <p className="text-sm font-extrabold tracking-tight text-foreground">
+                Need help planning your next step?
+              </p>
+              <p className="mt-1 text-xs leading-5 text-muted-foreground">
+                Reach out for questions about the pathways covered in Medweg.
+              </p>
+            </div>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <button
+                  className="btn-contact inline-flex shrink-0 items-center justify-center gap-2 rounded-lg px-5 py-2.5 text-sm"
+                  data-testid="button-contact-desktop"
+                >
+                  <Mail size={15} />
+                  Contact Me
+                </button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="w-60">
+                <DropdownMenuItem asChild>
+                  <a
+                    href={`mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent("Medweg inquiry")}`}
+                  >
+                    <Mail size={15} /> Email — {CONTACT_EMAIL}
+                  </a>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <a href={`tel:${CONTACT_PHONE}`}>
+                    <Phone size={15} /> {CONTACT_PHONE}
+                  </a>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
           </div>
-          <p className="text-[11px] leading-5 text-muted-foreground">
-            For education only. Verify every detail with the official licensing body.
-          </p>
-          <a
-            href={`mailto:${CONTACT_EMAIL}`}
-            className="inline-flex items-center gap-2 text-xs font-bold text-primary hover:underline"
-            data-testid="link-footer-contact"
-          >
-            <Mail size={14} />
-            {CONTACT_EMAIL}
-          </a>
-          <a
-            href={`tel:${CONTACT_PHONE}`}
-            className="inline-flex items-center gap-2 text-xs font-bold text-primary hover:underline"
-            data-testid="link-footer-phone"
-          >
-            <Phone size={14} />
-            {CONTACT_PHONE}
-          </a>
+
+          <div className="flex flex-col items-start justify-between gap-4 md:flex-row md:items-center">
+            <div className="flex items-center gap-3">
+              <span className="grid h-8 w-8 shrink-0 place-items-center rounded-lg bg-primary text-primary-foreground">
+                <img
+                  src={assetPath("/assets/media/medweg-compass.png")}
+                  alt="Medweg compass"
+                  className="h-7 w-7 object-contain"
+                />
+              </span>
+              <span className="text-xs font-bold">Medweg</span>
+            </div>
+            <p className="text-[11px] leading-5 text-muted-foreground">
+              For education only. Verify every detail with the official
+              licensing body.
+            </p>
+            <a
+              href={`mailto:${CONTACT_EMAIL}`}
+              className="inline-flex items-center gap-2 text-xs font-bold text-primary hover:underline"
+              data-testid="link-footer-contact"
+            >
+              <Mail size={14} />
+              {CONTACT_EMAIL}
+            </a>
+            <a
+              href={`tel:${CONTACT_PHONE}`}
+              className="inline-flex items-center gap-2 text-xs font-bold text-primary hover:underline"
+              data-testid="link-footer-phone"
+            >
+              <Phone size={14} />
+              {CONTACT_PHONE}
+            </a>
+          </div>
         </div>
       </footer>
     </div>
