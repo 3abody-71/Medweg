@@ -1,6 +1,6 @@
-# Medweg — Live Website Source
+# Mediena — Live Website Source
 
-This repository contains the corrected source code for the Medweg website.
+This repository contains the corrected source code for the Mediena website.
 
 The current GitHub Pages website is:
 

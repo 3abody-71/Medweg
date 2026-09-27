@@ -134,7 +134,7 @@ export default function Home() {
               ) : null}
             </div>
             <h1 className="mt-4 text-3xl font-extrabold leading-tight tracking-tight text-white sm:text-4xl md:text-[42px]">
-              Welcome to MedWeg, your first international medical mentor,
+              Welcome to Mediena, your first international medical mentor,
               helping you find the best pathway for your medical journey.
             </h1>
             <p className="mt-4 max-w-2xl text-sm leading-6 text-white/90 md:text-[15px]">

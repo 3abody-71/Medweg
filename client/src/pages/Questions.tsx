@@ -7,7 +7,7 @@ export default function Questions() {
   const { profile } = useApp();
   const [question, setQuestion] = useState("");
 
-  const mailtoHref = `mailto:abodysaif2005@gmail.com?subject=${encodeURIComponent("Medweg inquiry")}&body=${encodeURIComponent(question || "Your next question")}`;
+  const mailtoHref = `mailto:abodysaif2005@gmail.com?subject=${encodeURIComponent("Mediena inquiry")}&body=${encodeURIComponent(question || "Your next question")}`;
 
   return (
     <div className="space-y-8">

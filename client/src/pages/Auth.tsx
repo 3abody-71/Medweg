@@ -26,7 +26,7 @@ export default function Auth() {
         <div className="rounded-3xl border border-border bg-card p-8 text-center shadow-sm">
           <CheckCircle2 className="mx-auto text-primary" size={42} />
           <p className="mt-5 text-xs font-bold uppercase tracking-[0.18em] text-primary">Signed in</p>
-          <h1 className="mt-2 text-3xl font-extrabold tracking-tight">Welcome back to Medweg</h1>
+          <h1 className="mt-2 text-3xl font-extrabold tracking-tight">Welcome back to Mediena</h1>
           <p className="mt-3 text-sm text-muted-foreground">{user.email}</p>
           <button className="btn-primary mt-7 rounded-xl px-5 py-3 text-sm" onClick={() => navigate("/profile")}>Open my profile</button>
         </div>
@@ -65,13 +65,13 @@ export default function Auth() {
     }
   };
 
-  const title = mode === "sign-up" ? "Create your Medweg account" : mode === "reset" ? "Reset your password" : "Sign in to Medweg";
+  const title = mode === "sign-up" ? "Create your Mediena account" : mode === "reset" ? "Reset your password" : "Sign in to Mediena";
   const subtitle = mode === "sign-up" ? "Save your pathway planning across devices." : mode === "reset" ? "We will send a secure reset link to your email." : "Continue planning your medical pathway.";
 
   return (
     <section className="mx-auto grid max-w-5xl gap-8 py-6 lg:grid-cols-[1fr_0.9fr] lg:items-center lg:py-12">
       <div>
-        <Link to="/" className="inline-flex items-center gap-2 text-sm font-bold text-primary hover:underline"><ArrowLeft size={15} /> Back to Medweg</Link>
+        <Link to="/" className="inline-flex items-center gap-2 text-sm font-bold text-primary hover:underline"><ArrowLeft size={15} /> Back to Mediena</Link>
         <p className="mt-10 text-xs font-bold uppercase tracking-[0.18em] text-primary">Your private pathway space</p>
         <h1 className="mt-3 max-w-xl text-4xl font-extrabold tracking-tight sm:text-5xl">{title}</h1>
         <p className="mt-4 max-w-lg text-base leading-7 text-muted-foreground">{subtitle}</p>

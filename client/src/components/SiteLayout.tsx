@@ -72,12 +72,12 @@ export default function SiteLayout({
             <span className="brand-mark grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-primary text-primary-foreground">
               <img
                 src={assetPath("/assets/media/medweg-compass.png")}
-                alt="Medweg compass"
+                alt="Mediena compass"
                 className="h-8 w-8 object-contain"
               />
             </span>
             <span>
-              <span className="brand-wordmark block">Medweg</span>
+              <span className="brand-wordmark block">Mediena</span>
               <span className="guide">Guide</span>
             </span>
           </Link>
@@ -172,7 +172,7 @@ export default function SiteLayout({
                 Have a question about your pathway?
               </p>
               <p className="mt-1 text-xs leading-5 text-muted-foreground">
-                Contact Medweg for guidance as you compare training pathways.
+                Contact Mediena for guidance as you compare training pathways.
               </p>
             </div>
             <DropdownMenu>
@@ -188,7 +188,7 @@ export default function SiteLayout({
               <DropdownMenuContent align="end" className="w-60">
                 <DropdownMenuItem asChild>
                   <a
-                    href={`mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent("Medweg inquiry")}`}
+                    href={`mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent("Mediena inquiry")}`}
                   >
                     <Mail size={15} /> Email — {CONTACT_EMAIL}
                   </a>
@@ -207,11 +207,11 @@ export default function SiteLayout({
               <span className="grid h-8 w-8 shrink-0 place-items-center rounded-lg bg-primary text-primary-foreground">
                 <img
                   src={assetPath("/assets/media/medweg-compass.png")}
-                  alt="Medweg compass"
+                  alt="Mediena compass"
                   className="h-7 w-7 object-contain"
                 />
               </span>
-              <span className="text-xs font-bold">Medweg</span>
+              <span className="text-xs font-bold">Mediena</span>
             </div>
             <p className="text-[11px] leading-5 text-muted-foreground">
               For education only. Verify every detail with the official
