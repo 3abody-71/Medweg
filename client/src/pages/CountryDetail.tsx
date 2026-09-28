@@ -1,5 +1,5 @@
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { ArrowLeft, ExternalLink, Info, Lock, Milestone } from "lucide-react";
+import { ArrowLeft, BookOpen, ExternalLink, Info, Lock, Milestone } from "lucide-react";
 import countries from "../data/countries.json";
 import { useApp } from "../contexts/AppContext";
 import GermanyPathway from "../components/GermanyPathway";
@@ -252,6 +252,37 @@ export default function CountryDetail() {
             </section>
           </>
         )}
+
+      {/* Pathway articles */}
+      <section id="pathway-articles" className="scroll-mt-24">
+        <div className="flex items-end justify-between gap-3">
+          <div>
+            <p className="text-xs font-bold uppercase tracking-wider text-primary">Pathway library</p>
+            <h2 className="mt-1 text-lg font-extrabold">Articles for {country.name}</h2>
+          </div>
+          <BookOpen size={20} className="text-primary" />
+        </div>
+        <div className="mt-4 grid gap-4 md:grid-cols-3">
+          <article className="rounded-xl border border-border bg-card p-4">
+            <h3 className="text-sm font-extrabold">Licensing & registration</h3>
+            <p className="mt-2 text-xs leading-5 text-muted-foreground">
+              Understand the main authority, verification steps, and registration milestones for this route.
+            </p>
+          </article>
+          <article className="rounded-xl border border-border bg-card p-4">
+            <h3 className="text-sm font-extrabold">Language & documents</h3>
+            <p className="mt-2 text-xs leading-5 text-muted-foreground">
+              Prepare the language evidence and core documents commonly requested from international graduates.
+            </p>
+          </article>
+          <article className="rounded-xl border border-border bg-card p-4">
+            <h3 className="text-sm font-extrabold">Training & applications</h3>
+            <p className="mt-2 text-xs leading-5 text-muted-foreground">
+              Map the training stage, application route, and practical next step before you apply.
+            </p>
+          </article>
+        </div>
+      </section>
     </div>
   );
 }

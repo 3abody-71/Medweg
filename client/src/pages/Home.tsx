@@ -1,13 +1,18 @@
 import { Link } from "react-router-dom";
 import {
   ArrowRight,
+  BookOpen,
   Calendar,
   Banknote,
   Compass,
+  Crown,
+  GraduationCap,
   Globe,
   HelpCircle,
+  Route,
   Users,
 } from "lucide-react";
+import { useState } from "react";
 import countries from "../data/countries.json";
 import { useApp } from "../contexts/AppContext";
 import { assetPath } from "../lib/assetPath";
@@ -39,6 +44,8 @@ function CountryCard({
   country: (typeof countries)[number];
   index: number;
 }) {
+  const [comingSoonOption, setComingSoonOption] = useState<string | null>(null);
+
   return (
     <article
       className="fade-up group overflow-hidden rounded-2xl border border-border bg-card shadow-sm transition-shadow hover:shadow-md"
@@ -97,8 +104,57 @@ function CountryCard({
           </span>
         </div>
       </Link>
-      <div className="mt-3 flex items-center gap-2 border-t border-border px-4 pb-3 pt-3 text-xs font-bold text-primary">
-        View pathway details <ArrowRight size={14} />
+      <div className="border-t border-border px-4 pb-4 pt-3">
+        <div className="grid grid-cols-2 gap-2">
+          <Link
+            to={`/countries/${country.id}`}
+            className="inline-flex items-center justify-center gap-1.5 rounded-lg bg-primary px-2.5 py-2 text-[11px] font-bold text-primary-foreground transition-colors hover:bg-primary/90"
+            data-testid={`link-main-route-${country.id}`}
+          >
+            <Route size={13} /> Main route
+          </Link>
+          <Link
+            to={`/countries/${country.id}#pathway-articles`}
+            className="inline-flex items-center justify-center gap-1.5 rounded-lg border border-border bg-card px-2.5 py-2 text-[11px] font-bold text-foreground transition-colors hover:bg-secondary"
+            data-testid={`link-articles-${country.id}`}
+          >
+            <BookOpen size={13} /> Articles
+          </Link>
+          <button
+            type="button"
+            onClick={() => setComingSoonOption("Golden option")}
+            className="inline-flex items-center justify-center gap-1.5 rounded-lg border border-[#d6a23d]/45 bg-[#fff8e8] px-2.5 py-2 text-[11px] font-bold text-[#9a6816] transition-colors hover:bg-[#fff1c9]"
+            data-testid={`button-golden-option-${country.id}`}
+          >
+            <Crown size={13} /> Golden option
+          </button>
+          <button
+            type="button"
+            onClick={() => setComingSoonOption("Mentor option")}
+            className="inline-flex items-center justify-center gap-1.5 rounded-lg border border-primary/25 bg-primary/[0.06] px-2.5 py-2 text-[11px] font-bold text-primary transition-colors hover:bg-primary/10"
+            data-testid={`button-mentor-option-${country.id}`}
+          >
+            <GraduationCap size={13} /> Mentor option
+          </button>
+        </div>
+        {comingSoonOption && (
+          <div
+            className="mt-2 flex items-center gap-2 rounded-lg bg-secondary/70 px-3 py-2 text-[11px] font-semibold text-muted-foreground"
+            role="status"
+            aria-live="polite"
+          >
+            <span className="text-primary"><GraduationCap size={13} /></span>
+            {comingSoonOption} is coming soon.
+            <button
+              type="button"
+              className="ml-auto font-bold text-primary hover:underline"
+              onClick={() => setComingSoonOption(null)}
+              aria-label="Dismiss coming soon message"
+            >
+              Dismiss
+            </button>
+          </div>
+        )}
       </div>
     </article>
   );
