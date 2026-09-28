@@ -107,22 +107,22 @@ function CountryCard({
         <div className="grid grid-cols-2 gap-2">
           <Link
             to={`/countries/${country.id}`}
-            className="inline-flex items-center justify-center gap-1.5 rounded-lg bg-primary px-2.5 py-2 text-[11px] font-bold text-primary-foreground transition-colors hover:bg-primary/90"
+            className="col-start-1 row-start-1 inline-flex items-center justify-center gap-1.5 rounded-lg bg-primary px-2.5 py-2 text-[11px] font-bold text-primary-foreground transition-colors hover:bg-primary/90"
             data-testid={`link-main-route-${country.id}`}
           >
             <Route size={13} /> Main route
           </Link>
           <Link
-            to={`/countries/${country.id}#pathway-articles`}
-            className="inline-flex items-center justify-center gap-1.5 rounded-lg border border-border bg-card px-2.5 py-2 text-[11px] font-bold text-foreground transition-colors hover:bg-secondary"
+            to={`/countries/${country.id}#pathway-info`}
+            className="col-start-1 row-start-2 inline-flex items-center justify-center gap-1.5 rounded-lg border border-border bg-card px-2.5 py-2 text-[11px] font-bold text-foreground transition-colors hover:bg-secondary"
             data-testid={`link-articles-${country.id}`}
           >
-            <BookOpen size={13} /> Articles
+            <BookOpen size={13} /> Pathway info
           </Link>
           <button
             type="button"
             onClick={() => setComingSoonOption("Mentor option")}
-            className="inline-flex items-center justify-center gap-1.5 rounded-lg border border-[#d6a23d]/45 bg-[#fff8e8] px-2.5 py-2 text-[11px] font-bold text-[#9a6816] transition-colors hover:bg-[#fff1c9]"
+            className="col-start-2 row-span-2 row-start-1 inline-flex min-h-full items-center justify-center gap-1.5 rounded-lg border border-[#d6a23d]/45 bg-[#fff8e8] px-2.5 py-2 text-[11px] font-bold text-[#9a6816] transition-colors hover:bg-[#fff1c9]"
             data-testid={`button-mentor-option-${country.id}`}
           >
             <GraduationCap size={13} /> Mentor option

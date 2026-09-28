@@ -253,12 +253,12 @@ export default function CountryDetail() {
           </>
         )}
 
-      {/* Pathway articles */}
-      <section id="pathway-articles" className="scroll-mt-24">
+      {/* Pathway information */}
+      <section id="pathway-info" className="scroll-mt-24">
         <div className="flex items-end justify-between gap-3">
           <div>
             <p className="text-xs font-bold uppercase tracking-wider text-primary">Pathway library</p>
-            <h2 className="mt-1 text-lg font-extrabold">Articles for {country.name}</h2>
+            <h2 className="mt-1 text-lg font-extrabold">More about the {country.name} pathway</h2>
           </div>
           <BookOpen size={20} className="text-primary" />
         </div>
