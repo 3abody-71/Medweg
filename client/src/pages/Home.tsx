@@ -47,7 +47,7 @@ function CountryCard({
 
   return (
     <article
-      className="fade-up group overflow-hidden rounded-2xl border border-border bg-card shadow-sm transition-shadow hover:shadow-md"
+      className="fade-up group flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-card shadow-sm transition-shadow hover:shadow-md"
       style={{ animationDelay: `${index * 45}ms` }}
       data-testid={`card-pathway-${country.id}`}
     >
@@ -79,7 +79,7 @@ function CountryCard({
           </span>
         </Link>
       </div>
-      <Link to={`/countries/${country.id}`} className="block p-4 pt-3">
+      <Link to={`/countries/${country.id}`} className="block flex-1 p-4 pt-3">
         <p className="country-card-summary mt-4 text-xs leading-5 text-muted-foreground">
           {country.summary}
         </p>
@@ -103,7 +103,7 @@ function CountryCard({
           </span>
         </div>
       </Link>
-      <div className="border-t border-border px-4 pb-4 pt-3">
+      <div className="mt-auto border-t border-border px-4 pb-4 pt-3">
         <div className="grid grid-cols-2 gap-2">
           <Link
             to={`/countries/${country.id}`}
