@@ -5,7 +5,6 @@ import {
   Calendar,
   Banknote,
   Compass,
-  Crown,
   GraduationCap,
   Globe,
   HelpCircle,
@@ -122,16 +121,8 @@ function CountryCard({
           </Link>
           <button
             type="button"
-            onClick={() => setComingSoonOption("Golden option")}
-            className="inline-flex items-center justify-center gap-1.5 rounded-lg border border-primary/25 bg-primary/[0.06] px-2.5 py-2 text-[11px] font-bold text-primary transition-colors hover:bg-primary/10"
-            data-testid={`button-golden-option-${country.id}`}
-          >
-            <Crown size={13} /> Golden option
-          </button>
-          <button
-            type="button"
             onClick={() => setComingSoonOption("Mentor option")}
-            className="inline-flex items-center justify-center gap-1.5 rounded-lg border border-primary/25 bg-primary/[0.06] px-2.5 py-2 text-[11px] font-bold text-primary transition-colors hover:bg-primary/10"
+            className="inline-flex items-center justify-center gap-1.5 rounded-lg border border-[#d6a23d]/45 bg-[#fff8e8] px-2.5 py-2 text-[11px] font-bold text-[#9a6816] transition-colors hover:bg-[#fff1c9]"
             data-testid={`button-mentor-option-${country.id}`}
           >
             <GraduationCap size={13} /> Mentor option
