@@ -90,11 +90,10 @@ export default function SiteLayout({
                 className={`topbar-link inline-flex items-center gap-2 ${isActive(href) ? "active" : ""}`}
                 data-testid={`link-nav-${label.toLowerCase().replace(/\s+/g, "-")}`}
               >
-                <Icon size={16} strokeWidth={1.9} />
+                <span className="nav-icon grid h-7 w-7 shrink-0 place-items-center rounded-lg bg-secondary/70">
+                  <Icon size={15} strokeWidth={2} />
+                </span>
                 {label}
-                {isActive(href) && (
-                  <span className="h-[3px] w-full min-w-[18px] rounded-full bg-primary" />
-                )}
               </Link>
             ))}
           </nav>
@@ -136,7 +135,9 @@ export default function SiteLayout({
                   to={href}
                   className={`topbar-link flex items-center gap-3 rounded-lg px-3 py-3 ${isActive(href) ? "active" : ""}`}
                 >
-                  <Icon size={16} strokeWidth={1.9} />
+                  <span className="grid h-8 w-8 shrink-0 place-items-center rounded-lg bg-secondary/70">
+                    <Icon size={16} strokeWidth={2} />
+                  </span>
                   {label}
                 </Link>
               ))}

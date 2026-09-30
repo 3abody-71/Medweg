@@ -3,12 +3,12 @@
 @tailwind utilities;
 
 :root {
-  --app-font-sans: "DM Sans", sans-serif;
-  --app-font-serif: "Manrope", sans-serif;
-  --app-font-mono: "Space Mono", monospace;
-  --background: 200 40% 97%;
-  --foreground: 209 38% 18%;
-  --border: 198 29% 87%;
+  --app-font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Inter", "Helvetica Neue", Arial, sans-serif;
+  --app-font-serif: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Inter", "Helvetica Neue", Arial, sans-serif;
+  --app-font-mono: "SF Mono", "Roboto Mono", ui-monospace, monospace;
+  --background: 210 33% 98%;
+  --foreground: 215 28% 15%;
+  --border: 214 22% 88%;
   --card: 0 0% 100%;
   --card-foreground: 209 38% 18%;
   --card-border: 198 29% 87%;
@@ -23,7 +23,7 @@
   --popover: 0 0% 100%;
   --popover-foreground: 209 38% 18%;
   --popover-border: 198 29% 87%;
-  --primary: 199 64% 42%;
+  --primary: 201 74% 38%;
   --primary-foreground: 0 0% 100%;
   --secondary: 188 48% 91%;
   --secondary-foreground: 201 54% 28%;
@@ -34,7 +34,7 @@
   --destructive: 0 67% 53%;
   --destructive-foreground: 0 0% 100%;
   --input: 198 28% 81%;
-  --ring: 199 64% 42%;
+  --ring: 201 74% 38%;
   --chart-1: 199 64% 42%;
   --chart-2: 35 82% 66%;
   --chart-3: 160 41% 47%;
@@ -50,19 +50,24 @@ body {
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
 }
+button, a, input, select, textarea { -webkit-tap-highlight-color: transparent; }
+button, a { transition: color 160ms ease, background-color 160ms ease, border-color 160ms ease, box-shadow 160ms ease, transform 160ms ease, opacity 160ms ease; }
+:focus-visible { outline: 3px solid hsl(var(--ring) / 0.35); outline-offset: 3px; }
 
 .brand-mark {
-  background: #fff;
-  border-radius: 11px;
+  background: linear-gradient(145deg, #ffffff 0%, #eaf6fb 100%);
+  border: 1px solid hsl(var(--primary) / 0.14);
+  border-radius: 12px;
   place-items: center;
   display: grid;
   overflow: hidden;
+  box-shadow: 0 4px 12px rgba(26, 86, 111, 0.12);
 }
 
 .brand-wordmark {
   font-family: var(--app-font-serif);
-  letter-spacing: -0.03em;
-  font-size: 15px;
+  letter-spacing: -0.045em;
+  font-size: 16px;
   font-weight: 800;
   line-height: 1;
 }
@@ -88,72 +93,97 @@ body {
 
 .topbar-link {
   color: hsl(var(--muted-foreground));
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 600;
   white-space: nowrap;
+  position: relative;
+  min-height: 38px;
+  align-items: center;
 }
 
 .topbar-link.active {
   color: hsl(var(--foreground));
 }
 
-.btn-primary {
+.topbar-link.active::after {
+  content: "";
+  position: absolute;
+  left: 28px;
+  right: 0;
+  bottom: 1px;
+  height: 2px;
+  border-radius: 999px;
   background: hsl(var(--primary));
+}
+.topbar-link:hover { color: hsl(var(--primary)); }
+
+.btn-primary {
+  background: linear-gradient(180deg, hsl(var(--primary) / 0.98), hsl(var(--primary)));
   color: hsl(var(--primary-foreground));
-  box-shadow: 0 4px 10px hsl(var(--primary) / 0.18);
+  border: 1px solid hsl(var(--primary) / 0.2);
+  box-shadow: 0 6px 14px hsl(var(--primary) / 0.2), inset 0 1px 0 #ffffff2b;
   font-weight: 700;
 }
 
 .btn-primary:hover {
-  background: #206e92;
-  transform: translateY(-1px);
+  background: hsl(var(--primary));
+  box-shadow: 0 8px 18px hsl(var(--primary) / 0.25), inset 0 1px 0 #ffffff2b;
+  transform: translateY(-2px);
 }
 
 .btn-primary:active {
-  transform: scale(0.97);
+  transform: translateY(0) scale(0.98);
 }
 
 .btn-contact {
-  background: hsl(var(--accent));
+  background: linear-gradient(180deg, #ffd98d, hsl(var(--accent)));
   color: hsl(var(--accent-foreground));
   font-weight: 700;
-  box-shadow: 0 4px 10px #efb4614d;
+  border: 1px solid #d8922e66;
+  box-shadow: 0 6px 14px #d9912e2b, inset 0 1px 0 #ffffff80;
 }
 
 .btn-contact:hover {
   background: #eda745;
-  transform: translateY(-1px);
+  box-shadow: 0 8px 18px #d9912e3d, inset 0 1px 0 #ffffff80;
+  transform: translateY(-2px);
 }
 
 .btn-contact:active {
-  transform: scale(0.97);
+  transform: translateY(0) scale(0.98);
 }
 
 .btn-quiet {
-  background: hsl(var(--card));
+  background: hsl(var(--card) / 0.86);
   color: hsl(var(--foreground));
   border: 1px solid hsl(var(--border));
+  box-shadow: 0 2px 6px rgba(26, 55, 74, 0.04);
 }
 
 .btn-quiet:hover {
-  background: hsl(var(--secondary));
+  background: hsl(var(--secondary) / 0.72);
   border-color: hsl(var(--primary) / 0.3);
+  box-shadow: 0 5px 12px rgba(26, 55, 74, 0.08);
   transform: translateY(-1px);
 }
 
 .icon-button {
-  width: 38px;
-  height: 38px;
+  width: 40px;
+  height: 40px;
   color: hsl(var(--muted-foreground));
-  border-radius: 9px;
+  border: 1px solid transparent;
+  border-radius: 12px;
   place-items: center;
   display: grid;
 }
 
 .icon-button:hover {
   color: hsl(var(--primary));
-  background: hsl(var(--secondary));
+  background: hsl(var(--secondary) / 0.8);
+  border-color: hsl(var(--primary) / 0.12);
+  transform: translateY(-1px);
 }
+.icon-button:active { transform: scale(0.94); }
 
 .country-card-image {
   height: 300px;
