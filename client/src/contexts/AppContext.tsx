@@ -7,6 +7,8 @@ export interface Profile {
   email: string;
   medicalSchool: string;
   currentCountry: string;
+  currentStudyYear: string;
+  residenceCost: string;
   graduationYear: string;
   graduationStatus: string;
   targetCountries: string[];
@@ -21,7 +23,7 @@ export const PRIORITIES = ["Training length", "Work-life balance", "Earning pote
 export const WORK_STYLES = ["Analytical and reflective", "Hands-on and decisive", "People-centred and varied", "Fast-paced and collaborative", "Visual and technology-led"];
 
 export const DEFAULT_PROFILE: Profile = {
-  name: "", email: "", medicalSchool: "", currentCountry: "", graduationYear: "", graduationStatus: "",
+  name: "", email: "", medicalSchool: "", currentCountry: "", currentStudyYear: "", residenceCost: "", graduationYear: "", graduationStatus: "",
   targetCountries: [], interests: [], priorities: [], workStyle: "",
 };
 

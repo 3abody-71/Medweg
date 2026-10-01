@@ -116,6 +116,49 @@ export default function Profile() {
           </label>
 
           <label className="block">
+            <span className="text-xs font-bold">Current year of study</span>
+            <div className="relative mt-2">
+              <select
+                value={profile.currentStudyYear}
+                onChange={(e) => update({ currentStudyYear: e.target.value })}
+                className="h-10 w-full appearance-none rounded-lg border border-border bg-background/60 px-3 pr-9 text-sm outline-hidden focus:border-primary/50 focus:ring-2 focus:ring-primary/15"
+                data-testid="select-current-study-year"
+              >
+                <option value="">Select your year</option>
+                <option value="Pre-medical / foundation">Pre-medical / foundation</option>
+                <option value="Year 1">Year 1</option>
+                <option value="Year 2">Year 2</option>
+                <option value="Year 3">Year 3</option>
+                <option value="Year 4">Year 4</option>
+                <option value="Year 5">Year 5</option>
+                <option value="Year 6">Year 6</option>
+                <option value="Internship / foundation year">Internship / foundation year</option>
+                <option value="Graduated">Graduated</option>
+              </select>
+              <ChevronDown
+                size={14}
+                className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground"
+              />
+            </div>
+          </label>
+
+          <label className="block">
+            <span className="text-xs font-bold">Monthly residence cost</span>
+            <p className="mt-1 text-[11px] text-muted-foreground">
+              What you currently pay for housing
+            </p>
+            <input
+              type="text"
+              inputMode="decimal"
+              value={profile.residenceCost}
+              onChange={(e) => update({ residenceCost: e.target.value })}
+              placeholder="e.g. 500 USD"
+              className="mt-2 h-10 w-full rounded-lg border border-border bg-background/60 px-3 text-sm outline-hidden focus:border-primary/50 focus:ring-2 focus:ring-primary/15"
+              data-testid="input-residence-cost"
+            />
+          </label>
+
+          <label className="block">
             <span className="text-xs font-bold">Graduation year</span>
             <input
               type="text"
