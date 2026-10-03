@@ -10,6 +10,9 @@ import {
   X,
   Stethoscope,
   Users,
+  ArrowUpRight,
+  Info,
+  ShieldCheck,
 } from "lucide-react";
 import {
   DropdownMenu,
@@ -203,37 +206,120 @@ export default function SiteLayout({
             </DropdownMenu>
           </div>
 
-          <div className="flex flex-col items-start justify-between gap-4 md:flex-row md:items-center">
-            <div className="flex items-center gap-3">
-              <span className="grid h-8 w-8 shrink-0 place-items-center rounded-lg bg-primary text-primary-foreground">
-                <img
-                  src={assetPath("/assets/media/medweg-compass.png")}
-                  alt="Mediena compass"
-                  className="h-7 w-7 object-contain"
-                />
-              </span>
-              <span className="text-xs font-bold">Mediena</span>
+          <div className="footer-grid">
+            <div className="footer-brand">
+              <div className="flex items-center gap-3">
+                <span className="grid h-9 w-9 shrink-0 place-items-center rounded-lg bg-primary text-primary-foreground">
+                  <img
+                    src={assetPath("/assets/media/medweg-compass.png")}
+                    alt="Mediena compass"
+                    className="h-8 w-8 object-contain"
+                  />
+                </span>
+                <span className="text-sm font-extrabold">Mediena</span>
+              </div>
+              <p className="mt-4 max-w-xs text-xs leading-5 text-muted-foreground">
+                Clearer country pathways for medical graduates, from first
+                comparison to the next practical step.
+              </p>
             </div>
+
+            <div className="footer-column">
+              <h2 className="footer-heading">
+                <Info size={15} /> About
+              </h2>
+              <Link to="/" className="footer-link">
+                What is Mediena?
+              </Link>
+              <Link to="/explore" className="footer-link">
+                Explore specialties
+              </Link>
+              <Link to="/profile" className="footer-link">
+                Discover your pathway
+              </Link>
+            </div>
+
+            <div className="footer-column">
+              <h2 className="footer-heading">
+                <Mail size={15} /> Contact
+              </h2>
+              <a
+                href={`mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent("Mediena inquiry")}`}
+                className="footer-link break-all"
+              >
+                Email us
+              </a>
+              <a href={`tel:${CONTACT_PHONE}`} className="footer-link">
+                {CONTACT_PHONE}
+              </a>
+              <Link to="/community" className="footer-link">
+                Join the community
+              </Link>
+            </div>
+
+            <div className="footer-column">
+              <h2 className="footer-heading">
+                <ShieldCheck size={15} /> Legal
+              </h2>
+              <Link to="/privacy" className="footer-link">
+                Privacy policy
+              </Link>
+              <Link to="/privacy#disclaimer" className="footer-link">
+                Educational disclaimer
+              </Link>
+            </div>
+
+            <div className="footer-column">
+              <h2 className="footer-heading">
+                <Users size={15} /> Connect
+              </h2>
+              <Link to="/community" className="footer-link">
+                Community
+              </Link>
+              <a href={`mailto:${CONTACT_EMAIL}`} className="footer-link">
+                Send a message
+              </a>
+              <Link to="/questions" className="footer-link">
+                Ask a question
+              </Link>
+            </div>
+
+            <div className="footer-column">
+              <h2 className="footer-heading">
+                <HelpCircle size={15} /> FAQ
+              </h2>
+              <Link to="/questions" className="footer-link">
+                Common questions
+              </Link>
+              <Link to="/questions" className="footer-link">
+                How pathways work <ArrowUpRight size={13} />
+              </Link>
+            </div>
+          </div>
+
+          <div className="flex flex-col items-start justify-between gap-4 border-t border-border pt-5 sm:flex-row sm:items-center">
             <p className="text-[11px] leading-5 text-muted-foreground">
               For education only. Verify every detail with the official
               licensing body.
             </p>
-            <a
-              href={`mailto:${CONTACT_EMAIL}`}
-              className="inline-flex items-center gap-2 text-xs font-bold text-primary hover:underline"
-              data-testid="link-footer-contact"
-            >
-              <Mail size={14} />
-              {CONTACT_EMAIL}
-            </a>
-            <a
-              href={`tel:${CONTACT_PHONE}`}
-              className="inline-flex items-center gap-2 text-xs font-bold text-primary hover:underline"
-              data-testid="link-footer-phone"
-            >
-              <Phone size={14} />
-              {CONTACT_PHONE}
-            </a>
+            <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
+              <a
+                href={`mailto:${CONTACT_EMAIL}`}
+                className="inline-flex items-center gap-2 text-xs font-bold text-primary hover:underline"
+                data-testid="link-footer-contact"
+              >
+                <Mail size={14} />
+                {CONTACT_EMAIL}
+              </a>
+              <a
+                href={`tel:${CONTACT_PHONE}`}
+                className="inline-flex items-center gap-2 text-xs font-bold text-primary hover:underline"
+                data-testid="link-footer-phone"
+              >
+                <Phone size={14} />
+                {CONTACT_PHONE}
+              </a>
+            </div>
           </div>
         </div>
       </footer>

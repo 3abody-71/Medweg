@@ -3,8 +3,12 @@
 @tailwind utilities;
 
 :root {
-  --app-font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Inter", "Helvetica Neue", Arial, sans-serif;
-  --app-font-serif: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Inter", "Helvetica Neue", Arial, sans-serif;
+  --app-font-sans:
+    -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Inter",
+    "Helvetica Neue", Arial, sans-serif;
+  --app-font-serif:
+    -apple-system, BlinkMacSystemFont, "SF Pro Display", "Inter",
+    "Helvetica Neue", Arial, sans-serif;
   --app-font-mono: "SF Mono", "Roboto Mono", ui-monospace, monospace;
   --background: 210 33% 98%;
   --foreground: 215 28% 15%;
@@ -50,9 +54,27 @@ body {
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
 }
-button, a, input, select, textarea { -webkit-tap-highlight-color: transparent; }
-button, a { transition: color 160ms ease, background-color 160ms ease, border-color 160ms ease, box-shadow 160ms ease, transform 160ms ease, opacity 160ms ease; }
-:focus-visible { outline: 3px solid hsl(var(--ring) / 0.35); outline-offset: 3px; }
+button,
+a,
+input,
+select,
+textarea {
+  -webkit-tap-highlight-color: transparent;
+}
+button,
+a {
+  transition:
+    color 160ms ease,
+    background-color 160ms ease,
+    border-color 160ms ease,
+    box-shadow 160ms ease,
+    transform 160ms ease,
+    opacity 160ms ease;
+}
+:focus-visible {
+  outline: 3px solid hsl(var(--ring) / 0.35);
+  outline-offset: 3px;
+}
 
 .brand-mark {
   background: linear-gradient(145deg, #ffffff 0%, #eaf6fb 100%);
@@ -115,19 +137,90 @@ button, a { transition: color 160ms ease, background-color 160ms ease, border-co
   border-radius: 999px;
   background: hsl(var(--primary));
 }
-.topbar-link:hover { color: hsl(var(--primary)); }
+.topbar-link:hover {
+  color: hsl(var(--primary));
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: minmax(220px, 1.5fr) repeat(5, minmax(120px, 1fr));
+  gap: 2rem;
+}
+
+.footer-column {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.65rem;
+}
+
+.footer-heading {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  color: hsl(var(--foreground));
+  font-size: 0.76rem;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  margin-bottom: 0.25rem;
+}
+
+.footer-heading svg {
+  color: hsl(var(--primary));
+}
+
+.footer-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  color: hsl(var(--muted-foreground));
+  font-size: 0.74rem;
+  line-height: 1.35;
+  transition:
+    color 160ms ease,
+    transform 160ms ease;
+}
+
+.footer-link:hover {
+  color: hsl(var(--primary));
+  transform: translateX(2px);
+}
+
+@media (max-width: 1100px) {
+  .footer-grid {
+    grid-template-columns: 1.4fr repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .footer-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.75rem 1.25rem;
+  }
+  .footer-brand {
+    grid-column: 1 / -1;
+  }
+}
 
 .btn-primary {
-  background: linear-gradient(180deg, hsl(var(--primary) / 0.98), hsl(var(--primary)));
+  background: linear-gradient(
+    180deg,
+    hsl(var(--primary) / 0.98),
+    hsl(var(--primary))
+  );
   color: hsl(var(--primary-foreground));
   border: 1px solid hsl(var(--primary) / 0.2);
-  box-shadow: 0 6px 14px hsl(var(--primary) / 0.2), inset 0 1px 0 #ffffff2b;
+  box-shadow:
+    0 6px 14px hsl(var(--primary) / 0.2),
+    inset 0 1px 0 #ffffff2b;
   font-weight: 700;
 }
 
 .btn-primary:hover {
   background: hsl(var(--primary));
-  box-shadow: 0 8px 18px hsl(var(--primary) / 0.25), inset 0 1px 0 #ffffff2b;
+  box-shadow:
+    0 8px 18px hsl(var(--primary) / 0.25),
+    inset 0 1px 0 #ffffff2b;
   transform: translateY(-2px);
 }
 
@@ -140,12 +233,16 @@ button, a { transition: color 160ms ease, background-color 160ms ease, border-co
   color: hsl(var(--accent-foreground));
   font-weight: 700;
   border: 1px solid #d8922e66;
-  box-shadow: 0 6px 14px #d9912e2b, inset 0 1px 0 #ffffff80;
+  box-shadow:
+    0 6px 14px #d9912e2b,
+    inset 0 1px 0 #ffffff80;
 }
 
 .btn-contact:hover {
   background: #eda745;
-  box-shadow: 0 8px 18px #d9912e3d, inset 0 1px 0 #ffffff80;
+  box-shadow:
+    0 8px 18px #d9912e3d,
+    inset 0 1px 0 #ffffff80;
   transform: translateY(-2px);
 }
 
@@ -183,7 +280,9 @@ button, a { transition: color 160ms ease, background-color 160ms ease, border-co
   border-color: hsl(var(--primary) / 0.12);
   transform: translateY(-1px);
 }
-.icon-button:active { transform: scale(0.94); }
+.icon-button:active {
+  transform: scale(0.94);
+}
 
 .country-card-image {
   height: 300px;
