@@ -92,14 +92,8 @@ export default function PrivacyPolicy() {
           <section>
             <h2 className="text-lg font-extrabold text-foreground">Contact</h2>
             <p className="mt-2">
-              Questions about this policy can be sent to{" "}
-              <a
-                className="font-bold text-primary hover:underline"
-                href="mailto:abodysaif2005@gmail.com"
-              >
-                abodysaif2005@gmail.com
-              </a>
-              .
+              Questions about this policy can be raised in the community or
+              through the questions page.
             </p>
           </section>
         </div>

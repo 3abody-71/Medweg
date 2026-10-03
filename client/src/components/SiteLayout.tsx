@@ -4,8 +4,6 @@ import {
   Compass,
   HelpCircle,
   User,
-  Mail,
-  Phone,
   Menu,
   X,
   Stethoscope,
@@ -14,12 +12,6 @@ import {
   Info,
   ShieldCheck,
 } from "lucide-react";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "./ui/dropdown-menu";
 import { assetPath } from "../lib/assetPath";
 import { useAuth } from "../contexts/AuthContext";
 
@@ -30,9 +22,6 @@ const NAV_ITEMS = [
   { href: "/profile", label: "Discover your pathway", icon: User },
   { href: "/community", label: "Community", icon: Users },
 ];
-
-const CONTACT_EMAIL = "abodysaif2005@gmail.com";
-const CONTACT_PHONE = "+201203298818";
 
 export default function SiteLayout({
   children,
@@ -179,31 +168,13 @@ export default function SiteLayout({
                 Contact Mediena for guidance as you compare training pathways.
               </p>
             </div>
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <button
-                  className="btn-contact inline-flex shrink-0 items-center justify-center gap-2 rounded-lg px-5 py-2.5 text-sm"
-                  data-testid="button-contact-desktop"
-                >
-                  <Mail size={15} />
-                  Contact Me
-                </button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="end" className="w-60">
-                <DropdownMenuItem asChild>
-                  <a
-                    href={`mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent("Mediena inquiry")}`}
-                  >
-                    <Mail size={15} /> Email — {CONTACT_EMAIL}
-                  </a>
-                </DropdownMenuItem>
-                <DropdownMenuItem asChild>
-                  <a href={`tel:${CONTACT_PHONE}`}>
-                    <Phone size={15} /> {CONTACT_PHONE}
-                  </a>
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
+            <Link
+              to="/questions"
+              className="btn-contact inline-flex shrink-0 items-center justify-center gap-2 rounded-lg px-5 py-2.5 text-sm"
+              data-testid="button-contact-desktop"
+            >
+              Ask a question
+            </Link>
           </div>
 
           <div className="footer-grid">
@@ -241,17 +212,11 @@ export default function SiteLayout({
 
             <div className="footer-column">
               <h2 className="footer-heading">
-                <Mail size={15} /> Contact
+                Contact
               </h2>
-              <a
-                href={`mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent("Mediena inquiry")}`}
-                className="footer-link break-all"
-              >
-                Email us
-              </a>
-              <a href={`tel:${CONTACT_PHONE}`} className="footer-link">
-                {CONTACT_PHONE}
-              </a>
+              <Link to="/questions" className="footer-link">
+                Ask a question
+              </Link>
               <Link to="/community" className="footer-link">
                 Join the community
               </Link>
@@ -276,9 +241,6 @@ export default function SiteLayout({
               <Link to="/community" className="footer-link">
                 Community
               </Link>
-              <a href={`mailto:${CONTACT_EMAIL}`} className="footer-link">
-                Send a message
-              </a>
               <Link to="/questions" className="footer-link">
                 Ask a question
               </Link>
@@ -297,29 +259,11 @@ export default function SiteLayout({
             </div>
           </div>
 
-          <div className="flex flex-col items-start justify-between gap-4 border-t border-border pt-5 sm:flex-row sm:items-center">
+          <div className="border-t border-border pt-5">
             <p className="text-[11px] leading-5 text-muted-foreground">
               For education only. Verify every detail with the official
               licensing body.
             </p>
-            <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
-              <a
-                href={`mailto:${CONTACT_EMAIL}`}
-                className="inline-flex items-center gap-2 text-xs font-bold text-primary hover:underline"
-                data-testid="link-footer-contact"
-              >
-                <Mail size={14} />
-                {CONTACT_EMAIL}
-              </a>
-              <a
-                href={`tel:${CONTACT_PHONE}`}
-                className="inline-flex items-center gap-2 text-xs font-bold text-primary hover:underline"
-                data-testid="link-footer-phone"
-              >
-                <Phone size={14} />
-                {CONTACT_PHONE}
-              </a>
-            </div>
           </div>
         </div>
       </footer>
