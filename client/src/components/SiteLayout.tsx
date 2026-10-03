@@ -4,6 +4,8 @@ import {
   Compass,
   HelpCircle,
   User,
+  Mail,
+  Phone,
   Menu,
   X,
   Stethoscope,
@@ -214,6 +216,15 @@ export default function SiteLayout({
               <h2 className="footer-heading">
                 Contact
               </h2>
+              <a
+                href="mailto:abodysaif2005@gmail.com"
+                className="footer-link break-all"
+              >
+                Email us
+              </a>
+              <a href="tel:+201203298818" className="footer-link">
+                +201203298818
+              </a>
               <Link to="/questions" className="footer-link">
                 Ask a question
               </Link>
@@ -260,10 +271,30 @@ export default function SiteLayout({
           </div>
 
           <div className="border-t border-border pt-5">
-            <p className="text-[11px] leading-5 text-muted-foreground">
-              For education only. Verify every detail with the official
-              licensing body.
-            </p>
+            <div className="flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-center">
+              <p className="text-[11px] leading-5 text-muted-foreground">
+                For education only. Verify every detail with the official
+                licensing body.
+              </p>
+              <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
+                <a
+                  href="mailto:abodysaif2005@gmail.com"
+                  className="inline-flex items-center gap-2 text-xs font-bold text-primary hover:underline"
+                  data-testid="link-footer-contact"
+                >
+                  <Mail size={14} />
+                  abodysaif2005@gmail.com
+                </a>
+                <a
+                  href="tel:+201203298818"
+                  className="inline-flex items-center gap-2 text-xs font-bold text-primary hover:underline"
+                  data-testid="link-footer-phone"
+                >
+                  <Phone size={14} />
+                  +201203298818
+                </a>
+              </div>
+            </div>
           </div>
         </div>
       </footer>
