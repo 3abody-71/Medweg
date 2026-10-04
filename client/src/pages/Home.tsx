@@ -167,7 +167,7 @@ export default function Home() {
           <span className="home-hero-grid" />
         </div>
         <img
-          src={assetPath("/assets/media/hero-medical-students_cfadeffa.jpg")}
+          src={assetPath("/assets/media/hero-medical-students_cfadeffa.webp")}
           alt="Medical students working together in a hospital"
           className="home-hero-photo"
           aria-hidden="true"

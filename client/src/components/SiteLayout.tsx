@@ -65,7 +65,7 @@ export default function SiteLayout({
           >
             <span className="brand-mark grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-primary text-primary-foreground">
               <img
-                src={assetPath("/assets/media/medweg-compass.png")}
+                src={assetPath("/assets/media/medweg-compass.webp")}
                 alt="Mediena compass"
                 className="h-8 w-8 object-contain"
               />
@@ -184,7 +184,7 @@ export default function SiteLayout({
               <div className="flex items-center gap-3">
                 <span className="grid h-9 w-9 shrink-0 place-items-center rounded-lg bg-primary text-primary-foreground">
                   <img
-                    src={assetPath("/assets/media/medweg-compass.png")}
+                    src={assetPath("/assets/media/medweg-compass.webp")}
                     alt="Mediena compass"
                     className="h-8 w-8 object-contain"
                   />
