@@ -5,6 +5,7 @@ import Explore from "./pages/Explore";
 import SpecialtyDetail from "./pages/SpecialtyDetail";
 import CountryDetail from "./pages/CountryDetail";
 import Questions from "./pages/Questions";
+import Mentors from "./pages/Mentors";
 import Profile from "./pages/Profile";
 import Community from "./pages/Community";
 import NotFound from "./pages/NotFound";
@@ -20,6 +21,7 @@ export default function App() {
         <Route path="/explore/:id" element={<SpecialtyDetail />} />
         <Route path="/countries/:id" element={<CountryDetail />} />
         <Route path="/questions" element={<Questions />} />
+        <Route path="/mentors" element={<Mentors />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/community" element={<Community />} />
         <Route path="/auth" element={<Auth />} />

@@ -13,6 +13,7 @@ import {
   ArrowUpRight,
   Info,
   ShieldCheck,
+  GraduationCap,
 } from "lucide-react";
 import { assetPath } from "../lib/assetPath";
 import { useAuth } from "../contexts/AuthContext";
@@ -21,6 +22,7 @@ const NAV_ITEMS = [
   { href: "/", label: "Countries", icon: Stethoscope },
   { href: "/explore", label: "Specialties", icon: Compass },
   { href: "/questions", label: "Questions", icon: HelpCircle },
+  { href: "/mentors", label: "Mentors", icon: GraduationCap },
   { href: "/profile", label: "Discover your pathway", icon: User },
   { href: "/community", label: "Community", icon: Users },
 ];
@@ -231,6 +233,9 @@ export default function SiteLayout({
               <Link to="/community" className="footer-link">
                 Join the community
               </Link>
+              <Link to="/mentors" className="footer-link">
+                Find a mentor
+              </Link>
             </div>
 
             <div className="footer-column">
@@ -254,6 +259,9 @@ export default function SiteLayout({
               </Link>
               <Link to="/questions" className="footer-link">
                 Ask a question
+              </Link>
+              <Link to="/mentors" className="footer-link">
+                Mentors
               </Link>
             </div>
 
