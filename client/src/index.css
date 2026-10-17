@@ -319,7 +319,8 @@ a {
 .home-hero {
   color: #fff;
   isolation: isolate;
-  min-height: 220px;
+  width: min(100%, 560px);
+  height: 420px;
   background: linear-gradient(120deg, #2784b0, #3897c7 63%, #4fb7cf);
   position: relative;
   overflow: hidden;
@@ -424,6 +425,107 @@ a {
 .home-hero-content {
   z-index: 1;
   position: relative;
+  display: grid;
+  height: 100%;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 2rem;
+}
+
+.home-hero-copy {
+  position: relative;
+  z-index: 2;
+}
+
+.home-hero-map {
+  position: relative;
+  display: grid;
+  place-items: center;
+  height: 100%;
+  min-width: 0;
+}
+
+.hero-globe {
+  position: relative;
+  width: 184px;
+  height: 184px;
+  border: 1px solid rgba(255, 255, 255, 0.82);
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 34% 28%, rgba(255, 255, 255, 0.26), transparent 25%),
+    rgba(12, 83, 117, 0.25);
+  box-shadow:
+    inset -18px -12px 30px rgba(5, 53, 82, 0.2),
+    0 0 0 12px rgba(255, 255, 255, 0.06),
+    0 16px 30px rgba(6, 61, 91, 0.16);
+}
+
+.hero-globe::before,
+.hero-globe::after,
+.hero-globe-line {
+  content: "";
+  position: absolute;
+  inset: 14px 50%;
+  width: 1px;
+  background: rgba(255, 255, 255, 0.32);
+}
+
+.hero-globe::after {
+  inset: 50% 14px;
+  width: auto;
+  height: 1px;
+}
+
+.hero-globe-line-one {
+  inset: 14px 34%;
+  transform: rotate(38deg);
+}
+
+.hero-globe-line-two {
+  inset: 14px 66%;
+  transform: rotate(-38deg);
+}
+
+.hero-globe-line-three {
+  inset: 26% 14px auto;
+  width: auto;
+  height: 1px;
+  border-radius: 50%;
+  background: transparent;
+  border-top: 1px solid rgba(255, 255, 255, 0.28);
+}
+
+.hero-country {
+  position: absolute;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.2rem;
+  padding: 0.28rem 0.42rem;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  border-radius: 999px;
+  background: rgba(9, 63, 91, 0.48);
+  color: rgba(255, 255, 255, 0.96);
+  font-size: 0.62rem;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  box-shadow: 0 5px 12px rgba(6, 61, 91, 0.12);
+}
+
+.hero-country svg {
+  color: #f4c66b;
+}
+
+.hero-country-usa { top: 16%; left: 2%; }
+.hero-country-canada { top: 3%; right: 2%; }
+.hero-country-germany { top: 35%; right: -2%; }
+.hero-country-australia { bottom: 8%; right: 1%; }
+.hero-country-ireland { bottom: 2%; left: 4%; }
+.hero-country-uk { top: 54%; left: -4%; }
+
+.home-hero .home-hero-grid {
+  opacity: 0.06;
 }
 
 .citizenship-card {
@@ -689,39 +791,37 @@ a {
   }
 
   .home-hero-content {
-    align-items: flex-start;
-    flex-direction: column;
-  }
-
-  .home-hero-photo {
-    width: 65%;
-    opacity: 0.22;
+    padding: 1.5rem;
   }
 }
 
 @media (max-width: 767px) {
   .home-hero {
-    min-height: 0;
-    padding: 1.25rem;
+    height: auto;
+    min-height: 560px;
+  }
+
+  .home-hero-content {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    padding: 1.5rem;
+  }
+
+  .home-hero-copy {
+    align-self: start;
+  }
+
+  .home-hero-map {
+    min-height: 260px;
   }
 
   .home-hero h1 {
     font-size: clamp(1.9rem, 8vw, 2.5rem);
   }
 
-  .home-hero-photo {
-    width: 100%;
-    opacity: 0.16;
-    -webkit-mask-image: linear-gradient(180deg, #000 0%, #000 55%, #0000 100%);
-    mask-image: linear-gradient(180deg, #000 0%, #000 55%, #0000 100%);
-  }
-
-  .home-hero-orb-one {
-    right: -80px;
-  }
-
-  .home-hero-orb-two {
-    right: -145px;
+  .hero-globe {
+    width: 170px;
+    height: 170px;
   }
 
   .filter-pill {

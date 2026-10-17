@@ -8,6 +8,7 @@ import {
   GraduationCap,
   Globe,
   HelpCircle,
+  MapPin,
   Route,
   Users,
 } from "lucide-react";
@@ -138,29 +139,21 @@ export default function Home() {
   return (
     <div className="space-y-10">
       {/* Hero */}
-      <section className="home-hero fade-up overflow-hidden rounded-2xl p-5 shadow-md sm:p-7 lg:p-8">
+      <section className="home-hero fade-up overflow-hidden rounded-2xl shadow-md">
         <div className="home-hero-background" aria-hidden="true">
-          <span className="home-hero-orb home-hero-orb-one" />
-          <span className="home-hero-orb home-hero-orb-two" />
           <span className="home-hero-grid" />
         </div>
-        <img
-          src={assetPath("/assets/media/hero-medical-students_cfadeffa.jpg")}
-          alt="Medical students working together in a hospital"
-          className="home-hero-photo"
-          aria-hidden="true"
-        />
-        <div className="home-hero-content relative mx-auto flex max-w-[1200px] flex-col items-start gap-5">
-          <div className="max-w-3xl">
+        <div className="home-hero-content">
+          <div className="home-hero-copy">
             <div className="flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.16em] text-white/80">
               <Globe size={15} />
               {profile.name ? `For ${profile.name.split(" ")[0]}` : "International medical pathways"}
             </div>
-            <h1 className="mt-3 max-w-2xl text-2xl font-extrabold leading-tight tracking-tight text-white sm:text-3xl md:text-4xl">
-              Plan your route to medical practice abroad.
+            <h1 className="mt-4 text-3xl font-extrabold leading-tight tracking-tight text-white sm:text-4xl">
+              Welcome to MedWeg
             </h1>
-            <p className="mt-3 max-w-xl text-sm leading-6 text-white/85">
-              Compare exams, registration, training, and timelines across {orderedCountries.length} markets.
+            <p className="mt-3 max-w-[220px] text-base leading-7 text-white/90">
+              Your medical mentor for achieving residency abroad.
             </p>
             <Link
               to="/explore"
@@ -169,6 +162,26 @@ export default function Home() {
             >
               Explore pathways <ArrowRight size={14} />
             </Link>
+          </div>
+          <div className="home-hero-map" aria-label="Pathways available in the USA, Canada, Germany, Australia, Ireland, and the UK">
+            <div className="hero-globe" aria-hidden="true">
+              <span className="hero-globe-line hero-globe-line-one" />
+              <span className="hero-globe-line hero-globe-line-two" />
+              <span className="hero-globe-line hero-globe-line-three" />
+            </div>
+            {[
+              ["USA", "hero-country-usa"],
+              ["Canada", "hero-country-canada"],
+              ["Germany", "hero-country-germany"],
+              ["Australia", "hero-country-australia"],
+              ["Ireland", "hero-country-ireland"],
+              ["UK", "hero-country-uk"],
+            ].map(([country, position]) => (
+              <div className={`hero-country ${position}`} key={country}>
+                <MapPin size={14} strokeWidth={2.5} />
+                <span>{country}</span>
+              </div>
+            ))}
           </div>
         </div>
       </section>
