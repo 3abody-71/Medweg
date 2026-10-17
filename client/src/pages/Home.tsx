@@ -14,7 +14,6 @@ import {
 import countries from "../data/countries.json";
 import { useApp } from "../contexts/AppContext";
 import { assetPath } from "../lib/assetPath";
-import worldMap from "../assets/world-map.svg?raw";
 
 function StatRow({
   icon: Icon,
@@ -139,36 +138,56 @@ export default function Home() {
   return (
     <div className="space-y-10">
       {/* Hero */}
-      <section className="home-hero fade-up overflow-hidden rounded-2xl shadow-md">
+      <section className="home-hero fade-up overflow-hidden rounded-2xl p-6 shadow-lg sm:p-8 lg:p-10">
         <div className="home-hero-background" aria-hidden="true">
+          <span className="home-hero-orb home-hero-orb-one" />
+          <span className="home-hero-orb home-hero-orb-two" />
           <span className="home-hero-grid" />
         </div>
-        <div className="home-hero-content">
-          <div className="home-hero-copy">
-            <div className="flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.16em] text-white/80">
+        <img
+          src={assetPath("/assets/media/hero-medical-students_cfadeffa.jpg")}
+          alt="Medical students working together in a hospital"
+          className="home-hero-photo"
+          aria-hidden="true"
+        />
+        <div className="home-hero-content relative mx-auto flex max-w-[1200px] flex-col items-start justify-between gap-6 lg:flex-row lg:items-center lg:gap-8">
+          <div>
+            <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-white/90">
               <Globe size={15} />
-              {profile.name ? `For ${profile.name.split(" ")[0]}` : "International medical pathways"}
+              {profile.name ? (
+                <>Hello, {profile.name.split(" ")[0]} — </>
+              ) : null}
             </div>
-            <h1 className="mt-4 text-3xl font-extrabold leading-tight tracking-tight text-white sm:text-4xl">
-              Welcome to MedWeg
+            <h1 className="mt-4 text-3xl font-extrabold leading-tight tracking-tight text-white sm:text-4xl md:text-[42px]">
+              Welcome to Mediena, your first international medical mentor,
+              helping you find the best pathway for your medical journey.
             </h1>
-            <p className="mt-3 max-w-[220px] text-base leading-7 text-white/90">
-              Your medical mentor for achieving residency abroad.
+            <p className="mt-4 max-w-2xl text-sm leading-6 text-white/90 md:text-[15px]">
+              Every pathway below has a different sequence of exams, language
+              evidence, registration, and applications. Start with context, then
+              verify the detail.
             </p>
+            <div className="mt-6 flex items-center gap-2 text-sm">
+              <span className="stat-number text-2xl font-extrabold text-white">
+                {orderedCountries.length}
+              </span>
+              <span className="text-xs text-white/80">Markets covered</span>
+            </div>
+          </div>
+          <div className="hidden w-[240px] shrink-0 rounded-2xl bg-white/10 p-4 backdrop-blur-sm lg:block">
+            <div className="flex items-center justify-between text-white">
+              <span className="text-xs font-bold">Markets covered</span>
+              <span className="text-sm font-extrabold">
+                {orderedCountries.length}
+              </span>
+            </div>
             <Link
               to="/explore"
-              className="mt-5 inline-flex items-center gap-2 rounded-lg bg-white px-4 py-2.5 text-xs font-bold text-[#2784b0] shadow-sm transition-transform hover:-translate-y-0.5"
+              className="mt-4 inline-flex items-center gap-2 rounded-lg bg-white px-4 py-2.5 text-xs font-bold text-[#2784b0] shadow-lg transition-transform hover:-translate-y-0.5"
               data-testid="link-hero-explore"
             >
-              Explore pathways <ArrowRight size={14} />
+              Compare specialties too <ArrowRight size={14} />
             </Link>
-          </div>
-          <div className="home-hero-map" aria-label="Pathways available in the USA, Canada, Germany, Australia, Ireland, and the UK">
-            <div
-              className="hero-world-map"
-              aria-hidden="true"
-              dangerouslySetInnerHTML={{ __html: worldMap }}
-            />
           </div>
         </div>
       </section>

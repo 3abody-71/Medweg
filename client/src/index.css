@@ -319,16 +319,25 @@ a {
 .home-hero {
   color: #fff;
   isolation: isolate;
-  width: 100%;
-  max-width: none;
-  height: 420px;
+  min-height: 250px;
   background: linear-gradient(120deg, #2784b0, #3897c7 63%, #4fb7cf);
   position: relative;
   overflow: hidden;
 }
 
 .home-hero:after {
-  display: none;
+  content: "";
+  border: 1px solid #ffffff2e;
+  border-radius: 50%;
+  width: 320px;
+  height: 320px;
+  position: absolute;
+  top: -140px;
+  right: -80px;
+  box-shadow:
+    0 0 0 24px #ffffff0a,
+    0 0 0 50px #ffffff09;
+  animation: hero-orbit 18s ease-in-out infinite;
 }
 
 .home-hero-background {
@@ -360,14 +369,14 @@ a {
       rgba(255, 255, 255, 0.07) 50%,
       transparent 70%
     );
-  filter: blur(14px);
-  opacity: 0.65;
+  filter: blur(10px);
+  animation: hero-light-drift 16s ease-in-out infinite alternate;
 }
 
 .home-hero-grid {
   position: absolute;
   inset: 0;
-  opacity: 0.08;
+  opacity: 0.16;
   background-image:
     linear-gradient(rgba(255, 255, 255, 0.22) 1px, transparent 1px),
     linear-gradient(90deg, rgba(255, 255, 255, 0.22) 1px, transparent 1px);
@@ -383,7 +392,7 @@ a {
 
 .home-hero-orb {
   position: absolute;
-  display: none;
+  display: block;
   width: 180px;
   height: 180px;
   border: 1px solid rgba(255, 255, 255, 0.3);
@@ -413,7 +422,7 @@ a {
   z-index: 0;
   object-fit: cover;
   object-position: center;
-  opacity: 0.2;
+  opacity: 0.3;
   mix-blend-mode: screen;
   width: 43%;
   height: 100%;
@@ -426,63 +435,6 @@ a {
 .home-hero-content {
   z-index: 1;
   position: relative;
-  display: grid;
-  height: 100%;
-  grid-template-columns: 1fr 1fr;
-  align-items: center;
-  gap: 0.75rem;
-  padding: 2rem;
-}
-
-.home-hero-copy {
-  position: relative;
-  z-index: 2;
-}
-
-.home-hero-map {
-  position: relative;
-  display: grid;
-  place-items: center;
-  height: 100%;
-  min-width: 0;
-  padding: 1rem;
-}
-
-.hero-world-map {
-  display: block;
-  width: min(100%, 430px);
-  height: auto;
-  opacity: 1;
-  user-select: none;
-}
-
-.hero-world-map svg {
-  display: block;
-  width: 100%;
-  height: auto;
-  overflow: visible;
-}
-
-.hero-world-map svg path {
-  fill: rgba(255, 255, 255, 0.3);
-  stroke: rgba(255, 255, 255, 0.78);
-  stroke-width: 0.65;
-  vector-effect: non-scaling-stroke;
-}
-
-.hero-world-map svg #us,
-.hero-world-map svg #ca,
-.hero-world-map svg #de,
-.hero-world-map svg #gb,
-.hero-world-map svg #ie,
-.hero-world-map svg #au {
-  fill: #ff3b30 !important;
-  stroke: #991b1b;
-  stroke-width: 1.25;
-}
-
-.home-hero .home-hero-grid {
-  opacity: 0.06;
 }
 
 .citizenship-card {
@@ -748,32 +700,39 @@ a {
   }
 
   .home-hero-content {
-    padding: 1.5rem;
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .home-hero-photo {
+    width: 65%;
+    opacity: 0.22;
   }
 }
 
 @media (max-width: 767px) {
   .home-hero {
-    height: auto;
-    min-height: 560px;
-  }
-
-  .home-hero-content {
-    grid-template-columns: 1fr;
-    gap: 1rem;
-    padding: 1.5rem;
-  }
-
-  .home-hero-copy {
-    align-self: start;
-  }
-
-  .home-hero-map {
-    min-height: 260px;
+    min-height: 0;
+    padding: 1.25rem;
   }
 
   .home-hero h1 {
     font-size: clamp(1.9rem, 8vw, 2.5rem);
+  }
+
+  .home-hero-photo {
+    width: 100%;
+    opacity: 0.16;
+    -webkit-mask-image: linear-gradient(180deg, #000 0%, #000 55%, #0000 100%);
+    mask-image: linear-gradient(180deg, #000 0%, #000 55%, #0000 100%);
+  }
+
+  .home-hero-orb-one {
+    right: -80px;
+  }
+
+  .home-hero-orb-two {
+    right: -145px;
   }
 
   .filter-pill {
