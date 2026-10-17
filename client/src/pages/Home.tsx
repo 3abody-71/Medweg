@@ -161,27 +161,6 @@ export default function Home() {
             <h1 className="mt-4 text-3xl font-extrabold leading-tight tracking-tight text-white sm:text-4xl md:text-[42px]">
               MedWeg is your mentor to match your medical residency.
             </h1>
-            <div className="mt-6 flex items-center gap-2 text-sm">
-              <span className="stat-number text-2xl font-extrabold text-white">
-                {orderedCountries.length}
-              </span>
-              <span className="text-xs text-white/80">Markets covered</span>
-            </div>
-          </div>
-          <div className="hidden w-[240px] shrink-0 rounded-2xl bg-white/10 p-4 backdrop-blur-sm lg:block">
-            <div className="flex items-center justify-between text-white">
-              <span className="text-xs font-bold">Markets covered</span>
-              <span className="text-sm font-extrabold">
-                {orderedCountries.length}
-              </span>
-            </div>
-            <Link
-              to="/explore"
-              className="mt-4 inline-flex items-center gap-2 rounded-lg bg-white px-4 py-2.5 text-xs font-bold text-[#2784b0] shadow-lg transition-transform hover:-translate-y-0.5"
-              data-testid="link-hero-explore"
-            >
-              Compare specialties too <ArrowRight size={14} />
-            </Link>
           </div>
         </div>
       </section>
