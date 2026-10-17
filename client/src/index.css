@@ -319,7 +319,8 @@ a {
 .home-hero {
   color: #fff;
   isolation: isolate;
-  width: min(100%, 560px);
+  width: 100%;
+  max-width: none;
   height: 420px;
   background: linear-gradient(120deg, #2784b0, #3897c7 63%, #4fb7cf);
   position: relative;
