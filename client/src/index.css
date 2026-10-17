@@ -445,14 +445,16 @@ a {
   place-items: center;
   height: 100%;
   min-width: 0;
+  padding: 1rem;
 }
 
 .hero-world-map {
   display: block;
-  width: min(100%, 390px);
+  width: min(100%, 430px);
   height: auto;
-  opacity: 0.7;
+  opacity: 0.78;
   filter: brightness(0) invert(1);
+  transform: none;
   user-select: none;
 }
 
