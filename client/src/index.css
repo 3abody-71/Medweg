@@ -319,25 +319,14 @@ a {
 .home-hero {
   color: #fff;
   isolation: isolate;
-  min-height: 250px;
+  min-height: 220px;
   background: linear-gradient(120deg, #2784b0, #3897c7 63%, #4fb7cf);
   position: relative;
   overflow: hidden;
 }
 
 .home-hero:after {
-  content: "";
-  border: 1px solid #ffffff2e;
-  border-radius: 50%;
-  width: 320px;
-  height: 320px;
-  position: absolute;
-  top: -140px;
-  right: -80px;
-  box-shadow:
-    0 0 0 24px #ffffff0a,
-    0 0 0 50px #ffffff09;
-  animation: hero-orbit 18s ease-in-out infinite;
+  display: none;
 }
 
 .home-hero-background {
@@ -369,14 +358,14 @@ a {
       rgba(255, 255, 255, 0.07) 50%,
       transparent 70%
     );
-  filter: blur(10px);
-  animation: hero-light-drift 16s ease-in-out infinite alternate;
+  filter: blur(14px);
+  opacity: 0.65;
 }
 
 .home-hero-grid {
   position: absolute;
   inset: 0;
-  opacity: 0.16;
+  opacity: 0.08;
   background-image:
     linear-gradient(rgba(255, 255, 255, 0.22) 1px, transparent 1px),
     linear-gradient(90deg, rgba(255, 255, 255, 0.22) 1px, transparent 1px);
@@ -392,7 +381,7 @@ a {
 
 .home-hero-orb {
   position: absolute;
-  display: block;
+  display: none;
   width: 180px;
   height: 180px;
   border: 1px solid rgba(255, 255, 255, 0.3);
@@ -422,7 +411,7 @@ a {
   z-index: 0;
   object-fit: cover;
   object-position: center;
-  opacity: 0.3;
+  opacity: 0.2;
   mix-blend-mode: screen;
   width: 43%;
   height: 100%;
