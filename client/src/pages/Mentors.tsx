@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import {
   ArrowRight,
   CalendarDays,
@@ -7,6 +7,7 @@ import {
   ShieldCheck,
   Users,
 } from "lucide-react";
+import countries from "../data/countries.json";
 
 const MENTORS = [
   {
@@ -33,6 +34,13 @@ const MENTORS = [
 ];
 
 export default function Mentors() {
+  const [searchParams] = useSearchParams();
+  const selectedCountryId = searchParams.get("country");
+  const selectedCountry = countries.find((country) => country.id === selectedCountryId);
+  const countryMentors = selectedCountry
+    ? [selectedCountry, ...countries.filter((country) => country.id !== selectedCountry.id)]
+    : countries;
+
   return (
     <div className="space-y-8">
       <section className="relative overflow-hidden rounded-3xl bg-[#0c3347] p-6 text-white shadow-sm sm:p-8 lg:p-10">
@@ -74,6 +82,40 @@ export default function Mentors() {
           </div>
         </div>
 
+        <div className="mt-5 rounded-2xl border border-primary/15 bg-primary/[0.06] p-5 sm:p-6">
+          <p className="eyebrow">Country mentors</p>
+          <h2 className="mt-1 text-2xl font-extrabold tracking-tight">
+            {selectedCountry ? `${selectedCountry.name} mentor` : "Choose a country mentor"}
+          </h2>
+          <p className="mt-2 max-w-2xl text-sm leading-6 text-muted-foreground">
+            Connect your destination to practical guidance on licensing, exams,
+            documents, applications, and the next step in that country’s route.
+          </p>
+          <div className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+            {countryMentors.map((country) => (
+              <Link
+                key={country.id}
+                to={`/mentors?country=${country.id}`}
+                className={`rounded-xl border bg-card p-4 transition-shadow hover:shadow-md ${selectedCountry?.id === country.id ? "border-primary shadow-sm" : "border-border"}`}
+                data-testid={`link-country-mentor-${country.id}`}
+              >
+                <div className="flex items-start justify-between gap-3">
+                  <span className="grid h-10 w-10 place-items-center rounded-xl bg-secondary font-mono text-xs font-bold text-primary">
+                    {country.flag}
+                  </span>
+                  <span className="rounded-full bg-secondary/70 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-primary">
+                    Mentor
+                  </span>
+                </div>
+                <h3 className="mt-4 text-base font-extrabold">{country.name} mentor</h3>
+                <p className="mt-1 text-xs leading-5 text-muted-foreground">
+                  Guidance for the {country.name} medical pathway.
+                </p>
+              </Link>
+            ))}
+          </div>
+        </div>
+
         <div className="mt-5 grid gap-4 lg:grid-cols-3">
           {MENTORS.map((mentor) => (
             <article
@@ -85,7 +127,7 @@ export default function Mentors() {
                   {mentor.initials}
                 </span>
                 <span className="rounded-full bg-secondary/70 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-primary">
-                  Coming soon
+                  Mentor
                 </span>
               </div>
               <h3 className="mt-5 text-lg font-extrabold tracking-tight">
@@ -97,14 +139,13 @@ export default function Mentors() {
               <p className="mt-3 text-sm leading-6 text-muted-foreground">
                 {mentor.detail}
               </p>
-              <button
-                type="button"
+              <Link
+                to="/questions"
                 className="btn-quiet mt-5 inline-flex items-center gap-2 rounded-lg px-3 py-2 text-xs font-bold"
-                onClick={() => window.alert("Mentor matching is coming soon. For now, tell us what guidance you need through Questions.")}
-                data-testid={`button-mentor-interest-${mentor.initials.toLowerCase()}`}
+                data-testid={`link-mentor-interest-${mentor.initials.toLowerCase()}`}
               >
                 <MessageCircle size={13} /> I’m interested
-              </button>
+              </Link>
             </article>
           ))}
         </div>

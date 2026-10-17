@@ -11,7 +11,6 @@ import {
   Route,
   Users,
 } from "lucide-react";
-import { useState } from "react";
 import countries from "../data/countries.json";
 import { useApp } from "../contexts/AppContext";
 import { assetPath } from "../lib/assetPath";
@@ -43,8 +42,6 @@ function CountryCard({
   country: (typeof countries)[number];
   index: number;
 }) {
-  const [comingSoonOption, setComingSoonOption] = useState<string | null>(null);
-
   return (
     <article
       className="fade-up group flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-card shadow-sm transition-shadow hover:shadow-md"
@@ -119,33 +116,14 @@ function CountryCard({
           >
             <BookOpen size={13} /> Pathway info
           </Link>
-          <button
-            type="button"
-            onClick={() => setComingSoonOption("Mentor option")}
+          <Link
+            to={`/mentors?country=${country.id}`}
             className="col-start-2 row-span-2 row-start-1 inline-flex min-h-full items-center justify-center gap-1.5 rounded-lg border border-[#d6a23d]/45 bg-[#fff8e8] px-2.5 py-2 text-[11px] font-bold text-[#9a6816] transition-colors hover:bg-[#fff1c9]"
-            data-testid={`button-mentor-option-${country.id}`}
+            data-testid={`link-mentor-option-${country.id}`}
           >
-            <GraduationCap size={13} /> Mentor option
-          </button>
+            <GraduationCap size={13} /> {country.name} mentor
+          </Link>
         </div>
-        {comingSoonOption && (
-          <div
-            className="mt-2 flex items-center gap-2 rounded-lg bg-secondary/70 px-3 py-2 text-[11px] font-semibold text-muted-foreground"
-            role="status"
-            aria-live="polite"
-          >
-            <span className="text-primary"><GraduationCap size={13} /></span>
-            {comingSoonOption} is coming soon.
-            <button
-              type="button"
-              className="ml-auto font-bold text-primary hover:underline"
-              onClick={() => setComingSoonOption(null)}
-              aria-label="Dismiss coming soon message"
-            >
-              Dismiss
-            </button>
-          </div>
-        )}
       </div>
     </article>
   );
