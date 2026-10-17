@@ -164,11 +164,12 @@ export default function Home() {
             </Link>
           </div>
           <div className="home-hero-map" aria-label="Pathways available in the USA, Canada, Germany, Australia, Ireland, and the UK">
-            <div className="hero-globe" aria-hidden="true">
-              <span className="hero-globe-line hero-globe-line-one" />
-              <span className="hero-globe-line hero-globe-line-two" />
-              <span className="hero-globe-line hero-globe-line-three" />
-            </div>
+            <img
+              src={assetPath("/assets/world-map.svg")}
+              alt=""
+              className="hero-world-map"
+              aria-hidden="true"
+            />
             {[
               ["USA", "hero-country-usa"],
               ["Canada", "hero-country-canada"],

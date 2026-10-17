@@ -447,54 +447,13 @@ a {
   min-width: 0;
 }
 
-.hero-globe {
-  position: relative;
-  width: 184px;
-  height: 184px;
-  border: 1px solid rgba(255, 255, 255, 0.82);
-  border-radius: 50%;
-  background:
-    radial-gradient(circle at 34% 28%, rgba(255, 255, 255, 0.26), transparent 25%),
-    rgba(12, 83, 117, 0.25);
-  box-shadow:
-    inset -18px -12px 30px rgba(5, 53, 82, 0.2),
-    0 0 0 12px rgba(255, 255, 255, 0.06),
-    0 16px 30px rgba(6, 61, 91, 0.16);
-}
-
-.hero-globe::before,
-.hero-globe::after,
-.hero-globe-line {
-  content: "";
-  position: absolute;
-  inset: 14px 50%;
-  width: 1px;
-  background: rgba(255, 255, 255, 0.32);
-}
-
-.hero-globe::after {
-  inset: 50% 14px;
-  width: auto;
-  height: 1px;
-}
-
-.hero-globe-line-one {
-  inset: 14px 34%;
-  transform: rotate(38deg);
-}
-
-.hero-globe-line-two {
-  inset: 14px 66%;
-  transform: rotate(-38deg);
-}
-
-.hero-globe-line-three {
-  inset: 26% 14px auto;
-  width: auto;
-  height: 1px;
-  border-radius: 50%;
-  background: transparent;
-  border-top: 1px solid rgba(255, 255, 255, 0.28);
+.hero-world-map {
+  display: block;
+  width: min(100%, 390px);
+  height: auto;
+  opacity: 0.7;
+  filter: brightness(0) invert(1);
+  user-select: none;
 }
 
 .hero-country {
@@ -518,12 +477,12 @@ a {
   color: #f4c66b;
 }
 
-.hero-country-usa { top: 16%; left: 2%; }
-.hero-country-canada { top: 3%; right: 2%; }
-.hero-country-germany { top: 35%; right: -2%; }
-.hero-country-australia { bottom: 8%; right: 1%; }
-.hero-country-ireland { bottom: 2%; left: 4%; }
-.hero-country-uk { top: 54%; left: -4%; }
+.hero-country-usa { top: 39%; left: 5%; }
+.hero-country-canada { top: 18%; left: 12%; }
+.hero-country-germany { top: 34%; left: 61%; }
+.hero-country-australia { bottom: 18%; right: 8%; }
+.hero-country-ireland { top: 27%; left: 55%; }
+.hero-country-uk { top: 20%; left: 63%; }
 
 .home-hero .home-hero-grid {
   opacity: 0.06;
@@ -820,9 +779,8 @@ a {
     font-size: clamp(1.9rem, 8vw, 2.5rem);
   }
 
-  .hero-globe {
+  .hero-world-map {
     width: 170px;
-    height: 170px;
   }
 
   .filter-pill {
