@@ -8,13 +8,13 @@ import {
   GraduationCap,
   Globe,
   HelpCircle,
-  MapPin,
   Route,
   Users,
 } from "lucide-react";
 import countries from "../data/countries.json";
 import { useApp } from "../contexts/AppContext";
 import { assetPath } from "../lib/assetPath";
+import worldMap from "../assets/world-map.svg?raw";
 
 function StatRow({
   icon: Icon,
@@ -164,25 +164,11 @@ export default function Home() {
             </Link>
           </div>
           <div className="home-hero-map" aria-label="Pathways available in the USA, Canada, Germany, Australia, Ireland, and the UK">
-            <img
-              src={assetPath("/assets/world-map.svg")}
-              alt=""
+            <div
               className="hero-world-map"
               aria-hidden="true"
+              dangerouslySetInnerHTML={{ __html: worldMap }}
             />
-            {[
-              ["USA", "hero-country-usa"],
-              ["Canada", "hero-country-canada"],
-              ["Germany", "hero-country-germany"],
-              ["Australia", "hero-country-australia"],
-              ["Ireland", "hero-country-ireland"],
-              ["UK", "hero-country-uk"],
-            ].map(([country, position]) => (
-              <div className={`hero-country ${position}`} key={country}>
-                <MapPin size={14} strokeWidth={2.5} />
-                <span>{country}</span>
-              </div>
-            ))}
           </div>
         </div>
       </section>

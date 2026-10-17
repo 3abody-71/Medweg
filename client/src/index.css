@@ -452,39 +452,34 @@ a {
   display: block;
   width: min(100%, 430px);
   height: auto;
-  opacity: 0.78;
-  filter: brightness(0) invert(1);
-  transform: none;
+  opacity: 0.9;
   user-select: none;
 }
 
-.hero-country {
-  position: absolute;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.2rem;
-  padding: 0.28rem 0.42rem;
-  border: 1px solid rgba(255, 255, 255, 0.28);
-  border-radius: 999px;
-  background: rgba(9, 63, 91, 0.48);
-  color: rgba(255, 255, 255, 0.96);
-  font-size: 0.62rem;
-  font-weight: 800;
-  letter-spacing: 0.02em;
-  white-space: nowrap;
-  box-shadow: 0 5px 12px rgba(6, 61, 91, 0.12);
+.hero-world-map svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
 }
 
-.hero-country svg {
-  color: #f4c66b;
+.hero-world-map svg path {
+  fill: rgba(255, 255, 255, 0.3);
+  stroke: rgba(255, 255, 255, 0.78);
+  stroke-width: 0.65;
+  vector-effect: non-scaling-stroke;
 }
 
-.hero-country-usa { top: 39%; left: 5%; }
-.hero-country-canada { top: 18%; left: 12%; }
-.hero-country-germany { top: 34%; left: 61%; }
-.hero-country-australia { bottom: 18%; right: 8%; }
-.hero-country-ireland { top: 27%; left: 55%; }
-.hero-country-uk { top: 20%; left: 63%; }
+.hero-world-map svg #us,
+.hero-world-map svg #ca,
+.hero-world-map svg #de,
+.hero-world-map svg #gb,
+.hero-world-map svg #ie,
+.hero-world-map svg #au {
+  fill: #ef4444;
+  stroke: #fff;
+  stroke-width: 1.1;
+}
 
 .home-hero .home-hero-grid {
   opacity: 0.06;
@@ -779,10 +774,6 @@ a {
 
   .home-hero h1 {
     font-size: clamp(1.9rem, 8vw, 2.5rem);
-  }
-
-  .hero-world-map {
-    width: 170px;
   }
 
   .filter-pill {
