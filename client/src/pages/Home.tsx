@@ -159,14 +159,8 @@ export default function Home() {
               ) : null}
             </div>
             <h1 className="mt-4 text-3xl font-extrabold leading-tight tracking-tight text-white sm:text-4xl md:text-[42px]">
-              Welcome to Mediena, your first international medical mentor,
-              helping you find the best pathway for your medical journey.
+              MedWeg is your mentor to match your medical residency.
             </h1>
-            <p className="mt-4 max-w-2xl text-sm leading-6 text-white/90 md:text-[15px]">
-              Every pathway below has a different sequence of exams, language
-              evidence, registration, and applications. Start with context, then
-              verify the detail.
-            </p>
             <div className="mt-6 flex items-center gap-2 text-sm">
               <span className="stat-number text-2xl font-extrabold text-white">
                 {orderedCountries.length}
