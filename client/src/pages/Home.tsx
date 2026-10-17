@@ -159,7 +159,7 @@ export default function Home() {
               ) : null}
             </div>
             <h1 className="mt-4 text-3xl font-extrabold leading-tight tracking-tight text-white sm:text-4xl md:text-[42px]">
-              MedWeg is your mentor to match your medical residency.
+              Welcome to MedWeg, your mentor for earning your medical residency abroad.
             </h1>
           </div>
         </div>
