@@ -12,11 +12,12 @@ import {
   X,
 } from "lucide-react";
 import { useApp } from "../contexts/AppContext";
+import { FEATURE_VISIBILITY } from "../config/featureVisibility";
 
 const TOPICS = [
   "All discussions",
   "Countries",
-  "Specialties",
+  ...(FEATURE_VISIBILITY.specialties ? ["Specialties"] : []),
   "Exams & licensing",
   "Student life",
 ];
@@ -99,7 +100,9 @@ export default function Community() {
 
   const visiblePosts = useMemo(() => {
     const normalizedQuery = query.trim().toLowerCase();
-    return posts.filter((post) => {
+    return posts.filter(post => {
+      if (!FEATURE_VISIBILITY.specialties && post.topic === "Specialties")
+        return false;
       const matchesTopic =
         activeTopic === "All discussions" || post.topic === activeTopic;
       const matchesQuery =
@@ -139,16 +142,16 @@ export default function Community() {
 
   const handleLike = (post: CommunityPost) => {
     const alreadyLiked = likedIds.includes(post.id);
-    const nextPosts = posts.map((item) =>
+    const nextPosts = posts.map(item =>
       item.id === post.id
         ? { ...item, likes: Math.max(0, item.likes + (alreadyLiked ? -1 : 1)) }
         : item
     );
     setPosts(nextPosts);
     savePosts(nextPosts);
-    setLikedIds((current) =>
+    setLikedIds(current =>
       alreadyLiked
-        ? current.filter((id) => id !== post.id)
+        ? current.filter(id => id !== post.id)
         : [...current, post.id]
     );
   };
@@ -179,7 +182,9 @@ export default function Community() {
               <Plus size={15} /> Start a discussion
             </button>
             <span className="text-xs text-white/70">
-              {profile.name ? `Welcome, ${profile.name.split(" ")[0]}.` : "No account needed to explore."}
+              {profile.name
+                ? `Welcome, ${profile.name.split(" ")[0]}.`
+                : "No account needed to explore."}
             </span>
           </div>
         </div>
@@ -187,10 +192,30 @@ export default function Community() {
 
       <section className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
         {[
-          { icon: BookOpen, label: "Countries", note: "Routes and requirements" },
-          { icon: Sparkles, label: "Specialties", note: "Fit, lifestyle, and scope" },
-          { icon: Clock3, label: "Exams & licensing", note: "Plans and preparation" },
-          { icon: MessageCircle, label: "Student life", note: "The experience between steps" },
+          {
+            icon: BookOpen,
+            label: "Countries",
+            note: "Routes and requirements",
+          },
+          ...(FEATURE_VISIBILITY.specialties
+            ? [
+                {
+                  icon: Sparkles,
+                  label: "Specialties",
+                  note: "Fit, lifestyle, and scope",
+                },
+              ]
+            : []),
+          {
+            icon: Clock3,
+            label: "Exams & licensing",
+            note: "Plans and preparation",
+          },
+          {
+            icon: MessageCircle,
+            label: "Student life",
+            note: "The experience between steps",
+          },
         ].map(({ icon: Icon, label, note }) => (
           <button
             key={label}
@@ -214,7 +239,9 @@ export default function Community() {
           <div className="flex items-start justify-between gap-4">
             <div>
               <div className="eyebrow">Share what you know</div>
-              <h2 className="mt-2 text-xl font-extrabold">Start a discussion</h2>
+              <h2 className="mt-2 text-xl font-extrabold">
+                Start a discussion
+              </h2>
               <p className="mt-1 text-xs leading-5 text-muted-foreground">
                 Add a question, resource, or experience that could help another
                 student.
@@ -235,7 +262,7 @@ export default function Community() {
               <input
                 type="text"
                 value={title}
-                onChange={(event) => setTitle(event.target.value)}
+                onChange={event => setTitle(event.target.value)}
                 placeholder="For example: Which route is realistic after internship?"
                 className="mt-2 h-11 w-full rounded-lg border border-border bg-background/60 px-3 text-sm outline-hidden focus:border-primary/50 focus:ring-2 focus:ring-primary/15"
                 data-testid="input-community-title"
@@ -246,7 +273,7 @@ export default function Community() {
                 <span className="text-xs font-bold">Your message</span>
                 <textarea
                   value={body}
-                  onChange={(event) => setBody(event.target.value)}
+                  onChange={event => setBody(event.target.value)}
                   rows={5}
                   placeholder="Share the context, question, or resource you want to discuss."
                   className="mt-2 w-full resize-y rounded-xl border border-border bg-background/60 p-3 text-sm leading-6 outline-hidden focus:border-primary/50 focus:ring-2 focus:ring-primary/15"
@@ -258,12 +285,12 @@ export default function Community() {
                 <div className="relative mt-2">
                   <select
                     value={topic}
-                    onChange={(event) => setTopic(event.target.value)}
+                    onChange={event => setTopic(event.target.value)}
                     className="h-11 w-full appearance-none rounded-lg border border-border bg-background/60 px-3 pr-9 text-sm outline-hidden focus:border-primary/50 focus:ring-2 focus:ring-primary/15"
                     data-testid="select-community-topic"
                   >
-                    {TOPICS.filter((item) => item !== "All discussions").map(
-                      (item) => (
+                    {TOPICS.filter(item => item !== "All discussions").map(
+                      item => (
                         <option key={item} value={item}>
                           {item}
                         </option>
@@ -316,7 +343,7 @@ export default function Community() {
             <input
               type="search"
               value={query}
-              onChange={(event) => setQuery(event.target.value)}
+              onChange={event => setQuery(event.target.value)}
               placeholder="Search discussions"
               className="h-10 w-full rounded-lg border border-border bg-card pl-9 pr-3 text-sm outline-hidden focus:border-primary/50 focus:ring-2 focus:ring-primary/15"
               aria-label="Search discussions"
@@ -325,7 +352,7 @@ export default function Community() {
         </div>
 
         <div className="mt-5 flex flex-wrap gap-2">
-          {TOPICS.map((item) => (
+          {TOPICS.map(item => (
             <button
               key={item}
               type="button"
@@ -340,7 +367,7 @@ export default function Community() {
         </div>
 
         <div className="mt-5 grid gap-4 lg:grid-cols-2">
-          {visiblePosts.map((post) => {
+          {visiblePosts.map(post => {
             const liked = likedIds.includes(post.id);
             return (
               <article
@@ -394,7 +421,9 @@ export default function Community() {
         {visiblePosts.length === 0 && (
           <div className="mt-5 rounded-2xl border border-dashed border-border bg-card/60 p-10 text-center">
             <Search size={20} className="mx-auto text-muted-foreground" />
-            <h3 className="mt-3 text-sm font-extrabold">No discussions found</h3>
+            <h3 className="mt-3 text-sm font-extrabold">
+              No discussions found
+            </h3>
             <p className="mt-1 text-xs text-muted-foreground">
               Try another topic or search term, or start the first discussion.
             </p>
@@ -407,5 +436,3 @@ export default function Community() {
 
 // Keep this page intentionally client-only until the shared community service is connected.
 export type { CommunityPost };
-
-

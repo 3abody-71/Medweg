@@ -1,5 +1,11 @@
-import { Link, useNavigate, useParams } from "react-router-dom";
-import { ArrowLeft, BookOpen, ExternalLink, Info, Lock, Milestone } from "lucide-react";
+import { Link, Navigate, useParams } from "react-router-dom";
+import {
+  ArrowLeft,
+  BookOpen,
+  ExternalLink,
+  Lock,
+  Milestone,
+} from "lucide-react";
 import countries from "../data/countries.json";
 import { useApp } from "../contexts/AppContext";
 import GermanyPathway from "../components/GermanyPathway";
@@ -9,13 +15,15 @@ import UkPathway from "../components/UkPathway";
 import IrelandPathway from "../components/IrelandPathway";
 import AustraliaPathway from "../components/AustraliaPathway";
 import { assetPath } from "../lib/assetPath";
+import { isCountryVisible } from "../config/featureVisibility";
 
 export default function CountryDetail() {
   const { id } = useParams<{ id: string }>();
-  const navigate = useNavigate();
   const { savedCountryIds, toggleCountry } = useApp();
 
   const country = countries.find(c => c.id === id);
+
+  if (id && !isCountryVisible(id)) return <Navigate to="/" replace />;
 
   if (!country) {
     return (
@@ -48,7 +56,6 @@ export default function CountryDetail() {
         <ArrowLeft size={14} /> Country pathways
       </Link>
 
-      {/* Header */}
       <div className="overflow-hidden rounded-2xl border border-border bg-card shadow-sm">
         <div className="country-card-image h-56">
           <img
@@ -104,7 +111,6 @@ export default function CountryDetail() {
         country.id !== "ireland" &&
         country.id !== "australia" && (
           <>
-            {/* At a glance */}
             <section>
               <h2 className="text-lg font-extrabold">At a glance</h2>
               <div className="mt-4 grid gap-4 sm:grid-cols-2">
@@ -142,8 +148,6 @@ export default function CountryDetail() {
                 </div>
               </div>
             </section>
-
-            {/* Citizenship */}
             <section className="citizenship-card rounded-2xl p-6">
               <div className="flex items-center gap-2">
                 <Lock size={16} className="text-[#c77f1e]" />
@@ -170,8 +174,6 @@ export default function CountryDetail() {
                 </a>
               )}
             </section>
-
-            {/* Requirements + steps */}
             <div className="grid gap-6 lg:grid-cols-2">
               <section>
                 <h2 className="text-lg font-extrabold">Typical requirements</h2>
@@ -184,7 +186,6 @@ export default function CountryDetail() {
                   ))}
                 </ul>
               </section>
-
               <section>
                 <h2 className="text-lg font-extrabold">A practical sequence</h2>
                 <p className="mt-2 text-xs text-muted-foreground">
@@ -201,8 +202,6 @@ export default function CountryDetail() {
                 </ol>
               </section>
             </div>
-
-            {/* What the road looks like */}
             <section>
               <h2 className="text-lg font-extrabold">
                 What the road usually looks like
@@ -215,8 +214,6 @@ export default function CountryDetail() {
                 country, but the shape of the road is recognisable.
               </p>
             </section>
-
-            {/* Country updates */}
             <section className="rounded-2xl border border-dashed border-border bg-card/60 p-6">
               <div className="flex items-center gap-2">
                 <Milestone size={16} className="text-muted-foreground" />
@@ -240,25 +237,19 @@ export default function CountryDetail() {
                   </p>
                 </div>
               </div>
-              <div className="mt-4 flex flex-wrap items-center gap-2">
-                <button
-                  onClick={() => navigate("/questions")}
-                  className="btn-quiet inline-flex items-center gap-2 rounded-lg px-4 py-2 text-xs font-bold"
-                  data-testid={`button-add-letter-${country.id}`}
-                >
-                  <Info size={13} /> Add a video or status letter
-                </button>
-              </div>
             </section>
           </>
         )}
 
-      {/* Pathway information */}
       <section id="pathway-info" className="scroll-mt-24">
         <div className="flex items-end justify-between gap-3">
           <div>
-            <p className="text-xs font-bold uppercase tracking-wider text-primary">Pathway library</p>
-            <h2 className="mt-1 text-lg font-extrabold">More about the {country.name} pathway</h2>
+            <p className="text-xs font-bold uppercase tracking-wider text-primary">
+              Pathway library
+            </p>
+            <h2 className="mt-1 text-lg font-extrabold">
+              More about the {country.name} pathway
+            </h2>
           </div>
           <BookOpen size={20} className="text-primary" />
         </div>
@@ -266,19 +257,22 @@ export default function CountryDetail() {
           <article className="rounded-xl border border-border bg-card p-4">
             <h3 className="text-sm font-extrabold">Licensing & registration</h3>
             <p className="mt-2 text-xs leading-5 text-muted-foreground">
-              Understand the main authority, verification steps, and registration milestones for this route.
+              Understand the main authority, verification steps, and
+              registration milestones for this route.
             </p>
           </article>
           <article className="rounded-xl border border-border bg-card p-4">
             <h3 className="text-sm font-extrabold">Language & documents</h3>
             <p className="mt-2 text-xs leading-5 text-muted-foreground">
-              Prepare the language evidence and core documents commonly requested from international graduates.
+              Prepare the language evidence and core documents commonly
+              requested from international graduates.
             </p>
           </article>
           <article className="rounded-xl border border-border bg-card p-4">
             <h3 className="text-sm font-extrabold">Training & applications</h3>
             <p className="mt-2 text-xs leading-5 text-muted-foreground">
-              Map the training stage, application route, and practical next step before you apply.
+              Map the training stage, application route, and practical next step
+              before you apply.
             </p>
           </article>
         </div>

@@ -1,6 +1,7 @@
 import { useMemo, useState } from "react";
 import { Check, ChevronDown, Search, X } from "lucide-react";
 import countrySuggestions from "../data/countrySuggestions.json";
+import { isCountryNameVisible } from "../config/featureVisibility";
 import {
   GRADUATION_STATUSES,
   INTERESTS,
@@ -18,14 +19,17 @@ export default function Profile() {
 
   const suggestedCountries = useMemo(() => {
     const q = countryQuery.trim().toLowerCase();
-    if (!q) return countrySuggestions.slice(0, 8);
-    return countrySuggestions.filter((c) =>
+    const visibleSuggestions = countrySuggestions.filter(c =>
+      isCountryNameVisible(c.name)
+    );
+    if (!q) return visibleSuggestions.slice(0, 8);
+    return visibleSuggestions.filter(c =>
       `${c.name} ${c.region}`.toLowerCase().includes(q)
     );
   }, [countryQuery]);
 
   const update = (patch: Partial<Profile>) => {
-    setProfile((p) => ({ ...p, ...patch }));
+    setProfile(p => ({ ...p, ...patch }));
     setSaved(false);
   };
 
@@ -35,7 +39,7 @@ export default function Profile() {
   ) => {
     update({
       [key]: profile[key].includes(value)
-        ? profile[key].filter((x) => x !== value)
+        ? profile[key].filter(x => x !== value)
         : [...profile[key], value],
     });
   };
@@ -72,7 +76,7 @@ export default function Profile() {
             <input
               type="text"
               value={profile.name}
-              onChange={(e) => update({ name: e.target.value })}
+              onChange={e => update({ name: e.target.value })}
               placeholder="Your preferred name"
               className="mt-2 h-10 w-full rounded-lg border border-border bg-background/60 px-3 text-sm outline-hidden focus:border-primary/50 focus:ring-2 focus:ring-primary/15"
               data-testid="input-profile-name"
@@ -84,7 +88,7 @@ export default function Profile() {
             <input
               type="email"
               value={profile.email}
-              onChange={(e) => update({ email: e.target.value })}
+              onChange={e => update({ email: e.target.value })}
               placeholder="you@example.com"
               className="mt-2 h-10 w-full rounded-lg border border-border bg-background/60 px-3 text-sm outline-hidden focus:border-primary/50 focus:ring-2 focus:ring-primary/15"
               data-testid="input-profile-email"
@@ -96,7 +100,7 @@ export default function Profile() {
             <input
               type="text"
               value={profile.medicalSchool}
-              onChange={(e) => update({ medicalSchool: e.target.value })}
+              onChange={e => update({ medicalSchool: e.target.value })}
               placeholder="University or medical school"
               className="mt-2 h-10 w-full rounded-lg border border-border bg-background/60 px-3 text-sm outline-hidden focus:border-primary/50 focus:ring-2 focus:ring-primary/15"
               data-testid="input-profile-medical-school"
@@ -108,7 +112,7 @@ export default function Profile() {
             <input
               type="text"
               value={profile.currentCountry}
-              onChange={(e) => update({ currentCountry: e.target.value })}
+              onChange={e => update({ currentCountry: e.target.value })}
               placeholder="Current country"
               className="mt-2 h-10 w-full rounded-lg border border-border bg-background/60 px-3 text-sm outline-hidden focus:border-primary/50 focus:ring-2 focus:ring-primary/15"
               data-testid="input-current-country"
@@ -120,19 +124,23 @@ export default function Profile() {
             <div className="relative mt-2">
               <select
                 value={profile.currentStudyYear}
-                onChange={(e) => update({ currentStudyYear: e.target.value })}
+                onChange={e => update({ currentStudyYear: e.target.value })}
                 className="h-10 w-full appearance-none rounded-lg border border-border bg-background/60 px-3 pr-9 text-sm outline-hidden focus:border-primary/50 focus:ring-2 focus:ring-primary/15"
                 data-testid="select-current-study-year"
               >
                 <option value="">Select your year</option>
-                <option value="Pre-medical / foundation">Pre-medical / foundation</option>
+                <option value="Pre-medical / foundation">
+                  Pre-medical / foundation
+                </option>
                 <option value="Year 1">Year 1</option>
                 <option value="Year 2">Year 2</option>
                 <option value="Year 3">Year 3</option>
                 <option value="Year 4">Year 4</option>
                 <option value="Year 5">Year 5</option>
                 <option value="Year 6">Year 6</option>
-                <option value="Internship / foundation year">Internship / foundation year</option>
+                <option value="Internship / foundation year">
+                  Internship / foundation year
+                </option>
                 <option value="Graduated">Graduated</option>
               </select>
               <ChevronDown
@@ -151,7 +159,7 @@ export default function Profile() {
               type="text"
               inputMode="decimal"
               value={profile.residenceCost}
-              onChange={(e) => update({ residenceCost: e.target.value })}
+              onChange={e => update({ residenceCost: e.target.value })}
               placeholder="e.g. 500 USD"
               className="mt-2 h-10 w-full rounded-lg border border-border bg-background/60 px-3 text-sm outline-hidden focus:border-primary/50 focus:ring-2 focus:ring-primary/15"
               data-testid="input-residence-cost"
@@ -164,7 +172,7 @@ export default function Profile() {
               type="text"
               inputMode="numeric"
               value={profile.graduationYear}
-              onChange={(e) => update({ graduationYear: e.target.value })}
+              onChange={e => update({ graduationYear: e.target.value })}
               placeholder="e.g. 2026"
               className="mt-2 h-10 w-full rounded-lg border border-border bg-background/60 px-3 text-sm outline-hidden focus:border-primary/50 focus:ring-2 focus:ring-primary/15"
               data-testid="input-profile-graduation-year"
@@ -179,12 +187,12 @@ export default function Profile() {
             <div className="relative mt-2">
               <select
                 value={profile.graduationStatus}
-                onChange={(e) => update({ graduationStatus: e.target.value })}
+                onChange={e => update({ graduationStatus: e.target.value })}
                 className="h-10 w-full appearance-none rounded-lg border border-border bg-background/60 px-3 pr-9 text-sm outline-hidden focus:border-primary/50 focus:ring-2 focus:ring-primary/15"
                 data-testid="select-graduation-status"
               >
                 <option value="">Graduation status</option>
-                {GRADUATION_STATUSES.map((s) => (
+                {GRADUATION_STATUSES.map(s => (
                   <option key={s} value={s}>
                     {s}
                   </option>
@@ -202,11 +210,11 @@ export default function Profile() {
             <div className="relative mt-2">
               <select
                 value={profile.workStyle}
-                onChange={(e) => update({ workStyle: e.target.value })}
+                onChange={e => update({ workStyle: e.target.value })}
                 className="h-10 w-full appearance-none rounded-lg border border-border bg-background/60 px-3 pr-9 text-sm outline-hidden focus:border-primary/50 focus:ring-2 focus:ring-primary/15"
               >
                 <option value="">Preferred work style</option>
-                {WORK_STYLES.map((s) => (
+                {WORK_STYLES.map(s => (
                   <option key={s} value={s}>
                     {s}
                   </option>
@@ -236,10 +244,10 @@ export default function Profile() {
           <input
             type="text"
             value={countryQuery}
-            onChange={(e) => setCountryQuery(e.target.value)}
+            onChange={e => setCountryQuery(e.target.value)}
             onFocus={() => setCountryOpen(true)}
             onBlur={() => setTimeout(() => setCountryOpen(false), 150)}
-            placeholder="Type to filter, or pick from the suggestions — Sudan, Egypt, Yemen, and 50+ more included."
+            placeholder="Type to filter, or pick from the available countries."
             className="h-10 w-full rounded-lg border border-border bg-background/60 pl-9 pr-9 text-sm outline-hidden focus:border-primary/50 focus:ring-2 focus:ring-primary/15"
           />
           {countryQuery && (
@@ -254,13 +262,13 @@ export default function Profile() {
 
           {countryOpen && (
             <div className="absolute z-20 mt-1.5 max-h-56 w-full overflow-y-auto rounded-xl border border-border bg-popover p-1.5 shadow-lg">
-              {suggestedCountries.map((c) => {
+              {suggestedCountries.map(c => {
                 const selected = profile.targetCountries.includes(c.name);
                 return (
                   <button
                     key={c.value}
                     type="button"
-                    onMouseDown={(e) => {
+                    onMouseDown={e => {
                       e.preventDefault();
                       toggleArrayItem("targetCountries", c.name);
                     }}
@@ -281,7 +289,7 @@ export default function Profile() {
         </div>
 
         <div className="mt-4 flex flex-wrap gap-2">
-          {profile.targetCountries.map((name) => (
+          {profile.targetCountries.map(name => (
             <span
               key={name}
               className="inline-flex items-center gap-1.5 rounded-full border border-border bg-secondary/60 px-3 py-1 text-xs font-bold"
@@ -305,7 +313,7 @@ export default function Profile() {
           Interests are signals, not commitments.
         </p>
         <div className="mt-4 flex flex-wrap gap-2">
-          {INTERESTS.map((interest) => {
+          {INTERESTS.map(interest => {
             const selected = profile.interests.includes(interest);
             return (
               <button
@@ -330,7 +338,7 @@ export default function Profile() {
           Pick the priorities you want to keep visible.
         </p>
         <div className="mt-4 flex flex-wrap gap-2">
-          {PRIORITIES.map((priority) => {
+          {PRIORITIES.map(priority => {
             const selected = profile.priorities.includes(priority);
             return (
               <button

@@ -5,15 +5,17 @@ import {
   Calendar,
   Banknote,
   Compass,
-  GraduationCap,
   Globe,
-  HelpCircle,
   Route,
   Users,
 } from "lucide-react";
 import countries from "../data/countries.json";
 import { useApp } from "../contexts/AppContext";
 import { assetPath } from "../lib/assetPath";
+import {
+  FEATURE_VISIBILITY,
+  isCountryVisible,
+} from "../config/featureVisibility";
 
 function StatRow({
   icon: Icon,
@@ -116,13 +118,6 @@ function CountryCard({
           >
             <BookOpen size={13} /> Pathway info
           </Link>
-          <Link
-            to={`/mentors?country=${country.id}`}
-            className="col-start-2 row-span-2 row-start-1 inline-flex min-h-full items-center justify-center gap-1.5 rounded-lg border border-[#d6a23d]/45 bg-[#fff8e8] px-2.5 py-2 text-[11px] font-bold text-[#9a6816] transition-colors hover:bg-[#fff1c9]"
-            data-testid={`link-mentor-option-${country.id}`}
-          >
-            <GraduationCap size={13} /> {country.name} mentor
-          </Link>
         </div>
       </div>
     </article>
@@ -131,9 +126,9 @@ function CountryCard({
 
 export default function Home() {
   const { profile } = useApp();
-  const orderedCountries = [...countries].sort(
-    (a, b) => Number(b.id === "usa") - Number(a.id === "usa")
-  );
+  const orderedCountries = countries
+    .filter(country => isCountryVisible(country.id))
+    .sort((a, b) => Number(b.id === "usa") - Number(a.id === "usa"));
 
   return (
     <div className="space-y-10">
@@ -159,7 +154,8 @@ export default function Home() {
               ) : null}
             </div>
             <h1 className="mt-4 text-3xl font-extrabold leading-tight tracking-tight text-white sm:text-4xl md:text-[42px]">
-              Welcome to MedWeg, your mentor for earning your medical residency abroad.
+              Welcome to MedWeg, your mentor for earning your medical residency
+              abroad.
             </h1>
           </div>
         </div>
@@ -168,20 +164,22 @@ export default function Home() {
       {/* Quick links */}
       <div className="flex flex-wrap items-center justify-between gap-2">
         <div className="flex flex-wrap items-center gap-2">
-          <Link
-            to="/explore"
-            className="btn-quiet inline-flex items-center gap-2 rounded-lg px-4 py-2.5 text-xs font-bold"
-            data-testid="link-home-explore"
-          >
-            <Compass size={14} /> Explore specialties
-          </Link>
-          <Link
-            to="/questions"
-            className="btn-quiet inline-flex items-center gap-2 rounded-lg px-4 py-2.5 text-xs font-bold"
-            data-testid="link-home-questions"
-          >
-            <HelpCircle size={14} /> Ask a question
-          </Link>
+          {FEATURE_VISIBILITY.specialties && (
+            <Link
+              to="/explore"
+              className="btn-quiet inline-flex items-center gap-2 rounded-lg px-4 py-2.5 text-xs font-bold"
+            >
+              Explore specialties
+            </Link>
+          )}
+          {FEATURE_VISIBILITY.questions && (
+            <Link
+              to="/questions"
+              className="btn-quiet inline-flex items-center gap-2 rounded-lg px-4 py-2.5 text-xs font-bold"
+            >
+              Ask a question
+            </Link>
+          )}
           <Link
             to="/profile"
             className="btn-quiet inline-flex items-center gap-2 rounded-lg px-4 py-2.5 text-xs font-bold"
@@ -206,11 +204,7 @@ export default function Home() {
         <div className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {orderedCountries.map((country, index) => {
             return (
-              <CountryCard
-                key={country.id}
-                country={country}
-                index={index}
-              />
+              <CountryCard key={country.id} country={country} index={index} />
             );
           })}
         </div>

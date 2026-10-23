@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import {
-  Compass,
-  HelpCircle,
   User,
   Mail,
   Phone,
@@ -10,21 +8,43 @@ import {
   X,
   Stethoscope,
   Users,
-  ArrowUpRight,
   Info,
   ShieldCheck,
+  Compass,
+  HelpCircle,
   GraduationCap,
 } from "lucide-react";
 import { assetPath } from "../lib/assetPath";
 import { useAuth } from "../contexts/AuthContext";
+import { FEATURE_VISIBILITY } from "../config/featureVisibility";
 
 const NAV_ITEMS = [
-  { href: "/", label: "Countries", icon: Stethoscope },
-  { href: "/explore", label: "Specialties", icon: Compass },
-  { href: "/questions", label: "Questions", icon: HelpCircle },
-  { href: "/mentors", label: "Mentors", icon: GraduationCap },
-  { href: "/profile", label: "Discover your pathway", icon: User },
-  { href: "/community", label: "Community", icon: Users },
+  { href: "/", label: "Countries", icon: Stethoscope, enabled: true },
+  {
+    href: "/explore",
+    label: "Specialties",
+    icon: Compass,
+    enabled: FEATURE_VISIBILITY.specialties,
+  },
+  {
+    href: "/questions",
+    label: "Questions",
+    icon: HelpCircle,
+    enabled: FEATURE_VISIBILITY.questions,
+  },
+  {
+    href: "/mentors",
+    label: "Mentors",
+    icon: GraduationCap,
+    enabled: FEATURE_VISIBILITY.mentors,
+  },
+  {
+    href: "/profile",
+    label: "Discover your pathway",
+    icon: User,
+    enabled: true,
+  },
+  { href: "/community", label: "Community", icon: Users, enabled: true },
 ];
 
 export default function SiteLayout({
@@ -79,19 +99,21 @@ export default function SiteLayout({
           </Link>
 
           <nav className="hidden items-center gap-5 lg:flex xl:gap-7">
-            {NAV_ITEMS.map(({ href, label, icon: Icon }) => (
-              <Link
-                key={href}
-                to={href}
-                className={`topbar-link inline-flex items-center gap-2 ${isActive(href) ? "active" : ""}`}
-                data-testid={`link-nav-${label.toLowerCase().replace(/\s+/g, "-")}`}
-              >
-                <span className="nav-icon grid h-7 w-7 shrink-0 place-items-center rounded-lg bg-secondary/70">
-                  <Icon size={15} strokeWidth={2} />
-                </span>
-                {label}
-              </Link>
-            ))}
+            {NAV_ITEMS.filter(item => item.enabled).map(
+              ({ href, label, icon: Icon }) => (
+                <Link
+                  key={href}
+                  to={href}
+                  className={`topbar-link inline-flex items-center gap-2 ${isActive(href) ? "active" : ""}`}
+                  data-testid={`link-nav-${label.toLowerCase().replace(/\s+/g, "-")}`}
+                >
+                  <span className="nav-icon grid h-7 w-7 shrink-0 place-items-center rounded-lg bg-secondary/70">
+                    <Icon size={15} strokeWidth={2} />
+                  </span>
+                  {label}
+                </Link>
+              )
+            )}
           </nav>
 
           <div className="flex items-center gap-2">
@@ -125,18 +147,20 @@ export default function SiteLayout({
         {mobileOpen && (
           <div className="border-t border-border bg-card lg:hidden">
             <nav className="mx-auto flex max-w-[1450px] flex-col px-4 py-3">
-              {NAV_ITEMS.map(({ href, label, icon: Icon }) => (
-                <Link
-                  key={href}
-                  to={href}
-                  className={`topbar-link flex items-center gap-3 rounded-lg px-3 py-3 ${isActive(href) ? "active" : ""}`}
-                >
-                  <span className="grid h-8 w-8 shrink-0 place-items-center rounded-lg bg-secondary/70">
-                    <Icon size={16} strokeWidth={2} />
-                  </span>
-                  {label}
-                </Link>
-              ))}
+              {NAV_ITEMS.filter(item => item.enabled).map(
+                ({ href, label, icon: Icon }) => (
+                  <Link
+                    key={href}
+                    to={href}
+                    className={`topbar-link flex items-center gap-3 rounded-lg px-3 py-3 ${isActive(href) ? "active" : ""}`}
+                  >
+                    <span className="grid h-8 w-8 shrink-0 place-items-center rounded-lg bg-secondary/70">
+                      <Icon size={16} strokeWidth={2} />
+                    </span>
+                    {label}
+                  </Link>
+                )
+              )}
               <Link
                 to={user ? "/profile" : "/auth"}
                 className="topbar-link flex items-center gap-3 rounded-lg px-3 py-3"
@@ -163,24 +187,6 @@ export default function SiteLayout({
 
       <footer className="border-t border-border bg-card/60">
         <div className="mx-auto flex max-w-[1450px] flex-col gap-6 px-4 py-8 sm:px-6 lg:px-10">
-          <div className="flex flex-col gap-5 rounded-2xl border border-primary/15 bg-primary/[0.06] p-5 sm:flex-row sm:items-center sm:justify-between sm:p-6">
-            <div>
-              <p className="text-sm font-extrabold tracking-tight text-foreground">
-                Have a question about your pathway?
-              </p>
-              <p className="mt-1 text-xs leading-5 text-muted-foreground">
-                Contact Mediena for guidance as you compare training pathways.
-              </p>
-            </div>
-            <Link
-              to="/questions"
-              className="btn-contact inline-flex shrink-0 items-center justify-center gap-2 rounded-lg px-5 py-2.5 text-sm"
-              data-testid="button-contact-desktop"
-            >
-              Ask a question
-            </Link>
-          </div>
-
           <div className="footer-grid">
             <div className="footer-brand">
               <div className="flex items-center gap-3">
@@ -206,18 +212,13 @@ export default function SiteLayout({
               <Link to="/" className="footer-link">
                 What is Mediena?
               </Link>
-              <Link to="/explore" className="footer-link">
-                Explore specialties
-              </Link>
               <Link to="/profile" className="footer-link">
                 Discover your pathway
               </Link>
             </div>
 
             <div className="footer-column">
-              <h2 className="footer-heading">
-                Contact
-              </h2>
+              <h2 className="footer-heading">Contact</h2>
               <a
                 href="mailto:abodysaif2005@gmail.com"
                 className="footer-link break-all"
@@ -227,14 +228,8 @@ export default function SiteLayout({
               <a href="tel:+201203298818" className="footer-link">
                 +201203298818
               </a>
-              <Link to="/questions" className="footer-link">
-                Ask a question
-              </Link>
               <Link to="/community" className="footer-link">
                 Join the community
-              </Link>
-              <Link to="/mentors" className="footer-link">
-                Find a mentor
               </Link>
             </div>
 
@@ -256,24 +251,6 @@ export default function SiteLayout({
               </h2>
               <Link to="/community" className="footer-link">
                 Community
-              </Link>
-              <Link to="/questions" className="footer-link">
-                Ask a question
-              </Link>
-              <Link to="/mentors" className="footer-link">
-                Mentors
-              </Link>
-            </div>
-
-            <div className="footer-column">
-              <h2 className="footer-heading">
-                <HelpCircle size={15} /> FAQ
-              </h2>
-              <Link to="/questions" className="footer-link">
-                Common questions
-              </Link>
-              <Link to="/questions" className="footer-link">
-                How pathways work <ArrowUpRight size={13} />
               </Link>
             </div>
           </div>
