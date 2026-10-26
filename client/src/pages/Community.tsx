@@ -1,78 +1,107 @@
 import { useMemo, useState } from "react";
 import {
-  BookOpen,
+  Bookmark,
+  Check,
   ChevronDown,
-  Clock3,
+  Heart,
   MessageCircle,
+  MoreHorizontal,
+  PenLine,
   Plus,
+  Repeat2,
   Search,
   Sparkles,
-  ThumbsUp,
+  UserPlus,
   Users,
   X,
 } from "lucide-react";
+import { Link } from "react-router-dom";
 import { useApp } from "../contexts/AppContext";
 import { FEATURE_VISIBILITY } from "../config/featureVisibility";
 
 const TOPICS = [
-  "All discussions",
+  "For you",
   "Countries",
   ...(FEATURE_VISIBILITY.specialties ? ["Specialties"] : []),
   "Exams & licensing",
   "Student life",
 ];
 
+type Member = {
+  name: string;
+  handle: string;
+  role: string;
+  initials: string;
+  tone: string;
+  verified?: boolean;
+};
+
 type CommunityPost = {
   id: string;
-  title: string;
+  author: Member;
   body: string;
   topic: string;
-  author: string;
   time: string;
   replies: number;
   likes: number;
-  isStarter?: boolean;
+  reposts: number;
+  starter?: boolean;
 };
+
+const MEMBERS: Member[] = [
+  { name: "Medweg Guides", handle: "medweg", role: "Pathway editors", initials: "M", tone: "blue", verified: true },
+  { name: "Lina Hassan", handle: "linah", role: "IMG · UK pathway", initials: "LH", tone: "peach" },
+  { name: "Omar Khaled", handle: "omark", role: "Final-year medical student", initials: "OK", tone: "mint" },
+  { name: "Sara Mensah", handle: "saram", role: "Resident · Canada", initials: "SM", tone: "lavender" },
+];
 
 const STARTER_POSTS: CommunityPost[] = [
   {
     id: "compare-routes",
-    title: "What should I compare before choosing a country?",
-    body: "A useful starting point is to compare registration steps, language evidence, training length, cost, and how realistic the application timeline is for your current stage.",
+    author: MEMBERS[0],
+    body: "Before choosing a country, compare the full route—not just the exam. Registration, language evidence, cost, visa clarity, training length, and your realistic application timeline all matter.",
     topic: "Countries",
-    author: "Mediena starter",
-    time: "Community guide",
-    replies: 0,
-    likes: 0,
-    isStarter: true,
+    time: "2h",
+    replies: 12,
+    likes: 38,
+    reposts: 7,
+    starter: true,
   },
   {
-    id: "finding-specialty-fit",
-    title: "How are you narrowing down your specialty options?",
-    body: "Share the kind of work that gives you energy: acute decisions, continuity of care, procedures, diagnostics, research, or working closely with families.",
-    topic: "Specialties",
-    author: "Mediena starter",
-    time: "Community guide",
-    replies: 0,
-    likes: 0,
-    isStarter: true,
-  },
-  {
-    id: "licensing-plans",
-    title: "Where do you keep your licensing checklist?",
-    body: "A country-by-country checklist can make a complicated route easier to manage. What do you track first: exams, language, documents, registration, or applications?",
+    id: "uk-plab",
+    author: MEMBERS[1],
+    body: "For anyone preparing for PLAB 1: what resources helped you most, and how far in advance did you book your exam? I’m building a 12-week plan and would love to compare approaches.",
     topic: "Exams & licensing",
-    author: "Mediena starter",
-    time: "Community guide",
-    replies: 0,
-    likes: 0,
-    isStarter: true,
+    time: "4h",
+    replies: 19,
+    likes: 26,
+    reposts: 3,
+  },
+  {
+    id: "specialty-fit",
+    author: MEMBERS[2],
+    body: "I’m between internal medicine and paediatrics. The work itself matters more to me than the “easy” route. How did you decide which daily rhythm and patient relationship fit you best?",
+    topic: "Specialties",
+    time: "6h",
+    replies: 8,
+    likes: 21,
+    reposts: 2,
+  },
+  {
+    id: "first-month",
+    author: MEMBERS[3],
+    body: "Small reminder for anyone moving countries: the first month is mostly admin. Make one folder for identity documents, translations, exam receipts, and every email from the licensing body.",
+    topic: "Student life",
+    time: "1d",
+    replies: 6,
+    likes: 44,
+    reposts: 11,
   },
 ];
 
 function loadPosts(): CommunityPost[] {
   try {
-    const raw = localStorage.getItem("medweg-community-posts");
+    const raw = localStorage.getItem("medweg-community-feed-v2");
     return raw ? (JSON.parse(raw) as CommunityPost[]) : STARTER_POSTS;
   } catch {
     return STARTER_POSTS;
@@ -81,358 +110,125 @@ function loadPosts(): CommunityPost[] {
 
 function savePosts(posts: CommunityPost[]) {
   try {
-    localStorage.setItem("medweg-community-posts", JSON.stringify(posts));
+    localStorage.setItem("medweg-community-feed-v2", JSON.stringify(posts));
   } catch {
-    // Local storage is a convenience; the page remains usable if it is unavailable.
+    // The feed still works when browser storage is unavailable.
   }
+}
+
+function Avatar({ member, size = "md" }: { member: Member; size?: "sm" | "md" | "lg" }) {
+  return (
+    <span className={`community-avatar community-avatar-${member.tone} community-avatar-${size}`} aria-hidden="true">
+      {member.initials}
+    </span>
+  );
 }
 
 export default function Community() {
   const { profile } = useApp();
   const [posts, setPosts] = useState<CommunityPost[]>(loadPosts);
-  const [activeTopic, setActiveTopic] = useState("All discussions");
+  const [activeTopic, setActiveTopic] = useState("For you");
   const [query, setQuery] = useState("");
   const [composerOpen, setComposerOpen] = useState(false);
-  const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
   const [topic, setTopic] = useState("Countries");
   const [likedIds, setLikedIds] = useState<string[]>([]);
+  const [savedIds, setSavedIds] = useState<string[]>([]);
+  const [followedHandles, setFollowedHandles] = useState<string[]>(["medweg"]);
+  const [selectedMember, setSelectedMember] = useState<Member | null>(null);
 
   const visiblePosts = useMemo(() => {
     const normalizedQuery = query.trim().toLowerCase();
     return posts.filter(post => {
-      if (!FEATURE_VISIBILITY.specialties && post.topic === "Specialties")
-        return false;
-      const matchesTopic =
-        activeTopic === "All discussions" || post.topic === activeTopic;
-      const matchesQuery =
-        !normalizedQuery ||
-        `${post.title} ${post.body} ${post.topic}`
-          .toLowerCase()
-          .includes(normalizedQuery);
+      if (!FEATURE_VISIBILITY.specialties && post.topic === "Specialties") return false;
+      const matchesTopic = activeTopic === "For you" || post.topic === activeTopic;
+      const matchesQuery = !normalizedQuery || `${post.body} ${post.topic} ${post.author.name} ${post.author.handle}`.toLowerCase().includes(normalizedQuery);
       return matchesTopic && matchesQuery;
     });
   }, [activeTopic, posts, query]);
 
-  const handlePublish = () => {
-    const trimmedTitle = title.trim();
-    const trimmedBody = body.trim();
-    if (!trimmedTitle || !trimmedBody) return;
+  const currentMember: Member = profile.name.trim()
+    ? { name: profile.name.trim(), handle: profile.name.trim().toLowerCase().replace(/\s+/g, ""), role: profile.currentCountry || "Medweg member", initials: profile.name.trim().split(/\s+/).map(part => part[0]).join("").slice(0, 2).toUpperCase(), tone: "blue" }
+    : { name: "Your profile", handle: "yourprofile", role: "Complete your profile", initials: "Y", tone: "blue" };
 
-    const nextPosts = [
-      {
-        id: `post-${Date.now()}`,
-        title: trimmedTitle,
-        body: trimmedBody,
-        topic,
-        author: profile.name.trim() || "You",
-        time: "Just now",
-        replies: 0,
-        likes: 0,
-      },
-      ...posts,
-    ];
+  const handlePublish = () => {
+    const trimmedBody = body.trim();
+    if (!trimmedBody) return;
+    const nextPosts = [{ id: `post-${Date.now()}`, author: currentMember, body: trimmedBody, topic, time: "now", replies: 0, likes: 0, reposts: 0 }, ...posts];
     setPosts(nextPosts);
     savePosts(nextPosts);
-    setTitle("");
     setBody("");
     setTopic("Countries");
     setComposerOpen(false);
   };
 
-  const handleLike = (post: CommunityPost) => {
-    const alreadyLiked = likedIds.includes(post.id);
-    const nextPosts = posts.map(item =>
-      item.id === post.id
-        ? { ...item, likes: Math.max(0, item.likes + (alreadyLiked ? -1 : 1)) }
-        : item
-    );
+  const updatePost = (post: CommunityPost, field: "likes" | "reposts", amount: number) => {
+    const nextPosts = posts.map(item => item.id === post.id ? { ...item, [field]: Math.max(0, item[field] + amount) } : item);
     setPosts(nextPosts);
     savePosts(nextPosts);
-    setLikedIds(current =>
-      alreadyLiked
-        ? current.filter(id => id !== post.id)
-        : [...current, post.id]
-    );
   };
 
+  const toggleLike = (post: CommunityPost) => {
+    const liked = likedIds.includes(post.id);
+    updatePost(post, "likes", liked ? -1 : 1);
+    setLikedIds(current => liked ? current.filter(id => id !== post.id) : [...current, post.id]);
+  };
+
+  const toggleSave = (post: CommunityPost) => setSavedIds(current => current.includes(post.id) ? current.filter(id => id !== post.id) : [...current, post.id]);
+  const toggleFollow = (member: Member) => setFollowedHandles(current => current.includes(member.handle) ? current.filter(handle => handle !== member.handle) : [...current, member.handle]);
+
   return (
-    <div className="space-y-8">
-      <section className="community-hero relative overflow-hidden rounded-3xl p-6 text-white shadow-sm sm:p-8">
-        <div className="community-hero-orbit" aria-hidden="true" />
-        <div className="relative z-10 max-w-2xl">
-          <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-[0.16em] text-white/75">
-            <Users size={14} /> Student community
-          </div>
-          <h1 className="mt-4 text-3xl font-extrabold tracking-tight sm:text-4xl">
-            Compare notes. Find your people.
-          </h1>
-          <p className="mt-3 max-w-xl text-sm leading-6 text-white/80">
-            A calm place for students and graduates to exchange practical ideas
-            about countries, specialties, exams, and the next step in the
-            journey.
-          </p>
-          <div className="mt-6 flex flex-wrap items-center gap-3">
-            <button
-              type="button"
-              onClick={() => setComposerOpen(true)}
-              className="inline-flex items-center gap-2 rounded-lg bg-white px-4 py-2.5 text-xs font-bold text-[#17617e] shadow-lg transition-transform hover:-translate-y-0.5"
-              data-testid="button-start-discussion"
-            >
-              <Plus size={15} /> Start a discussion
-            </button>
-            <span className="text-xs text-white/70">
-              {profile.name
-                ? `Welcome, ${profile.name.split(" ")[0]}.`
-                : "No account needed to explore."}
-            </span>
-          </div>
+    <div className="community-page">
+      <section className="community-intro">
+        <div>
+          <div className="eyebrow inline-flex items-center gap-2"><Users size={14} /> The Medweg community</div>
+          <h1 className="mt-3 text-3xl font-extrabold tracking-tight sm:text-4xl">A better place to figure it out together.</h1>
+          <p className="mt-3 max-w-2xl text-sm leading-6 text-muted-foreground">Follow the people, questions, and practical notes that make an international medical journey feel less complicated.</p>
         </div>
+        <button type="button" onClick={() => setComposerOpen(true)} className="btn-primary inline-flex shrink-0 items-center justify-center gap-2 rounded-xl px-4 py-3 text-sm" data-testid="button-start-discussion"><PenLine size={16} /> Share an update</button>
       </section>
 
-      <section className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-        {[
-          {
-            icon: BookOpen,
-            label: "Countries",
-            note: "Routes and requirements",
-          },
-          ...(FEATURE_VISIBILITY.specialties
-            ? [
-                {
-                  icon: Sparkles,
-                  label: "Specialties",
-                  note: "Fit, lifestyle, and scope",
-                },
-              ]
-            : []),
-          {
-            icon: Clock3,
-            label: "Exams & licensing",
-            note: "Plans and preparation",
-          },
-          {
-            icon: MessageCircle,
-            label: "Student life",
-            note: "The experience between steps",
-          },
-        ].map(({ icon: Icon, label, note }) => (
-          <button
-            key={label}
-            type="button"
-            onClick={() => setActiveTopic(label)}
-            className={`rounded-2xl border p-4 text-left transition-colors ${
-              activeTopic === label
-                ? "border-primary/50 bg-secondary/60"
-                : "border-border bg-card hover:border-primary/35 hover:bg-secondary/30"
-            }`}
-          >
-            <Icon size={18} className="text-primary" />
-            <div className="mt-3 text-sm font-extrabold">{label}</div>
-            <div className="mt-1 text-xs text-muted-foreground">{note}</div>
-          </button>
-        ))}
-      </section>
-
-      {composerOpen && (
-        <section className="rounded-2xl border border-primary/25 bg-card p-6 shadow-sm">
-          <div className="flex items-start justify-between gap-4">
-            <div>
-              <div className="eyebrow">Share what you know</div>
-              <h2 className="mt-2 text-xl font-extrabold">
-                Start a discussion
-              </h2>
-              <p className="mt-1 text-xs leading-5 text-muted-foreground">
-                Add a question, resource, or experience that could help another
-                student.
-              </p>
-            </div>
-            <button
-              type="button"
-              onClick={() => setComposerOpen(false)}
-              className="icon-button"
-              aria-label="Close discussion form"
-            >
-              <X size={16} />
-            </button>
+      <div className="community-shell">
+        <aside className="community-sidebar">
+          <div className="community-profile-card">
+            <div className="flex items-center gap-3"><Avatar member={currentMember} size="lg" /><div className="min-w-0"><p className="truncate text-sm font-extrabold">{currentMember.name}</p><p className="truncate text-xs text-muted-foreground">@{currentMember.handle}</p></div></div>
+            <p className="mt-4 text-xs leading-5 text-muted-foreground">Your profile helps other members understand your perspective.</p>
+            <Link to="/profile" className="mt-4 inline-flex text-xs font-extrabold text-primary hover:underline">Edit profile <span aria-hidden="true" className="ml-1">→</span></Link>
           </div>
-          <div className="mt-5 grid gap-4">
-            <label className="block">
-              <span className="text-xs font-bold">Discussion title</span>
-              <input
-                type="text"
-                value={title}
-                onChange={event => setTitle(event.target.value)}
-                placeholder="For example: Which route is realistic after internship?"
-                className="mt-2 h-11 w-full rounded-lg border border-border bg-background/60 px-3 text-sm outline-hidden focus:border-primary/50 focus:ring-2 focus:ring-primary/15"
-                data-testid="input-community-title"
-              />
-            </label>
-            <div className="grid gap-4 md:grid-cols-[minmax(0,1fr)_220px]">
-              <label className="block">
-                <span className="text-xs font-bold">Your message</span>
-                <textarea
-                  value={body}
-                  onChange={event => setBody(event.target.value)}
-                  rows={5}
-                  placeholder="Share the context, question, or resource you want to discuss."
-                  className="mt-2 w-full resize-y rounded-xl border border-border bg-background/60 p-3 text-sm leading-6 outline-hidden focus:border-primary/50 focus:ring-2 focus:ring-primary/15"
-                  data-testid="textarea-community-body"
-                />
-              </label>
-              <label className="block">
-                <span className="text-xs font-bold">Topic</span>
-                <div className="relative mt-2">
-                  <select
-                    value={topic}
-                    onChange={event => setTopic(event.target.value)}
-                    className="h-11 w-full appearance-none rounded-lg border border-border bg-background/60 px-3 pr-9 text-sm outline-hidden focus:border-primary/50 focus:ring-2 focus:ring-primary/15"
-                    data-testid="select-community-topic"
-                  >
-                    {TOPICS.filter(item => item !== "All discussions").map(
-                      item => (
-                        <option key={item} value={item}>
-                          {item}
-                        </option>
-                      )
-                    )}
-                  </select>
-                  <ChevronDown
-                    size={14}
-                    className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground"
-                  />
-                </div>
-              </label>
-            </div>
-            <div className="flex flex-wrap items-center justify-between gap-3">
-              <p className="text-[11px] leading-5 text-muted-foreground">
-                This preview saves your post in this browser. Shared student
-                discussions will be connected in a later release.
-              </p>
-              <button
-                type="button"
-                onClick={handlePublish}
-                disabled={!title.trim() || !body.trim()}
-                className="btn-primary rounded-lg px-4 py-2.5 text-xs disabled:cursor-not-allowed disabled:opacity-45"
-                data-testid="button-publish-community"
-              >
-                Publish discussion
-              </button>
-            </div>
-          </div>
-        </section>
-      )}
+          <nav className="community-topic-nav" aria-label="Community categories">
+            <p className="community-nav-label">Browse</p>
+            {TOPICS.map(item => <button key={item} type="button" onClick={() => setActiveTopic(item)} className={activeTopic === item ? "active" : ""}><span className="community-topic-dot" />{item}</button>)}
+          </nav>
+          <div className="community-side-note"><Sparkles size={16} className="text-primary" /><p><strong>Keep it useful.</strong><br />Share context, sources, and what you’ve already tried.</p></div>
+        </aside>
 
-      <section>
-        <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
-          <div>
-            <div className="eyebrow">Explore the conversation</div>
-            <h2 className="mt-1 text-2xl font-extrabold tracking-tight">
-              Useful ideas from the community
-            </h2>
-            <p className="mt-2 max-w-2xl text-sm leading-6 text-muted-foreground">
-              Browse by topic now. Later, this space can grow into live student
-              discussions and trusted pathway knowledge.
-            </p>
+        <main className="community-feed">
+          <div className="community-feed-toolbar">
+            <div><p className="text-sm font-extrabold">{activeTopic === "For you" ? "Your community feed" : activeTopic}</p><p className="mt-1 text-xs text-muted-foreground">Short notes from people on the same journey</p></div>
+            <div className="relative w-full sm:w-56"><Search size={15} className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" /><input type="search" value={query} onChange={event => setQuery(event.target.value)} placeholder="Search the community" className="community-search" aria-label="Search the community" /></div>
           </div>
-          <div className="relative w-full sm:max-w-xs">
-            <Search
-              size={15}
-              className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground"
-            />
-            <input
-              type="search"
-              value={query}
-              onChange={event => setQuery(event.target.value)}
-              placeholder="Search discussions"
-              className="h-10 w-full rounded-lg border border-border bg-card pl-9 pr-3 text-sm outline-hidden focus:border-primary/50 focus:ring-2 focus:ring-primary/15"
-              aria-label="Search discussions"
-            />
-          </div>
-        </div>
 
-        <div className="mt-5 flex flex-wrap gap-2">
-          {TOPICS.map(item => (
-            <button
-              key={item}
-              type="button"
-              onClick={() => setActiveTopic(item)}
-              className={`filter-pill rounded-full px-3 py-2 text-xs font-bold transition-colors ${
-                activeTopic === item ? "active" : ""
-              }`}
-            >
-              {item}
-            </button>
-          ))}
-        </div>
+          {composerOpen && <section className="community-composer"><div className="flex items-start gap-3"><Avatar member={currentMember} /><div className="min-w-0 flex-1"><textarea autoFocus value={body} onChange={event => setBody(event.target.value)} rows={4} placeholder="What are you learning, planning, or wondering about?" className="community-composer-input" data-testid="textarea-community-body" /><div className="mt-3 flex flex-wrap items-center justify-between gap-3"><label className="relative"><span className="sr-only">Choose a category</span><select value={topic} onChange={event => setTopic(event.target.value)} className="community-select">{TOPICS.filter(item => item !== "For you").map(item => <option key={item}>{item}</option>)}</select><ChevronDown size={13} className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground" /></label><div className="flex items-center gap-2"><button type="button" onClick={() => setComposerOpen(false)} className="btn-quiet rounded-lg px-3 py-2 text-xs">Cancel</button><button type="button" onClick={handlePublish} disabled={!body.trim()} className="btn-primary rounded-lg px-3 py-2 text-xs disabled:cursor-not-allowed disabled:opacity-40" data-testid="button-publish-community">Post update</button></div></div></div><button type="button" onClick={() => setComposerOpen(false)} className="icon-button" aria-label="Close composer"><X size={16} /></button></div></section>}
 
-        <div className="mt-5 grid gap-4 lg:grid-cols-2">
-          {visiblePosts.map(post => {
+          <div className="space-y-3">{visiblePosts.map(post => {
             const liked = likedIds.includes(post.id);
-            return (
-              <article
-                key={post.id}
-                className="rounded-2xl border border-border bg-card p-5 shadow-sm transition-shadow hover:shadow-md"
-              >
-                <div className="flex flex-wrap items-center gap-2 text-[11px] font-bold text-muted-foreground">
-                  <span className="rounded-full bg-secondary px-2.5 py-1 text-primary">
-                    {post.topic}
-                  </span>
-                  {post.isStarter && (
-                    <span className="rounded-full border border-border px-2.5 py-1">
-                      Starter guide
-                    </span>
-                  )}
-                  <span className="ml-auto inline-flex items-center gap-1">
-                    <Clock3 size={12} /> {post.time}
-                  </span>
-                </div>
-                <h3 className="mt-4 text-base font-extrabold leading-6">
-                  {post.title}
-                </h3>
-                <p className="mt-2 text-sm leading-6 text-muted-foreground">
-                  {post.body}
-                </p>
-                <div className="mt-5 flex items-center justify-between border-t border-border pt-4 text-xs text-muted-foreground">
-                  <span className="font-bold">{post.author}</span>
-                  <div className="flex items-center gap-3">
-                    <span className="inline-flex items-center gap-1">
-                      <MessageCircle size={13} /> {post.replies} replies
-                    </span>
-                    <button
-                      type="button"
-                      onClick={() => handleLike(post)}
-                      className={`inline-flex items-center gap-1 rounded-md px-2 py-1 transition-colors ${
-                        liked
-                          ? "bg-secondary text-primary"
-                          : "hover:bg-secondary/70 hover:text-primary"
-                      }`}
-                      aria-label={`${liked ? "Unlike" : "Like"} ${post.title}`}
-                    >
-                      <ThumbsUp size={13} /> {post.likes + (liked ? 0 : 0)}
-                    </button>
-                  </div>
-                </div>
-              </article>
-            );
-          })}
-        </div>
+            const saved = savedIds.includes(post.id);
+            return <article key={post.id} className="community-post-card">
+              <div className="flex items-start gap-3"><button type="button" onClick={() => setSelectedMember(post.author)} className="shrink-0" aria-label={`View ${post.author.name} profile`}><Avatar member={post.author} /></button><div className="min-w-0 flex-1"><div className="flex items-start justify-between gap-3"><div className="min-w-0"><button type="button" onClick={() => setSelectedMember(post.author)} className="truncate text-left text-sm font-extrabold hover:text-primary">{post.author.name}{post.author.verified && <Check size={13} className="ml-1 inline rounded-full bg-primary p-0.5 text-white" />}</button><p className="truncate text-xs text-muted-foreground">@{post.author.handle} · {post.time}</p></div><button type="button" className="icon-button -mr-2 -mt-2 h-8 w-8" aria-label="More post options"><MoreHorizontal size={16} /></button></div><p className="mt-3 text-sm leading-6 text-foreground">{post.body}</p><div className="mt-3 flex flex-wrap items-center gap-2"><span className="community-topic-chip">{post.topic}</span>{post.starter && <span className="community-guide-chip">Guide</span>}</div><div className="mt-4 flex items-center justify-between border-t border-border pt-3 text-xs text-muted-foreground"><button type="button" onClick={() => undefined} className="community-action"><MessageCircle size={15} /> {post.replies}</button><button type="button" onClick={() => updatePost(post, "reposts", post.reposts ? -post.reposts : 1)} className={`community-action ${post.reposts ? "text-primary" : ""}`}><Repeat2 size={15} /> {post.reposts}</button><button type="button" onClick={() => toggleLike(post)} className={`community-action ${liked ? "text-rose-500" : ""}`}><Heart size={15} fill={liked ? "currentColor" : "none"} /> {post.likes}</button><button type="button" onClick={() => toggleSave(post)} className={`community-action ${saved ? "text-primary" : ""}`} aria-label={saved ? "Remove bookmark" : "Bookmark post"}><Bookmark size={15} fill={saved ? "currentColor" : "none"} /></button></div></div></div>
+            </article>;
+          })}</div>
+          {visiblePosts.length === 0 && <div className="rounded-2xl border border-dashed border-border bg-card p-10 text-center"><Search size={20} className="mx-auto text-muted-foreground" /><h3 className="mt-3 text-sm font-extrabold">Nothing here yet</h3><p className="mt-1 text-xs text-muted-foreground">Try a different category or search term.</p></div>}
+        </main>
 
-        {visiblePosts.length === 0 && (
-          <div className="mt-5 rounded-2xl border border-dashed border-border bg-card/60 p-10 text-center">
-            <Search size={20} className="mx-auto text-muted-foreground" />
-            <h3 className="mt-3 text-sm font-extrabold">
-              No discussions found
-            </h3>
-            <p className="mt-1 text-xs text-muted-foreground">
-              Try another topic or search term, or start the first discussion.
-            </p>
-          </div>
-        )}
-      </section>
+        <aside className="community-right-rail">
+          <div className="community-rail-card"><div className="flex items-center justify-between"><h2 className="text-sm font-extrabold">People to know</h2><Sparkles size={15} className="text-primary" /></div><div className="mt-4 space-y-4">{MEMBERS.filter(member => member.handle !== currentMember.handle).slice(0, 3).map(member => { const followed = followedHandles.includes(member.handle); return <div key={member.handle} className="flex items-center gap-3"><button type="button" onClick={() => setSelectedMember(member)}><Avatar member={member} size="sm" /></button><button type="button" className="min-w-0 flex-1 text-left" onClick={() => setSelectedMember(member)}><p className="truncate text-xs font-extrabold">{member.name}</p><p className="truncate text-[11px] text-muted-foreground">{member.role}</p></button><button type="button" onClick={() => toggleFollow(member)} className={`community-follow ${followed ? "following" : ""}`}>{followed ? "Following" : <><UserPlus size={13} /> Follow</>}</button></div>; })}</div><button type="button" className="mt-5 text-xs font-extrabold text-primary hover:underline">See more people</button></div>
+          <div className="community-rail-card"><h2 className="text-sm font-extrabold">Popular rooms</h2><div className="mt-3 space-y-2">{TOPICS.filter(topicName => topicName !== "For you").slice(0, 3).map((item, index) => <button key={item} type="button" onClick={() => setActiveTopic(item)} className="community-room"><span>0{index + 1}</span><strong>{item}</strong><small>{index * 8 + 12} conversations</small></button>)}</div></div>
+        </aside>
+      </div>
+
+      {selectedMember && <div className="community-modal-backdrop" role="presentation" onClick={() => setSelectedMember(null)}><section className="community-member-modal" role="dialog" aria-modal="true" aria-label={`${selectedMember.name} profile`} onClick={event => event.stopPropagation()}><button type="button" onClick={() => setSelectedMember(null)} className="icon-button absolute right-3 top-3" aria-label="Close profile"><X size={16} /></button><div className={`community-profile-cover community-profile-cover-${selectedMember.tone}`} /><div className="-mt-8 px-6"><Avatar member={selectedMember} size="lg" /><h2 className="mt-3 text-xl font-extrabold">{selectedMember.name}{selectedMember.verified && <Check size={15} className="ml-1 inline rounded-full bg-primary p-0.5 text-white" />}</h2><p className="text-sm text-muted-foreground">@{selectedMember.handle}</p><p className="mt-4 text-sm leading-6">{selectedMember.role}. Sharing practical notes and learning with the Medweg community.</p><div className="mt-5 flex items-center gap-3"><button type="button" onClick={() => toggleFollow(selectedMember)} className={`community-modal-follow ${followedHandles.includes(selectedMember.handle) ? "following" : ""}`}>{followedHandles.includes(selectedMember.handle) ? "Following" : "Follow"}</button><button type="button" onClick={() => setSelectedMember(null)} className="btn-quiet rounded-lg px-4 py-2 text-xs">Close</button></div></div></section></div>}
     </div>
   );
 }
 
-// Keep this page intentionally client-only until the shared community service is connected.
 export type { CommunityPost };
