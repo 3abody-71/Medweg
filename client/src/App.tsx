@@ -4,6 +4,7 @@ import Home from "./pages/Home";
 import Explore from "./pages/Explore";
 import SpecialtyDetail from "./pages/SpecialtyDetail";
 import CountryDetail from "./pages/CountryDetail";
+import CountryPathwayInfo from "./pages/CountryPathwayInfo";
 import Questions from "./pages/Questions";
 import Mentors from "./pages/Mentors";
 import Profile from "./pages/Profile";
@@ -11,6 +12,7 @@ import Community from "./pages/Community";
 import NotFound from "./pages/NotFound";
 import Auth from "./pages/Auth";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
+import UsmleArticle from "./pages/UsmleArticle";
 import { FEATURE_VISIBILITY } from "./config/featureVisibility";
 
 export default function App() {
@@ -39,6 +41,8 @@ export default function App() {
           }
         />
         <Route path="/countries/:id" element={<CountryDetail />} />
+        <Route path="/countries/:id/pathway-info" element={<CountryPathwayInfo />} />
+        <Route path="/countries/usa/pathway-info/usmle" element={<UsmleArticle />} />
         <Route
           path="/questions"
           element={

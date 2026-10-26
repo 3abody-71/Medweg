@@ -112,7 +112,7 @@ function CountryCard({
             <Route size={13} /> Main route
           </Link>
           <Link
-            to={`/countries/${country.id}#pathway-info`}
+            to={`/countries/${country.id}/pathway-info`}
             className="col-start-1 row-start-2 inline-flex items-center justify-center gap-1.5 rounded-lg border border-border bg-card px-2.5 py-2 text-[11px] font-bold text-foreground transition-colors hover:bg-secondary"
             data-testid={`link-articles-${country.id}`}
           >
