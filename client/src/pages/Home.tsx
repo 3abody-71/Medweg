@@ -116,7 +116,7 @@ function CountryCard({
             className="inline-flex min-w-0 flex-1 items-center justify-center gap-1.5 rounded-lg border border-border bg-card px-2.5 py-2 text-[11px] font-bold text-foreground transition-colors hover:bg-secondary"
             data-testid={`link-articles-${country.id}`}
           >
-            <BookOpen size={13} /> More about the {country.name} pathway
+            <BookOpen size={13} /> More about {country.flag} pathway
           </Link>
         </div>
       </div>
