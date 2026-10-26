@@ -106,14 +106,14 @@ function CountryCard({
         <div className="grid grid-cols-2 gap-2">
           <Link
             to={`/countries/${country.id}`}
-            className="col-start-1 row-start-1 inline-flex items-center justify-center gap-1.5 rounded-lg bg-primary px-2.5 py-2 text-[11px] font-bold text-primary-foreground transition-colors hover:bg-primary/90"
+            className="inline-flex items-center justify-center gap-1.5 rounded-lg bg-primary px-2.5 py-2 text-[11px] font-bold text-primary-foreground transition-colors hover:bg-primary/90"
             data-testid={`link-main-route-${country.id}`}
           >
             <Route size={13} /> Main route
           </Link>
           <Link
             to={`/countries/${country.id}/pathway-info`}
-            className="col-start-1 row-start-2 inline-flex items-center justify-center gap-1.5 rounded-lg border border-border bg-card px-2.5 py-2 text-[11px] font-bold text-foreground transition-colors hover:bg-secondary"
+            className="inline-flex items-center justify-center gap-1.5 rounded-lg border border-border bg-card px-2.5 py-2 text-[11px] font-bold text-foreground transition-colors hover:bg-secondary"
             data-testid={`link-articles-${country.id}`}
           >
             <BookOpen size={13} /> Pathway info
