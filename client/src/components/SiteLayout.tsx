@@ -86,7 +86,7 @@ export default function SiteLayout({
             data-testid="link-logo"
           >
             <img
-              src={assetPath("/assets/media/medvade-logo.png")}
+              src={assetPath("/assets/media/medvade-logo-v2.png")}
               alt="medvade"
               className="h-10 w-auto max-w-[190px] object-contain"
             />
@@ -185,7 +185,7 @@ export default function SiteLayout({
             <div className="footer-brand">
               <div className="flex items-center gap-3">
                 <img
-                  src={assetPath("/assets/media/medvade-logo.png")}
+                  src={assetPath("/assets/media/medvade-logo-v2.png")}
                   alt="medvade"
                   className="h-9 w-auto max-w-[170px] object-contain"
                 />
