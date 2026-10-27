@@ -8,7 +8,7 @@ export default function PrivacyPolicy() {
         to="/"
         className="mb-6 inline-flex items-center gap-2 text-sm font-bold text-primary hover:underline"
       >
-        <ArrowLeft size={16} /> Back to Mediena
+        <ArrowLeft size={16} /> Back to medvade
       </Link>
 
       <section className="rounded-2xl border border-border bg-card p-6 shadow-sm sm:p-10">
@@ -33,7 +33,7 @@ export default function PrivacyPolicy() {
               What this site does
             </h2>
             <p className="mt-2">
-              Mediena helps medical graduates compare licensing and training
+              medvade helps medical graduates compare licensing and training
               pathways. The information on this site is educational orientation
               and is not legal, immigration, financial, employment, or medical
               advice.

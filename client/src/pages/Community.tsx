@@ -49,7 +49,7 @@ type CommunityPost = {
 };
 
 const MEMBERS: Member[] = [
-  { name: "Medweg Guides", handle: "medweg", role: "Pathway editors", initials: "M", tone: "blue", verified: true },
+  { name: "medvade Guides", handle: "medweg", role: "Pathway editors", initials: "M", tone: "blue", verified: true },
   { name: "Lina Hassan", handle: "linah", role: "IMG · UK pathway", initials: "LH", tone: "peach" },
   { name: "Omar Khaled", handle: "omark", role: "Final-year medical student", initials: "OK", tone: "mint" },
   { name: "Sara Mensah", handle: "saram", role: "Resident · Canada", initials: "SM", tone: "lavender" },
@@ -148,7 +148,7 @@ export default function Community() {
   }, [activeTopic, posts, query]);
 
   const currentMember: Member = profile.name.trim()
-    ? { name: profile.name.trim(), handle: profile.name.trim().toLowerCase().replace(/\s+/g, ""), role: profile.currentCountry || "Medweg member", initials: profile.name.trim().split(/\s+/).map(part => part[0]).join("").slice(0, 2).toUpperCase(), tone: "blue" }
+    ? { name: profile.name.trim(), handle: profile.name.trim().toLowerCase().replace(/\s+/g, ""), role: profile.currentCountry || "medvade member", initials: profile.name.trim().split(/\s+/).map(part => part[0]).join("").slice(0, 2).toUpperCase(), tone: "blue" }
     : { name: "Your profile", handle: "yourprofile", role: "Complete your profile", initials: "Y", tone: "blue" };
 
   const handlePublish = () => {
@@ -181,7 +181,7 @@ export default function Community() {
     <div className="community-page">
       <section className="community-intro">
         <div>
-          <div className="eyebrow inline-flex items-center gap-2"><Users size={14} /> The Medweg community</div>
+          <div className="eyebrow inline-flex items-center gap-2"><Users size={14} /> The medvade community</div>
           <h1 className="mt-3 text-3xl font-extrabold tracking-tight sm:text-4xl">A better place to figure it out together.</h1>
           <p className="mt-3 max-w-2xl text-sm leading-6 text-muted-foreground">Follow the people, questions, and practical notes that make an international medical journey feel less complicated.</p>
         </div>
@@ -226,7 +226,7 @@ export default function Community() {
         </aside>
       </div>
 
-      {selectedMember && <div className="community-modal-backdrop" role="presentation" onClick={() => setSelectedMember(null)}><section className="community-member-modal" role="dialog" aria-modal="true" aria-label={`${selectedMember.name} profile`} onClick={event => event.stopPropagation()}><button type="button" onClick={() => setSelectedMember(null)} className="icon-button absolute right-3 top-3" aria-label="Close profile"><X size={16} /></button><div className={`community-profile-cover community-profile-cover-${selectedMember.tone}`} /><div className="-mt-8 px-6"><Avatar member={selectedMember} size="lg" /><h2 className="mt-3 text-xl font-extrabold">{selectedMember.name}{selectedMember.verified && <Check size={15} className="ml-1 inline rounded-full bg-primary p-0.5 text-white" />}</h2><p className="text-sm text-muted-foreground">@{selectedMember.handle}</p><p className="mt-4 text-sm leading-6">{selectedMember.role}. Sharing practical notes and learning with the Medweg community.</p><div className="mt-5 flex items-center gap-3"><button type="button" onClick={() => toggleFollow(selectedMember)} className={`community-modal-follow ${followedHandles.includes(selectedMember.handle) ? "following" : ""}`}>{followedHandles.includes(selectedMember.handle) ? "Following" : "Follow"}</button><button type="button" onClick={() => setSelectedMember(null)} className="btn-quiet rounded-lg px-4 py-2 text-xs">Close</button></div></div></section></div>}
+      {selectedMember && <div className="community-modal-backdrop" role="presentation" onClick={() => setSelectedMember(null)}><section className="community-member-modal" role="dialog" aria-modal="true" aria-label={`${selectedMember.name} profile`} onClick={event => event.stopPropagation()}><button type="button" onClick={() => setSelectedMember(null)} className="icon-button absolute right-3 top-3" aria-label="Close profile"><X size={16} /></button><div className={`community-profile-cover community-profile-cover-${selectedMember.tone}`} /><div className="-mt-8 px-6"><Avatar member={selectedMember} size="lg" /><h2 className="mt-3 text-xl font-extrabold">{selectedMember.name}{selectedMember.verified && <Check size={15} className="ml-1 inline rounded-full bg-primary p-0.5 text-white" />}</h2><p className="text-sm text-muted-foreground">@{selectedMember.handle}</p><p className="mt-4 text-sm leading-6">{selectedMember.role}. Sharing practical notes and learning with the medvade community.</p><div className="mt-5 flex items-center gap-3"><button type="button" onClick={() => toggleFollow(selectedMember)} className={`community-modal-follow ${followedHandles.includes(selectedMember.handle) ? "following" : ""}`}>{followedHandles.includes(selectedMember.handle) ? "Following" : "Follow"}</button><button type="button" onClick={() => setSelectedMember(null)} className="btn-quiet rounded-lg px-4 py-2 text-xs">Close</button></div></div></section></div>}
     </div>
   );
 }

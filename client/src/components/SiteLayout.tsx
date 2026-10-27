@@ -85,17 +85,11 @@ export default function SiteLayout({
             className="flex items-center gap-3"
             data-testid="link-logo"
           >
-            <span className="brand-mark grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-primary text-primary-foreground">
-              <img
-                src={assetPath("/assets/media/medweg-compass.png")}
-                alt="Mediena compass"
-                className="h-8 w-8 object-contain"
-              />
-            </span>
-            <span>
-              <span className="brand-wordmark block">Mediena</span>
-              <span className="guide">Guide</span>
-            </span>
+            <img
+              src={assetPath("/assets/media/medvade-logo.png")}
+              alt="medvade"
+              className="h-10 w-auto max-w-[190px] object-contain"
+            />
           </Link>
 
           <nav className="hidden items-center gap-5 lg:flex xl:gap-7">
@@ -190,14 +184,11 @@ export default function SiteLayout({
           <div className="footer-grid">
             <div className="footer-brand">
               <div className="flex items-center gap-3">
-                <span className="grid h-9 w-9 shrink-0 place-items-center rounded-lg bg-primary text-primary-foreground">
-                  <img
-                    src={assetPath("/assets/media/medweg-compass.png")}
-                    alt="Mediena compass"
-                    className="h-8 w-8 object-contain"
-                  />
-                </span>
-                <span className="text-sm font-extrabold">Mediena</span>
+                <img
+                  src={assetPath("/assets/media/medvade-logo.png")}
+                  alt="medvade"
+                  className="h-9 w-auto max-w-[170px] object-contain"
+                />
               </div>
               <p className="mt-4 max-w-xs text-xs leading-5 text-muted-foreground">
                 Clearer country pathways for medical graduates, from first
@@ -210,7 +201,7 @@ export default function SiteLayout({
                 <Info size={15} /> About
               </h2>
               <Link to="/" className="footer-link">
-                What is Mediena?
+                What is medvade?
               </Link>
               <Link to="/profile" className="footer-link">
                 Discover your pathway

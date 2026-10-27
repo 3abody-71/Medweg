@@ -154,7 +154,7 @@ export default function Home() {
               ) : null}
             </div>
             <h1 className="mt-4 text-3xl font-extrabold leading-tight tracking-tight text-white sm:text-4xl md:text-[42px]">
-              Welcome to MedWeg, your mentor for earning your medical residency
+              Welcome to medvade, your mentor for earning your medical residency
               abroad.
             </h1>
           </div>
