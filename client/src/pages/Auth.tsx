@@ -28,8 +28,13 @@ export default function Auth() {
   const { setProfile } = useApp();
   const navigate = useNavigate();
   const [params] = useSearchParams();
+  const requestedMode = params.get("mode");
   const [mode, setMode] = useState<Mode>(
-    params.get("mode") === "reset" ? "reset" : "sign-in",
+    requestedMode === "reset"
+      ? "reset"
+      : requestedMode === "sign-up"
+        ? "sign-up"
+        : "sign-in",
   );
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
