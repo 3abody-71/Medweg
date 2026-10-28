@@ -52,6 +52,21 @@ export default function PrivacyPolicy() {
             </p>
           </section>
 
+          <section id="terms">
+            <h2 className="text-lg font-extrabold text-foreground">
+              Terms of use
+            </h2>
+            <p className="mt-2">
+              By creating an account, you agree to use medvade lawfully and
+              provide information that is accurate enough to support your
+              pathway planning. medvade provides educational orientation and
+              comparison tools; it does not guarantee admission, licensing,
+              employment, immigration outcomes, or any professional result.
+              You remain responsible for checking current requirements with
+              official authorities and for keeping your account details secure.
+            </p>
+          </section>
+
           <section>
             <h2 className="text-lg font-extrabold text-foreground">
               How information is used

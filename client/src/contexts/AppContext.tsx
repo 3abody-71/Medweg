@@ -7,11 +7,13 @@ export interface Profile {
   email: string;
   medicalSchool: string;
   currentCountry: string;
+  nationality: string;
   currentStudyYear: string;
   residenceCost: string;
   graduationYear: string;
   graduationStatus: string;
   targetCountries: string[];
+  mainGoal: string;
   interests: string[];
   priorities: string[];
   workStyle: string;
@@ -23,8 +25,8 @@ export const PRIORITIES = ["Training length", "Work-life balance", "Earning pote
 export const WORK_STYLES = ["Analytical and reflective", "Hands-on and decisive", "People-centred and varied", "Fast-paced and collaborative", "Visual and technology-led"];
 
 export const DEFAULT_PROFILE: Profile = {
-  name: "", email: "", medicalSchool: "", currentCountry: "", currentStudyYear: "", residenceCost: "", graduationYear: "", graduationStatus: "",
-  targetCountries: [], interests: [], priorities: [], workStyle: "",
+  name: "", email: "", medicalSchool: "", currentCountry: "", nationality: "", currentStudyYear: "", residenceCost: "", graduationYear: "", graduationStatus: "",
+  targetCountries: [], mainGoal: "", interests: [], priorities: [], workStyle: "",
 };
 
 interface AppContextValue {
