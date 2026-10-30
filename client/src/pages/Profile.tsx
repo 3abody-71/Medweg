@@ -29,7 +29,15 @@ export default function Profile() {
   }, [countryQuery]);
 
   const update = (patch: Partial<Profile>) => {
-    setProfile(p => ({ ...p, ...patch }));
+    setProfile(p => {
+      const next = { ...p, ...patch };
+      if ("firstName" in patch || "lastName" in patch) {
+        next.name = [next.firstName.trim(), next.lastName.trim()]
+          .filter(Boolean)
+          .join(" ");
+      }
+      return next;
+    });
     setSaved(false);
   };
 
@@ -72,14 +80,26 @@ export default function Profile() {
 
         <div className="mt-5 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
           <label className="block">
-            <span className="text-xs font-bold">Name</span>
+            <span className="text-xs font-bold">First name</span>
             <input
               type="text"
-              value={profile.name}
-              onChange={e => update({ name: e.target.value })}
-              placeholder="Your preferred name"
+              value={profile.firstName}
+              onChange={e => update({ firstName: e.target.value })}
+              placeholder="Your first name"
               className="mt-2 h-10 w-full rounded-lg border border-border bg-background/60 px-3 text-sm outline-hidden focus:border-primary/50 focus:ring-2 focus:ring-primary/15"
-              data-testid="input-profile-name"
+              data-testid="input-profile-first-name"
+            />
+          </label>
+
+          <label className="block">
+            <span className="text-xs font-bold">Last name</span>
+            <input
+              type="text"
+              value={profile.lastName}
+              onChange={e => update({ lastName: e.target.value })}
+              placeholder="Your last name"
+              className="mt-2 h-10 w-full rounded-lg border border-border bg-background/60 px-3 text-sm outline-hidden focus:border-primary/50 focus:ring-2 focus:ring-primary/15"
+              data-testid="input-profile-last-name"
             />
           </label>
 

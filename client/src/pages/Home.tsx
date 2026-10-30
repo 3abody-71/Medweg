@@ -126,7 +126,7 @@ function CountryCard({
 
 export default function Home() {
   const { profile } = useApp();
-  const firstName = profile.name.trim().split(/\s+/)[0];
+  const firstName = profile.firstName.trim();
   const orderedCountries = countries
     .filter(country => isCountryVisible(country.id))
     .sort((a, b) => Number(b.id === "usa") - Number(a.id === "usa"));

@@ -72,6 +72,8 @@ export default function Auth() {
       setProfile((previous) => ({
         ...previous,
         name: [draft.firstName, draft.lastName].filter(Boolean).join(" "),
+        firstName: draft.firstName || previous.firstName,
+        lastName: draft.lastName || previous.lastName,
         email: user.email || draft.email || previous.email,
         medicalSchool: draft.medicalSchool || previous.medicalSchool,
         currentStudyYear: draft.currentStudyYear || previous.currentStudyYear,
@@ -163,6 +165,8 @@ export default function Auth() {
         setProfile((previous) => ({
           ...previous,
           name: fullName,
+          firstName: firstName.trim(),
+          lastName: lastName.trim(),
           email,
           medicalSchool,
           currentStudyYear,

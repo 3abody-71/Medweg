@@ -4,6 +4,8 @@ import { supabase } from "../lib/supabase";
 
 export interface Profile {
   name: string;
+  firstName: string;
+  lastName: string;
   email: string;
   medicalSchool: string;
   currentCountry: string;
@@ -25,7 +27,7 @@ export const PRIORITIES = ["Training length", "Work-life balance", "Earning pote
 export const WORK_STYLES = ["Analytical and reflective", "Hands-on and decisive", "People-centred and varied", "Fast-paced and collaborative", "Visual and technology-led"];
 
 export const DEFAULT_PROFILE: Profile = {
-  name: "", email: "", medicalSchool: "", currentCountry: "", nationality: "", currentStudyYear: "", residenceCost: "", graduationYear: "", graduationStatus: "",
+  name: "", firstName: "", lastName: "", email: "", medicalSchool: "", currentCountry: "", nationality: "", currentStudyYear: "", residenceCost: "", graduationYear: "", graduationStatus: "",
   targetCountries: [], mainGoal: "", interests: [], priorities: [], workStyle: "",
 };
 
@@ -56,9 +58,24 @@ function localSnapshot(profile: Profile, savedSpecialtyIds: string[], savedCount
   return { profile, savedSpecialtyIds, savedCountryIds, compareIds };
 }
 
+function normalizeProfile(stored: Partial<Profile>, email = ""): Profile {
+  const legacyName = stored.name?.trim() || "";
+  const legacyParts = legacyName.split(/\s+/).filter(Boolean);
+  const firstName = stored.firstName?.trim() || legacyParts[0] || "";
+  const lastName = stored.lastName?.trim() || legacyParts.slice(1).join(" ");
+  return {
+    ...DEFAULT_PROFILE,
+    ...stored,
+    firstName,
+    lastName,
+    name: [firstName, lastName].filter(Boolean).join(" "),
+    email: stored.email || email,
+  };
+}
+
 export function AppProvider({ children }: { children: React.ReactNode }) {
   const { user } = useAuth();
-  const [profile, setProfile] = useState<Profile>(() => ({ ...DEFAULT_PROFILE, ...loadJson<Partial<Profile>>("medweg-profile", {}) }));
+  const [profile, setProfile] = useState<Profile>(() => normalizeProfile(loadJson<Partial<Profile>>("medweg-profile", {})));
   const [savedSpecialtyIds, setSavedSpecialtyIds] = useState<string[]>(() => loadJson("medweg-saved-specialties", []));
   const [savedCountryIds, setSavedCountryIds] = useState<string[]>(() => loadJson("medweg-saved-countries", []));
   const [compareIds, setCompareIds] = useState<string[]>(() => loadJson("medweg-compare", []));
@@ -93,12 +110,12 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
       if (cancelled) return;
 
       if (!error && data) {
-        setProfile({ ...DEFAULT_PROFILE, ...(data.profile as Partial<Profile>), email: (data.profile as Partial<Profile>)?.email || user.email || "" });
+        setProfile(normalizeProfile(data.profile as Partial<Profile>, user.email || ""));
         setSavedSpecialtyIds(Array.isArray(data.saved_specialty_ids) ? data.saved_specialty_ids : []);
         setSavedCountryIds(Array.isArray(data.saved_country_ids) ? data.saved_country_ids : []);
         setCompareIds(Array.isArray(data.compare_ids) ? data.compare_ids : []);
       } else {
-        const nextProfile = { ...profile, email: profile.email || user.email || "" };
+        const nextProfile = normalizeProfile({ ...profile, email: profile.email || user.email || "" });
         setProfile(nextProfile);
         await persistToCloud(localSnapshot(nextProfile, savedSpecialtyIds, savedCountryIds, compareIds), user.id);
       }
