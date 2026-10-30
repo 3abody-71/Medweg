@@ -126,6 +126,7 @@ function CountryCard({
 
 export default function Home() {
   const { profile } = useApp();
+  const firstName = profile.name.trim().split(/\s+/)[0];
   const orderedCountries = countries
     .filter(country => isCountryVisible(country.id))
     .sort((a, b) => Number(b.id === "usa") - Number(a.id === "usa"));
@@ -149,9 +150,7 @@ export default function Home() {
           <div>
             <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-white/90">
               <Globe size={15} />
-              {profile.name ? (
-                <>Hello, {profile.name.split(" ")[0]} — </>
-              ) : null}
+              {firstName ? <>Welcome Dr {firstName}</> : null}
             </div>
             <h1 className="mt-4 text-3xl font-extrabold leading-tight tracking-tight text-white sm:text-4xl md:text-[42px]">
               Welcome to medvade, your mentor for earning your medical residency
