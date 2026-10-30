@@ -148,13 +148,10 @@ export default function Home() {
         />
         <div className="home-hero-content relative mx-auto flex max-w-[1200px] flex-col items-start justify-between gap-6 lg:flex-row lg:items-center lg:gap-8">
           <div>
-            <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-white/90">
-              <Globe size={15} />
-              {firstName ? <>Welcome Dr {firstName}</> : null}
-            </div>
             <h1 className="mt-4 text-3xl font-extrabold leading-tight tracking-tight text-white sm:text-4xl md:text-[42px]">
-              Welcome to medvade, your mentor for earning your medical residency
-              abroad.
+              {firstName
+                ? `Welcome Dr ${firstName} to medvade, your mentor for earning your medical residency abroad.`
+                : "Welcome to medvade, your mentor for earning your medical residency abroad."}
             </h1>
           </div>
         </div>
