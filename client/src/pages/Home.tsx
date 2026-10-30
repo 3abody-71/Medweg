@@ -103,7 +103,7 @@ function CountryCard({
         </div>
       </Link>
       <div className="mt-auto border-t border-border px-4 pb-4 pt-3">
-        <div className="flex w-full gap-2">
+        <div className="flex w-full flex-col gap-2">
           <Link
             to={`/countries/${country.id}`}
             className="inline-flex min-w-0 flex-1 items-center justify-center gap-1.5 rounded-lg bg-primary px-2.5 py-2 text-[11px] font-bold text-primary-foreground transition-colors hover:bg-primary/90"
