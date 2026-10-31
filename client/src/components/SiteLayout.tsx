@@ -6,6 +6,8 @@ import {
   Phone,
   Menu,
   X,
+  Moon,
+  Sun,
   Stethoscope,
   Users,
   Info,
@@ -54,8 +56,19 @@ export default function SiteLayout({
 }) {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [darkMode, setDarkMode] = useState(false);
   const location = useLocation();
   const { user, signOut } = useAuth();
+
+  useEffect(() => {
+    const savedTheme = window.localStorage.getItem("medvade-theme");
+    setDarkMode(savedTheme === "dark");
+  }, []);
+
+  useEffect(() => {
+    document.documentElement.classList.toggle("dark", darkMode);
+    window.localStorage.setItem("medvade-theme", darkMode ? "dark" : "light");
+  }, [darkMode]);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
@@ -111,6 +124,17 @@ export default function SiteLayout({
           </nav>
 
           <div className="flex items-center gap-2">
+            <button
+              type="button"
+              className="icon-button"
+              onClick={() => setDarkMode(value => !value)}
+              aria-label={darkMode ? "Switch to light mode" : "Switch to dark mode"}
+              aria-pressed={darkMode}
+              title={darkMode ? "Switch to light mode" : "Switch to dark mode"}
+              data-testid="button-theme-toggle"
+            >
+              {darkMode ? <Sun size={17} /> : <Moon size={17} />}
+            </button>
             {user ? (
               <button
                 className="btn-quiet hidden items-center gap-2 rounded-lg px-4 py-2 text-sm sm:inline-flex"
@@ -170,6 +194,15 @@ export default function SiteLayout({
                   Sign out
                 </button>
               )}
+              <button
+                type="button"
+                onClick={() => setDarkMode(value => !value)}
+                className="topbar-link flex items-center gap-3 rounded-lg px-3 py-3 text-left"
+                aria-pressed={darkMode}
+              >
+                {darkMode ? <Sun size={16} /> : <Moon size={16} />}
+                {darkMode ? "Light mode" : "Dark mode"}
+              </button>
             </nav>
           </div>
         )}
