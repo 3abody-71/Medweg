@@ -13,6 +13,7 @@ import NotFound from "./pages/NotFound";
 import Auth from "./pages/Auth";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import UsmleArticle from "./pages/UsmleArticle";
+import UkPrioritisationArticle from "./pages/UkPrioritisationArticle";
 import { FEATURE_VISIBILITY } from "./config/featureVisibility";
 
 export default function App() {
@@ -41,8 +42,18 @@ export default function App() {
           }
         />
         <Route path="/countries/:id" element={<CountryDetail />} />
-        <Route path="/countries/:id/pathway-info" element={<CountryPathwayInfo />} />
-        <Route path="/countries/usa/pathway-info/usmle" element={<UsmleArticle />} />
+        <Route
+          path="/countries/:id/pathway-info"
+          element={<CountryPathwayInfo />}
+        />
+        <Route
+          path="/countries/usa/pathway-info/usmle"
+          element={<UsmleArticle />}
+        />
+        <Route
+          path="/countries/uk/pathway-info/prioritisation-2026"
+          element={<UkPrioritisationArticle />}
+        />
         <Route
           path="/questions"
           element={
