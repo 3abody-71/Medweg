@@ -18,6 +18,122 @@ import { assetPath } from "../lib/assetPath";
 import { isCountryVisible } from "../config/featureVisibility";
 import { countryName, uiText } from "../lib/i18n";
 
+const ARABIC_PATHWAYS: Record<
+  string,
+  { title: string; intro: string; steps: string[]; note: string }
+> = {
+  usa: {
+    title: "المسار الطبي في الولايات المتحدة",
+    intro:
+      "مسار منظم لكنه تنافسي للخريجين الدوليين، يبدأ بالتحقق والشهادة ثم اختبارات USMLE والخبرة السريرية والتقديم للإقامة.",
+    steps: [
+      "إنشاء حساب ECFMG والتحقق من كلية الطب والمصادر الأساسية.",
+      "اجتياز USMLE Step 1 وStep 2 CK واستكمال متطلبات الشهادة.",
+      "بناء خبرة سريرية في الولايات المتحدة والحصول على خطابات توصية.",
+      "التقديم عبر ERAS والمشاركة في المقابلات وNRMP Match.",
+    ],
+    note: "التأشيرة ومتطلبات الولاية وبرنامج الإقامة قد تضيف شروطاً منفصلة.",
+  },
+  uk: {
+    title: "المسار الطبي في المملكة المتحدة",
+    intro:
+      "مسار وطني منظم للخريجين الدوليين يبدأ بالتسجيل لدى GMC ثم PLAB أو المسار المقبول، وبعدها العمل السريري والتقديم للتدريب التخصصي.",
+    steps: [
+      "التحقق من أهلية التسجيل لدى GMC وتجهيز إثبات اللغة.",
+      "اجتياز PLAB 1 وPLAB 2 عند الحاجة أو التحقق من المسار البديل المقبول.",
+      "الحصول على تسجيل GMC مع ترخيص مزاولة والعمل في NHS أو وظيفة مناسبة.",
+      "بناء الخبرة والملف المهني ثم التقديم عبر Oriel للتدريب التخصصي.",
+    ],
+    note: "أولوية التدريب الطبي قد تغيّر ترتيب النظر في الطلبات، لكنها لا تلغي متطلبات التسجيل أو الاختيار التنافسي.",
+  },
+  australia: {
+    title: "المسار الطبي في أستراليا",
+    intro:
+      "تجمع أستراليا بين معايير التسجيل الوطنية والتوظيف على مستوى المستشفى والولاية، ويعتمد المسار على المؤهل والخبرة والتخصص المقصود.",
+    steps: [
+      "اختيار مسار AMC المناسب والتحقق من المؤهل والمصدر الأساسي.",
+      "استيفاء معيار اللغة وإكمال الاختبارات أو التقييم المعتمد.",
+      "الحصول على وظيفة تحت الإشراف واستكمال متطلبات التسجيل لدى Ahpra.",
+      "التقدم من التسجيل العام إلى التدريب التخصصي حسب الولاية والكلية.",
+    ],
+    note: "التسجيل والتأشيرة والتوظيف متطلبات منفصلة؛ لا يحل أحدها محل الآخر.",
+  },
+  canada: {
+    title: "المسار الطبي في كندا",
+    intro:
+      "مسار عالي المتطلبات يختلف حسب المقاطعة والبرنامج والجهة التنظيمية، مع أهمية اللغة والاختبارات والخبرة والقيود الخاصة بالخريجين الدوليين.",
+    steps: [
+      "تحديد المقاطعة والمسار المناسب: CaRMS أو PRA أو تقييم خاص.",
+      "إكمال التحقق من المؤهل والاختبارات ومتطلبات اللغة للمقاطعة.",
+      "مراجعة شروط الجنسية والإقامة والالتزام بالعمل أو الخدمة عند وجودها.",
+      "التقديم إلى برنامج الإقامة أو التقييم السريري ثم التسجيل الإقليمي.",
+    ],
+    note: "لا يوجد مسار كندي واحد؛ يجب مراجعة شروط المقاطعة والبرنامج المحدد قبل دفع الرسوم.",
+  },
+  germany: {
+    title: "المسار الطبي في ألمانيا",
+    intro:
+      "تحتاج ممارسة الطب السريري إلى الاعتراف بالمؤهل واللغة الألمانية، ثم الترخيص المهني والعمل والتقدم نحو التخصص.",
+    steps: [
+      "تجهيز الشهادة والسجل الأكاديمي والترجمة والتحقق من المؤهلات.",
+      "الوصول إلى مستوى اللغة الألمانية B2 ثم لغة طبية بمستوى C1 Medizin.",
+      "اجتياز Fachsprachprüfung وامتحان المعرفة عند طلب الجهة المختصة.",
+      "الحصول على Approbation أو الترخيص المناسب ثم بدء العمل والتخصص.",
+    ],
+    note: "تختلف الإجراءات حسب الولاية الألمانية، لذلك يجب اتباع تعليمات الجهة المحلية المختصة.",
+  },
+  ireland: {
+    title: "المسار الطبي في أيرلندا",
+    intro:
+      "مسار ناطق بالإنجليزية يبدأ بتسجيل Medical Council ثم العمل في المستشفى والتنافس على التدريب التخصصي.",
+    steps: [
+      "تجهيز المؤهل وفترة الامتياز وإثبات اللغة والوثائق المطلوبة.",
+      "التقديم إلى Medical Council وتحديد ما إذا كانت PRES أو إعفاءاتها تنطبق.",
+      "الحصول على وظيفة مستشفى مناسبة وبناء الخبرة والملف المهني.",
+      "التقديم إلى CST أو BST أو HST أو المسار التخصصي المناسب.",
+    ],
+    note: "تحتاج وظائف الأطباء من خارج المنطقة الاقتصادية الأوروبية إلى تصريح عمل ووضع هجرة مناسب.",
+  },
+};
+
+function ArabicPathwaySummary({ countryId }: { countryId: string }) {
+  const pathway = ARABIC_PATHWAYS[countryId];
+  if (!pathway) return null;
+
+  return (
+    <section className="rounded-2xl border border-border bg-card p-6 shadow-sm sm:p-8">
+      <p className="eyebrow">المسار الرئيسي</p>
+      <h2 className="mt-1 text-2xl font-extrabold tracking-tight sm:text-3xl">
+        {pathway.title}
+      </h2>
+      <p className="mt-3 max-w-3xl text-sm leading-6 text-muted-foreground">
+        {pathway.intro}
+      </p>
+      <div className="mt-6 grid gap-3">
+        {pathway.steps.map((step, index) => (
+          <div
+            key={step}
+            className="flex items-start gap-3 rounded-xl border border-border bg-background p-4"
+          >
+            <span className="grid h-7 w-7 shrink-0 place-items-center rounded-full bg-primary text-xs font-extrabold text-primary-foreground">
+              {index + 1}
+            </span>
+            <p className="text-sm leading-6">{step}</p>
+          </div>
+        ))}
+      </div>
+      <p className="mt-5 rounded-xl border border-[#e5c992] bg-[#fffaf0] p-4 text-sm leading-6 text-muted-foreground">
+        <strong className="text-foreground">ملاحظة مهمة: </strong>
+        {pathway.note}
+      </p>
+      <p className="mt-5 text-xs leading-5 text-muted-foreground">
+        هذه معلومات توجيهية تعليمية. تحقق دائماً من المتطلبات الحالية مع جهة
+        الترخيص والبرنامج الرسمي قبل التقديم أو دفع الرسوم.
+      </p>
+    </section>
+  );
+}
+
 export default function CountryDetail() {
   const { id } = useParams<{ id: string }>();
   const { savedCountryIds, toggleCountry, isArabic } = useApp();
@@ -106,7 +222,9 @@ export default function CountryDetail() {
         </div>
       </div>
 
-      {country.id === "usa" ? (
+      {isArabic ? (
+        <ArabicPathwaySummary countryId={country.id} />
+      ) : country.id === "usa" ? (
         <UsaPathway />
       ) : country.id === "germany" ? (
         <GermanyPathway />
