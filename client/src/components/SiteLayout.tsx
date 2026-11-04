@@ -186,7 +186,7 @@ export default function SiteLayout({
             <img
               src={assetPath("/assets/media/medvade-logo-v2.png")}
               alt="medvade"
-              className="h-10 w-auto max-w-[190px] object-contain"
+              className="notranslate h-10 w-auto max-w-[190px] object-contain"
             />
           </Link>
 
@@ -340,7 +340,7 @@ export default function SiteLayout({
                 <img
                   src={assetPath("/assets/media/medvade-logo-v2.png")}
                   alt="medvade"
-                  className="h-9 w-auto max-w-[170px] object-contain"
+                  className="notranslate h-9 w-auto max-w-[170px] object-contain"
                 />
               </div>
               <p className="mt-4 max-w-xs text-xs leading-5 text-muted-foreground">
@@ -356,7 +356,15 @@ export default function SiteLayout({
                 <Info size={15} /> {text("About", "عن الموقع")}
               </h2>
               <Link to="/" className="footer-link">
-                {text("What is medvade?", "ما هو MedWeg؟")}
+                {isArabic ? (
+                  <>
+                    ما هو <span className="notranslate">medvade</span>؟
+                  </>
+                ) : (
+                  <>
+                    What is <span className="notranslate">medvade</span>?
+                  </>
+                )}
               </Link>
               <Link to="/profile" className="footer-link">
                 {text("Discover your pathway", "اكتشف مسارك")}

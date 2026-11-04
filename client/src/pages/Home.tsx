@@ -165,13 +165,31 @@ export default function Home() {
         <div className="home-hero-content relative mx-auto flex max-w-[1200px] flex-col items-start justify-between gap-6 lg:flex-row lg:items-center lg:gap-8">
           <div>
             <h1 className="mt-4 text-3xl font-extrabold leading-tight tracking-tight text-white sm:text-4xl md:text-[42px]">
-              {isArabic
-                ? firstName
-                  ? `مرحباً د. ${firstName} في MedWeg، دليلك للحصول على تدريب طبي خارج بلدك.`
-                  : "مرحباً بك في MedWeg، دليلك للحصول على تدريب طبي خارج بلدك."
-                : firstName
-                  ? `Welcome Dr ${firstName} to medvade, your mentor for earning your medical residency abroad.`
-                  : "Welcome to medvade, your mentor for earning your medical residency abroad."}
+              {isArabic ? (
+                firstName ? (
+                  <>
+                    {`مرحباً د. ${firstName} في `}
+                    <span className="notranslate">medvade</span>
+                    {"، دليلك للحصول على تدريب طبي خارج بلدك."}
+                  </>
+                ) : (
+                  <>
+                    مرحباً بك في <span className="notranslate">medvade</span>،
+                    دليلك للحصول على تدريب طبي خارج بلدك.
+                  </>
+                )
+              ) : firstName ? (
+                <>
+                  Welcome Dr {firstName} to{" "}
+                  <span className="notranslate">medvade</span>, your mentor for
+                  earning your medical residency abroad.
+                </>
+              ) : (
+                <>
+                  Welcome to <span className="notranslate">medvade</span>, your
+                  mentor for earning your medical residency abroad.
+                </>
+              )}
             </h1>
           </div>
         </div>
