@@ -93,7 +93,7 @@ export default function UkPrioritisationArticle() {
             <img
               src={assetPath("/assets/uk/uk-prioritisation-hero.jpeg")}
               alt="Doctor working in an operating theatre"
-              className="absolute inset-0 h-full w-full object-cover object-center"
+              className="absolute inset-0 h-full w-full object-contain object-center"
             />
             <div className="absolute inset-0 bg-gradient-to-tr from-[#111d2d]/95 via-[#203c58]/40 to-[#9c303e]/30" />
             <div className="absolute inset-x-0 bottom-0 p-6 text-white sm:p-8">
