@@ -95,10 +95,81 @@ export default function SiteLayout({
     setMobileOpen(false);
   }, [location]);
 
+  useEffect(() => {
+    const elementId = "google_translate_element";
+    if (document.getElementById(elementId)) return;
+
+    const element = document.createElement("div");
+    element.id = elementId;
+    element.className = "notranslate";
+    element.style.position = "fixed";
+    element.style.left = "-10000px";
+    element.style.top = "-10000px";
+    element.style.width = "1px";
+    element.style.height = "1px";
+    element.style.overflow = "hidden";
+    document.body.appendChild(element);
+
+    const globalWindow = window as typeof window & {
+      googleTranslateElementInit?: () => void;
+      google?: {
+        translate?: {
+          TranslateElement?: new (
+            options: Record<string, unknown>,
+            id: string
+          ) => unknown;
+        };
+      };
+    };
+    globalWindow.googleTranslateElementInit = () => {
+      const TranslateElement = globalWindow.google?.translate?.TranslateElement;
+      if (TranslateElement) {
+        new TranslateElement(
+          {
+            pageLanguage: "en",
+            includedLanguages: "ar,en",
+            autoDisplay: false,
+          },
+          elementId
+        );
+      }
+    };
+
+    const script = document.createElement("script");
+    script.src =
+      "https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit";
+    script.async = true;
+    document.body.appendChild(script);
+
+    return () => {
+      script.remove();
+      element.remove();
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!isArabic) return;
+    const key = "medweg-translated-path";
+    if (sessionStorage.getItem(key) === location.pathname) return;
+    sessionStorage.setItem(key, location.pathname);
+    window.location.reload();
+  }, [isArabic, location.pathname]);
+
   const isActive = (path: string) =>
     path === "/"
       ? location.pathname === "/"
       : location.pathname.startsWith(path);
+
+  const changeLanguage = (nextLanguage: "en" | "ar") => {
+    document.cookie =
+      nextLanguage === "ar"
+        ? "googtrans=/en/ar; path=/"
+        : "googtrans=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/";
+    localStorage.setItem("medweg-language", nextLanguage);
+    sessionStorage.removeItem("medweg-translated-path");
+    setLanguage(nextLanguage);
+    window.location.reload();
+  };
 
   return (
     <div className="min-h-screen flex flex-col bg-background">
@@ -141,7 +212,7 @@ export default function SiteLayout({
             <button
               type="button"
               className="inline-flex h-9 items-center gap-1.5 rounded-lg border border-border px-2.5 text-xs font-bold text-muted-foreground hover:border-primary hover:text-primary sm:px-3"
-              onClick={() => setLanguage(language === "en" ? "ar" : "en")}
+              onClick={() => changeLanguage(language === "en" ? "ar" : "en")}
               aria-label={text("Switch to Arabic", "التبديل إلى الإنجليزية")}
               title={text("Switch to Arabic", "التبديل إلى الإنجليزية")}
               data-testid="button-language-toggle"
@@ -245,7 +316,7 @@ export default function SiteLayout({
               </button>
               <button
                 type="button"
-                onClick={() => setLanguage(language === "en" ? "ar" : "en")}
+                onClick={() => changeLanguage(language === "en" ? "ar" : "en")}
                 className="topbar-link flex items-center gap-3 rounded-lg px-3 py-3 text-left"
                 aria-label={text("Switch to Arabic", "التبديل إلى الإنجليزية")}
               >

@@ -370,9 +370,7 @@ export default function CountryDetail() {
         </div>
       </div>
 
-      {isArabic ? (
-        <ArabicPathwaySummary countryId={country.id} />
-      ) : country.id === "usa" ? (
+      {country.id === "usa" ? (
         <UsaPathway />
       ) : country.id === "germany" ? (
         <GermanyPathway />
