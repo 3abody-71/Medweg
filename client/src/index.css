@@ -86,9 +86,21 @@ body {
 }
 
 .goog-te-banner-frame,
+.goog-te-banner-frame.skiptranslate,
 .goog-te-balloon-frame,
-.goog-te-gadget {
+.goog-te-gadget,
+#google_translate_element,
+#goog-gt-tt,
+body > .skiptranslate {
   display: none !important;
+  visibility: hidden !important;
+  height: 0 !important;
+  min-height: 0 !important;
+}
+
+iframe.goog-te-banner-frame {
+  display: none !important;
+  visibility: hidden !important;
 }
 
 html[lang="ar"] body {
