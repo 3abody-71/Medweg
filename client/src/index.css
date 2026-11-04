@@ -81,6 +81,14 @@ body {
   overflow-x: hidden;
 }
 
+html[lang="ar"] body {
+  font-family: "Noto Sans Arabic", "Geeza Pro", Tahoma, Arial, sans-serif;
+}
+
+html[dir="rtl"] .footer-link:hover {
+  transform: translateX(-2px);
+}
+
 .dark body {
   background: hsl(var(--background));
 }

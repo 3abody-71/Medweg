@@ -31,7 +31,17 @@ export const DEFAULT_PROFILE: Profile = {
   targetCountries: [], mainGoal: "", interests: [], priorities: [], workStyle: "",
 };
 
+export type Language = "en" | "ar";
+
+export const LANGUAGE_LABELS: Record<Language, string> = {
+  en: "English",
+  ar: "العربية",
+};
+
 interface AppContextValue {
+  language: Language;
+  setLanguage: (language: Language) => void;
+  isArabic: boolean;
   profile: Profile;
   setProfile: React.Dispatch<React.SetStateAction<Profile>>;
   saveProfile: () => void;
@@ -75,6 +85,9 @@ function normalizeProfile(stored: Partial<Profile>, email = ""): Profile {
 
 export function AppProvider({ children }: { children: React.ReactNode }) {
   const { user } = useAuth();
+  const [language, setLanguage] = useState<Language>(() =>
+    loadJson<Language>("medweg-language", "en") === "ar" ? "ar" : "en"
+  );
   const [profile, setProfile] = useState<Profile>(() => normalizeProfile(loadJson<Partial<Profile>>("medweg-profile", {})));
   const [savedSpecialtyIds, setSavedSpecialtyIds] = useState<string[]>(() => loadJson("medweg-saved-specialties", []));
   const [savedCountryIds, setSavedCountryIds] = useState<string[]>(() => loadJson("medweg-saved-countries", []));
@@ -141,6 +154,11 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     localStorage.setItem("medweg-compare", JSON.stringify(compareIds));
   }, [compareIds]);
+  useEffect(() => {
+    document.documentElement.lang = language;
+    document.documentElement.dir = language === "ar" ? "rtl" : "ltr";
+    localStorage.setItem("medweg-language", language);
+  }, [language]);
 
   useEffect(() => {
     if (!syncReady || !activeUserId.current) return;
@@ -161,7 +179,7 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     if (activeUserId.current) void persistToCloud(localSnapshot(profile, savedSpecialtyIds, savedCountryIds, compareIds), activeUserId.current);
   };
 
-  const value = useMemo(() => ({ profile, setProfile, saveProfile, savedSpecialtyIds, toggleSpecialty, savedCountryIds, toggleCountry, compareIds, setCompareIds }), [profile, savedSpecialtyIds, savedCountryIds, compareIds]);
+  const value = useMemo(() => ({ language, setLanguage, isArabic: language === "ar", profile, setProfile, saveProfile, savedSpecialtyIds, toggleSpecialty, savedCountryIds, toggleCountry, compareIds, setCompareIds }), [language, profile, savedSpecialtyIds, savedCountryIds, compareIds]);
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
 }
 
