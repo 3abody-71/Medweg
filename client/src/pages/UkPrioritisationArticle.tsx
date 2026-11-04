@@ -9,6 +9,8 @@ import {
 } from "lucide-react";
 import { Link } from "react-router-dom";
 import { assetPath } from "../lib/assetPath";
+import { useApp } from "../contexts/AppContext";
+import { uiText } from "../lib/i18n";
 
 const officialLinks = [
   [
@@ -78,13 +80,18 @@ function SourceLink({ label, url }: { label: string; url: string }) {
 }
 
 export default function UkPrioritisationArticle() {
+  const { isArabic } = useApp();
+  const t = (english: string, arabic: string) =>
+    uiText(isArabic, english, arabic);
+
   return (
     <div className="space-y-6">
       <Link
         to="/countries/uk/pathway-info"
         className="topbar-link inline-flex items-center gap-2 text-sm"
       >
-        <ArrowLeft size={14} /> UK pathway info
+        <ArrowLeft size={14} />{" "}
+        {t("UK pathway info", "معلومات مسار المملكة المتحدة")}
       </Link>
 
       <header className="overflow-hidden rounded-2xl border border-border bg-card shadow-sm">
@@ -98,34 +105,40 @@ export default function UkPrioritisationArticle() {
             <div className="absolute inset-0 bg-gradient-to-tr from-[#111d2d]/95 via-[#203c58]/40 to-[#9c303e]/30" />
             <div className="absolute inset-x-0 bottom-0 p-6 text-white sm:p-8">
               <p className="text-xs font-extrabold uppercase tracking-[0.22em] text-white/75">
-                UK / 2026 policy FAQ
+                {t(
+                  "UK / 2026 policy FAQ",
+                  "المملكة المتحدة / الأسئلة الشائعة لسياسة 2026"
+                )}
               </p>
               <h1 className="mt-2 max-w-xl text-3xl font-extrabold tracking-tight sm:text-4xl">
-                What does UK medical training prioritisation mean for IMGs?
+                {t(
+                  "What does UK medical training prioritisation mean for IMGs?",
+                  "ماذا تعني أولوية التدريب الطبي في المملكة المتحدة للخريجين الدوليين؟"
+                )}
               </h1>
             </div>
           </div>
           <div className="flex flex-col justify-center p-6 sm:p-8">
             <div className="flex flex-wrap gap-2 text-xs font-bold">
               <span className="rounded-full bg-secondary px-3 py-1.5">
-                Questions &amp; answers
+                {t("Questions & answers", "أسئلة وأجوبة")}
               </span>
               <span className="rounded-full bg-secondary px-3 py-1.5">
-                Foundation training
+                {t("Foundation training", "التدريب التأسيسي")}
               </span>
               <span className="rounded-full bg-secondary px-3 py-1.5">
-                Specialty training
+                {t("Specialty training", "تدريب التخصص")}
               </span>
             </div>
             <p className="mt-5 text-sm leading-6 text-muted-foreground">
-              The Medical Training (Prioritisation) Act changed the order in
-              which some UK postgraduate training places are allocated. This FAQ
-              explains what the rule means for international medical graduates,
-              how NHS experience fits into the framework, and how to decide
-              whether the UK remains a sensible route.
+              {t(
+                "The Medical Training (Prioritisation) Act changed the order in which some UK postgraduate training places are allocated. This FAQ explains what the rule means for international medical graduates, how NHS experience fits into the framework, and how to decide whether the UK remains a sensible route.",
+                "غيّر قانون أولوية التدريب الطبي ترتيب تخصيص بعض أماكن التدريب الطبي بعد التخرج في المملكة المتحدة. توضح هذه الأسئلة الشائعة معنى القاعدة للخريجين الطبيين الدوليين، وكيف تندرج خبرة NHS ضمن الإطار، وكيف تقرر ما إذا كان مسار المملكة المتحدة مناسباً لك."
+              )}
             </p>
             <div className="mt-5 flex items-center gap-2 text-xs font-bold text-primary">
-              <FileText size={15} /> Updated November 2026
+              <FileText size={15} />{" "}
+              {t("Updated November 2026", "آخر تحديث: نوفمبر 2026")}
             </div>
           </div>
         </div>
@@ -135,13 +148,14 @@ export default function UkPrioritisationArticle() {
         <div className="flex items-start gap-3">
           <Scale className="mt-0.5 shrink-0 text-[#9a5b12]" size={19} />
           <div>
-            <h2 className="font-extrabold">Quick answer</h2>
+            <h2 className="font-extrabold">
+              {t("Quick answer", "الإجابة المختصرة")}
+            </h2>
             <p className="mt-2 text-sm leading-6 text-muted-foreground">
-              The Act changes who is considered first for some UK postgraduate
-              training places. It does not automatically bar every IMG, and it
-              does not guarantee a place to every UK graduate. Applicants must
-              still meet GMC, programme, immigration, and competitive-selection
-              requirements.
+              {t(
+                "The Act changes who is considered first for some UK postgraduate training places. It does not automatically bar every IMG, and it does not guarantee a place to every UK graduate. Applicants must still meet GMC, programme, immigration, and competitive-selection requirements.",
+                "يغيّر القانون من يتم النظر في طلبه أولاً لبعض أماكن التدريب الطبي بعد التخرج في المملكة المتحدة. ولا يمنع تلقائياً كل خريج دولي، كما لا يضمن مكاناً لكل خريج بريطاني. يجب أن يستوفي المتقدمون متطلبات GMC والبرنامج والهجرة والاختيار التنافسي."
+              )}
             </p>
           </div>
         </div>
@@ -149,7 +163,10 @@ export default function UkPrioritisationArticle() {
 
       <Question
         number="1"
-        question="What is the UK medical training prioritisation rule?"
+        question={t(
+          "What is the UK medical training prioritisation rule?",
+          "ما هي قاعدة أولوية التدريب الطبي في المملكة المتحدة؟"
+        )}
       >
         <p>
           It is a statutory priority system for postgraduate medical training.
@@ -177,7 +194,10 @@ export default function UkPrioritisationArticle() {
 
       <Question
         number="2"
-        question="Does the rule mean that every IMG is barred from UK training?"
+        question={t(
+          "Does the rule mean that every IMG is barred from UK training?",
+          "هل تعني القاعدة منع كل خريج دولي من التدريب في المملكة المتحدة؟"
+        )}
       >
         <p>
           No. An IMG may still apply if they meet the GMC, registration,
@@ -195,7 +215,10 @@ export default function UkPrioritisationArticle() {
 
       <Question
         number="3"
-        question="Who may receive priority for specialty training?"
+        question={t(
+          "Who may receive priority for specialty training?",
+          "من يمكن أن يحصل على أولوية في تدريب التخصص؟"
+        )}
       >
         <div className="space-y-3">
           {[
@@ -223,7 +246,13 @@ export default function UkPrioritisationArticle() {
         </p>
       </Question>
 
-      <Question number="4" question="Why was this policy introduced in 2026?">
+      <Question
+        number="4"
+        question={t(
+          "Why was this policy introduced in 2026?",
+          "لماذا أُدخلت هذه السياسة في عام 2026؟"
+        )}
+      >
         <p>
           The government says the policy is intended to create a clearer path
           from UK medical school into postgraduate training, protect public
@@ -246,7 +275,13 @@ export default function UkPrioritisationArticle() {
         </p>
       </Question>
 
-      <Question number="5" question="Does NHS experience give an IMG priority?">
+      <Question
+        number="5"
+        question={t(
+          "Does NHS experience give an IMG priority?",
+          "هل تمنح خبرة NHS الخريج الدولي أولوية؟"
+        )}
+      >
         <p>
           Not automatically. For specialty offers made in 2026, the Act used
           specified immigration statuses as a temporary proxy for applicants
@@ -298,7 +333,10 @@ export default function UkPrioritisationArticle() {
 
       <Question
         number="6"
-        question="Should an IMG still choose the UK pathway?"
+        question={t(
+          "Should an IMG still choose the UK pathway?",
+          "هل لا يزال على الخريج الدولي اختيار مسار المملكة المتحدة؟"
+        )}
       >
         <p>
           The UK may still suit you if you want a nationally coordinated GMC and
@@ -322,7 +360,7 @@ export default function UkPrioritisationArticle() {
               size={20}
             />
             <div>
-              <h3 className="font-extrabold">Bottom line</h3>
+              <h3 className="font-extrabold">{t("Bottom line", "الخلاصة")}</h3>
               <p className="mt-1">
                 The Act makes the route more competitive for many IMGs, but it
                 does not close the UK pathway. Treat GMC registration and NHS
@@ -337,10 +375,10 @@ export default function UkPrioritisationArticle() {
 
       <footer className="rounded-2xl border border-border bg-card p-5 shadow-sm">
         <p className="text-xs leading-5 text-muted-foreground">
-          This FAQ is general educational information for international medical
-          graduates. Prioritisation, recruitment, immigration, and GMC
-          requirements can change. Confirm the current rules with the relevant
-          official authority before applying or paying fees.
+          {t(
+            "This FAQ is general educational information for international medical graduates. Prioritisation, recruitment, immigration, and GMC requirements can change. Confirm the current rules with the relevant official authority before applying or paying fees.",
+            "هذه الأسئلة الشائعة معلومات تعليمية عامة للخريجين الطبيين الدوليين. قد تتغير قواعد الأولوية والتوظيف والهجرة ومتطلبات GMC. تأكد من القواعد الحالية مع الجهة الرسمية المختصة قبل التقديم أو دفع الرسوم."
+          )}
         </p>
         <div className="mt-4 flex flex-wrap gap-x-5 gap-y-2 border-t border-border pt-4">
           {officialLinks.map(([label, url]) => (

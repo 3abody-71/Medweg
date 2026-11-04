@@ -16,10 +16,11 @@ import IrelandPathway from "../components/IrelandPathway";
 import AustraliaPathway from "../components/AustraliaPathway";
 import { assetPath } from "../lib/assetPath";
 import { isCountryVisible } from "../config/featureVisibility";
+import { countryName, uiText } from "../lib/i18n";
 
 export default function CountryDetail() {
   const { id } = useParams<{ id: string }>();
-  const { savedCountryIds, toggleCountry } = useApp();
+  const { savedCountryIds, toggleCountry, isArabic } = useApp();
 
   const country = countries.find(c => c.id === id);
 
@@ -45,6 +46,7 @@ export default function CountryDetail() {
   }
 
   const saved = savedCountryIds.includes(country.id);
+  const displayName = countryName(country.id, country.name, isArabic);
 
   return (
     <div className="space-y-8">
@@ -53,14 +55,15 @@ export default function CountryDetail() {
         className="topbar-link inline-flex items-center gap-2 text-sm"
         data-testid="link-back-countries"
       >
-        <ArrowLeft size={14} /> Country pathways
+        <ArrowLeft size={14} />{" "}
+        {uiText(isArabic, "Country pathways", "مسارات الدول")}
       </Link>
 
       <div className="overflow-hidden rounded-2xl border border-border bg-card shadow-sm">
         <div className="country-card-image h-56">
           <img
             src={assetPath(country.image)}
-            alt={country.name}
+            alt={displayName}
             className="h-full w-full object-cover"
           />
           <span className="absolute left-4 top-4 rounded-lg bg-white/92 px-3 py-1.5 text-sm font-extrabold shadow-sm">
@@ -71,10 +74,14 @@ export default function CountryDetail() {
           <div className="flex flex-wrap items-start justify-between gap-3">
             <div>
               <h1 className="text-2xl font-extrabold tracking-tight sm:text-3xl">
-                {country.name}
+                {displayName}
               </h1>
               <p className="mt-1 text-sm text-muted-foreground">
-                Pathway context for international medical graduates
+                {uiText(
+                  isArabic,
+                  "Pathway context for international medical graduates",
+                  "معلومات المسار للخريجين الطبيين الدوليين"
+                )}
               </p>
             </div>
             <button
@@ -82,11 +89,19 @@ export default function CountryDetail() {
               className={`btn-quiet inline-flex items-center gap-2 rounded-lg px-4 py-2 text-xs font-bold ${saved ? "text-primary" : ""}`}
               data-testid={`button-save-country-${country.id}`}
             >
-              {saved ? "Saved" : "Save country"}
+              {saved
+                ? uiText(isArabic, "Saved", "تم الحفظ")
+                : uiText(isArabic, "Save country", "حفظ الدولة")}
             </button>
           </div>
           <p className="mt-4 max-w-2xl text-sm leading-6 text-muted-foreground">
-            {country.summary}
+            {isArabic
+              ? uiText(
+                  isArabic,
+                  country.summary,
+                  "مسار طبي منظم يساعد الخريجين الدوليين على فهم التسجيل والتدريب والخطوات العملية في هذه الدولة."
+                )
+              : country.summary}
           </p>
         </div>
       </div>
@@ -112,11 +127,13 @@ export default function CountryDetail() {
         country.id !== "australia" && (
           <>
             <section>
-              <h2 className="text-lg font-extrabold">At a glance</h2>
+              <h2 className="text-lg font-extrabold">
+                {uiText(isArabic, "At a glance", "نظرة سريعة")}
+              </h2>
               <div className="mt-4 grid gap-4 sm:grid-cols-2">
                 <div className="rounded-xl border border-border bg-card p-4">
                   <p className="text-[11px] font-bold uppercase tracking-wider text-muted-foreground">
-                    Licensing body
+                    {uiText(isArabic, "Licensing body", "جهة الترخيص")}
                   </p>
                   <p className="mt-1 text-sm font-semibold">
                     {country.licensingBody}
@@ -124,7 +141,7 @@ export default function CountryDetail() {
                 </div>
                 <div className="rounded-xl border border-border bg-card p-4">
                   <p className="text-[11px] font-bold uppercase tracking-wider text-muted-foreground">
-                    Language evidence
+                    {uiText(isArabic, "Language evidence", "إثبات اللغة")}
                   </p>
                   <p className="mt-1 text-sm font-semibold">
                     {country.languageRequirement}
@@ -132,7 +149,7 @@ export default function CountryDetail() {
                 </div>
                 <div className="rounded-xl border border-border bg-card p-4">
                   <p className="text-[11px] font-bold uppercase tracking-wider text-muted-foreground">
-                    Residency range
+                    {uiText(isArabic, "Residency range", "مدة الإقامة")}
                   </p>
                   <p className="mt-1 text-sm font-semibold">
                     {country.residencyRange}
@@ -140,7 +157,11 @@ export default function CountryDetail() {
                 </div>
                 <div className="rounded-xl border border-border bg-card p-4">
                   <p className="text-[11px] font-bold uppercase tracking-wider text-muted-foreground">
-                    Salary during training
+                    {uiText(
+                      isArabic,
+                      "Salary during training",
+                      "الراتب أثناء التدريب"
+                    )}
                   </p>
                   <p className="mt-1 text-sm font-semibold">
                     {country.salaryRange}
@@ -152,16 +173,22 @@ export default function CountryDetail() {
               <div className="flex items-center gap-2">
                 <Lock size={16} className="text-[#c77f1e]" />
                 <h2 className="text-base font-extrabold">
-                  Citizenship timeline (general)
+                  {uiText(
+                    isArabic,
+                    "Citizenship timeline (general)",
+                    "الجدول العام للحصول على الجنسية"
+                  )}
                 </h2>
               </div>
               <p className="mt-3 text-sm leading-6">
                 {country.citizenshipTimeline}
               </p>
               <p className="mt-4 rounded-lg bg-white/60 p-3 text-xs leading-5 text-muted-foreground">
-                General orientation only. Eligibility, residence type, language,
-                permanent residence, absences, and processing time matter. This
-                is not legal advice.
+                {uiText(
+                  isArabic,
+                  "General orientation only. Eligibility, residence type, language, permanent residence, absences, and processing time matter. This is not legal advice.",
+                  "معلومات توجيهية عامة فقط. تعتمد الأهلية على نوع الإقامة واللغة والإقامة الدائمة وفترات الغياب ومدة معالجة الطلب. هذه ليست استشارة قانونية."
+                )}
               </p>
               {country.officialAuthorityUrl && (
                 <a
@@ -170,13 +197,20 @@ export default function CountryDetail() {
                   rel="noreferrer"
                   className="mt-3 inline-flex items-center gap-1.5 text-xs font-bold text-primary hover:underline"
                 >
-                  Official guidance <ExternalLink size={12} />
+                  {uiText(isArabic, "Official guidance", "الإرشادات الرسمية")}{" "}
+                  <ExternalLink size={12} />
                 </a>
               )}
             </section>
             <div className="grid gap-6 lg:grid-cols-2">
               <section>
-                <h2 className="text-lg font-extrabold">Typical requirements</h2>
+                <h2 className="text-lg font-extrabold">
+                  {uiText(
+                    isArabic,
+                    "Typical requirements",
+                    "المتطلبات المعتادة"
+                  )}
+                </h2>
                 <ul className="mt-4 space-y-2.5">
                   {country.requirements.map(req => (
                     <li key={req} className="flex items-start gap-2.5 text-sm">
@@ -187,10 +221,15 @@ export default function CountryDetail() {
                 </ul>
               </section>
               <section>
-                <h2 className="text-lg font-extrabold">A practical sequence</h2>
+                <h2 className="text-lg font-extrabold">
+                  {uiText(isArabic, "A practical sequence", "التسلسل العملي")}
+                </h2>
                 <p className="mt-2 text-xs text-muted-foreground">
-                  The sequence is an orientation, not an application checklist.
-                  Requirements can differ by authority and program.
+                  {uiText(
+                    isArabic,
+                    "The sequence is an orientation, not an application checklist. Requirements can differ by authority and program.",
+                    "هذا التسلسل للتوجيه وليس قائمة طلب رسمية. قد تختلف المتطلبات حسب الجهة والبرنامج."
+                  )}
                 </p>
                 <ol className="mt-4 space-y-4">
                   {country.steps.map((step, i) => (
@@ -204,36 +243,61 @@ export default function CountryDetail() {
             </div>
             <section>
               <h2 className="text-lg font-extrabold">
-                What the road usually looks like
+                {uiText(
+                  isArabic,
+                  "What the road usually looks like",
+                  "كيف يبدو المسار عادةً"
+                )}
               </h2>
               <p className="mt-2 max-w-2xl text-sm leading-6 text-muted-foreground">
-                Most international graduates move from language evidence and
-                primary source verification, through registration and supervised
-                clinical experience, into a structured training program, and
-                finally toward long-term residency options. The pace differs by
-                country, but the shape of the road is recognisable.
+                {uiText(
+                  isArabic,
+                  "Most international graduates move from language evidence and primary source verification, through registration and supervised clinical experience, into a structured training program, and finally toward long-term residency options. The pace differs by country, but the shape of the road is recognisable.",
+                  "ينتقل معظم الخريجين الدوليين من إثبات اللغة والتحقق من المصدر الأساسي، مروراً بالتسجيل والخبرة السريرية تحت الإشراف، إلى برنامج تدريب منظم ثم خيارات الإقامة طويلة الأمد. تختلف السرعة حسب الدولة، لكن شكل المسار واضح."
+                )}
               </p>
             </section>
             <section className="rounded-2xl border border-dashed border-border bg-card/60 p-6">
               <div className="flex items-center gap-2">
                 <Milestone size={16} className="text-muted-foreground" />
-                <h2 className="text-base font-extrabold">Country updates</h2>
+                <h2 className="text-base font-extrabold">
+                  {uiText(isArabic, "Country updates", "تحديثات الدولة")}
+                </h2>
               </div>
               <p className="mt-2 text-sm text-muted-foreground">
-                These empty spaces are ready for a short country briefing, a
-                direct MP4 video link, or your own notes.
+                {uiText(
+                  isArabic,
+                  "These empty spaces are ready for a short country briefing, a direct MP4 video link, or your own notes.",
+                  "هذه المساحات جاهزة لإضافة موجز قصير عن الدولة أو رابط فيديو مباشر أو ملاحظاتك الخاصة."
+                )}
               </p>
               <div className="mt-4 grid gap-4 sm:grid-cols-2">
                 <div className="rounded-xl border border-border bg-background/70 p-4 text-sm">
-                  <p className="font-bold">Country status letter</p>
+                  <p className="font-bold">
+                    {uiText(
+                      isArabic,
+                      "Country status letter",
+                      "موجز حالة الدولة"
+                    )}
+                  </p>
                   <p className="mt-1 text-xs text-muted-foreground">
-                    No briefing yet — you can add one later.
+                    {uiText(
+                      isArabic,
+                      "No briefing yet — you can add one later.",
+                      "لا يوجد موجز بعد — يمكنك إضافته لاحقاً."
+                    )}
                   </p>
                 </div>
                 <div className="rounded-xl border border-border bg-background/70 p-4 text-sm">
-                  <p className="font-bold">Country video</p>
+                  <p className="font-bold">
+                    {uiText(isArabic, "Country video", "فيديو عن الدولة")}
+                  </p>
                   <p className="mt-1 text-xs text-muted-foreground">
-                    No video yet — you can add a direct video URL later.
+                    {uiText(
+                      isArabic,
+                      "No video yet — you can add a direct video URL later.",
+                      "لا يوجد فيديو بعد — يمكنك إضافة رابط مباشر لاحقاً."
+                    )}
                   </p>
                 </div>
               </div>
@@ -245,34 +309,53 @@ export default function CountryDetail() {
         <div className="flex items-end justify-between gap-3">
           <div>
             <p className="text-xs font-bold uppercase tracking-wider text-primary">
-              Pathway library
+              {uiText(isArabic, "Pathway library", "مكتبة المسارات")}
             </p>
             <h2 className="mt-1 text-lg font-extrabold">
-              More about the {country.name} pathway
+              {uiText(
+                isArabic,
+                `More about the ${country.name} pathway`,
+                `المزيد عن مسار ${displayName}`
+              )}
             </h2>
           </div>
           <BookOpen size={20} className="text-primary" />
         </div>
         <div className="mt-4 grid gap-4 md:grid-cols-3">
           <article className="rounded-xl border border-border bg-card p-4">
-            <h3 className="text-sm font-extrabold">Licensing & registration</h3>
+            <h3 className="text-sm font-extrabold">
+              {uiText(isArabic, "Licensing & registration", "الترخيص والتسجيل")}
+            </h3>
             <p className="mt-2 text-xs leading-5 text-muted-foreground">
-              Understand the main authority, verification steps, and
-              registration milestones for this route.
+              {uiText(
+                isArabic,
+                "Understand the main authority, verification steps, and registration milestones for this route.",
+                "تعرّف على الجهة الرئيسية وخطوات التحقق ومراحل التسجيل لهذا المسار."
+              )}
             </p>
           </article>
           <article className="rounded-xl border border-border bg-card p-4">
-            <h3 className="text-sm font-extrabold">Language & documents</h3>
+            <h3 className="text-sm font-extrabold">
+              {uiText(isArabic, "Language & documents", "اللغة والوثائق")}
+            </h3>
             <p className="mt-2 text-xs leading-5 text-muted-foreground">
-              Prepare the language evidence and core documents commonly
-              requested from international graduates.
+              {uiText(
+                isArabic,
+                "Prepare the language evidence and core documents commonly requested from international graduates.",
+                "جهّز إثبات اللغة والوثائق الأساسية المطلوبة عادةً من الخريجين الدوليين."
+              )}
             </p>
           </article>
           <article className="rounded-xl border border-border bg-card p-4">
-            <h3 className="text-sm font-extrabold">Training & applications</h3>
+            <h3 className="text-sm font-extrabold">
+              {uiText(isArabic, "Training & applications", "التدريب والطلبات")}
+            </h3>
             <p className="mt-2 text-xs leading-5 text-muted-foreground">
-              Map the training stage, application route, and practical next step
-              before you apply.
+              {uiText(
+                isArabic,
+                "Map the training stage, application route, and practical next step before you apply.",
+                "حدّد مرحلة التدريب وطريقة التقديم والخطوة العملية التالية قبل التقديم."
+              )}
             </p>
           </article>
         </div>

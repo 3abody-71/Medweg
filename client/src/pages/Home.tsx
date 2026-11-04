@@ -12,6 +12,7 @@ import {
 import countries from "../data/countries.json";
 import { useApp } from "../contexts/AppContext";
 import { assetPath } from "../lib/assetPath";
+import { countryName, uiText } from "../lib/i18n";
 import {
   FEATURE_VISIBILITY,
   isCountryVisible,
@@ -40,10 +41,13 @@ function StatRow({
 function CountryCard({
   country,
   index,
+  isArabic,
 }: {
   country: (typeof countries)[number];
   index: number;
+  isArabic: boolean;
 }) {
+  const displayName = countryName(country.id, country.name, isArabic);
   return (
     <article
       className="fade-up group flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-card shadow-sm transition-shadow hover:shadow-md"
@@ -56,7 +60,7 @@ function CountryCard({
       >
         <img
           src={assetPath(country.image)}
-          alt={`${country.name} medical pathway`}
+          alt={`${displayName} medical pathway`}
           className={`country-card-image-img ${country.id === "usa" ? "country-card-image-usa" : ""}`}
           loading="lazy"
         />
@@ -71,7 +75,7 @@ function CountryCard({
             {country.flag}
           </span>
           <span>
-            <span className="block text-sm font-extrabold">{country.name}</span>
+            <span className="block text-sm font-extrabold">{displayName}</span>
             <span className="mt-0.5 block text-xs text-muted-foreground">
               {country.region}
             </span>
@@ -85,19 +89,25 @@ function CountryCard({
         <div className="mt-4 grid grid-cols-2 gap-2.5">
           <StatRow
             icon={Calendar}
-            label="Residency range"
+            label={uiText(isArabic, "Residency range", "مدة الإقامة")}
             value={country.residencyRange}
           />
           <StatRow
             icon={Banknote}
-            label="Resident salary"
+            label={uiText(isArabic, "Resident salary", "راتب الطبيب المقيم")}
             value={country.salaryRange}
           />
         </div>
         <div className="country-card-citizenship mt-3 flex gap-2 rounded-lg bg-secondary/60 p-2.5 text-[11px] leading-4">
           <Globe size={15} className="mt-0.5 shrink-0 text-primary" />
           <span>
-            <span className="font-bold">Citizenship timeline (general):</span>{" "}
+            <span className="font-bold">
+              {uiText(
+                isArabic,
+                "Citizenship timeline (general):",
+                "الجدول العام للحصول على الجنسية:"
+              )}
+            </span>{" "}
             {country.citizenshipTimeline}
           </span>
         </div>
@@ -109,14 +119,20 @@ function CountryCard({
             className="inline-flex min-w-0 flex-1 items-center justify-center gap-1.5 rounded-lg bg-primary px-2.5 py-2 text-[11px] font-bold text-primary-foreground transition-colors hover:bg-primary/90"
             data-testid={`link-main-route-${country.id}`}
           >
-            <Route size={13} /> Main route
+            <Route size={13} />{" "}
+            {uiText(isArabic, "Main route", "المسار الرئيسي")}
           </Link>
           <Link
             to={`/countries/${country.id}/pathway-info`}
             className="inline-flex min-w-0 flex-1 items-center justify-center gap-1.5 rounded-lg border border-border bg-card px-2.5 py-2 text-[11px] font-bold text-foreground transition-colors hover:bg-secondary"
             data-testid={`link-articles-${country.id}`}
           >
-            <BookOpen size={13} /> More about {country.flag} pathway
+            <BookOpen size={13} />{" "}
+            {uiText(
+              isArabic,
+              `More about ${country.flag} pathway`,
+              `المزيد عن مسار ${displayName}`
+            )}
           </Link>
         </div>
       </div>
@@ -125,7 +141,7 @@ function CountryCard({
 }
 
 export default function Home() {
-  const { profile } = useApp();
+  const { profile, isArabic } = useApp();
   const firstName = profile.firstName.trim();
   const orderedCountries = countries
     .filter(country => isCountryVisible(country.id))
@@ -149,9 +165,13 @@ export default function Home() {
         <div className="home-hero-content relative mx-auto flex max-w-[1200px] flex-col items-start justify-between gap-6 lg:flex-row lg:items-center lg:gap-8">
           <div>
             <h1 className="mt-4 text-3xl font-extrabold leading-tight tracking-tight text-white sm:text-4xl md:text-[42px]">
-              {firstName
-                ? `Welcome Dr ${firstName} to medvade, your mentor for earning your medical residency abroad.`
-                : "Welcome to medvade, your mentor for earning your medical residency abroad."}
+              {isArabic
+                ? firstName
+                  ? `مرحباً د. ${firstName} في MedWeg، دليلك للحصول على تدريب طبي خارج بلدك.`
+                  : "مرحباً بك في MedWeg، دليلك للحصول على تدريب طبي خارج بلدك."
+                : firstName
+                  ? `Welcome Dr ${firstName} to medvade, your mentor for earning your medical residency abroad.`
+                  : "Welcome to medvade, your mentor for earning your medical residency abroad."}
             </h1>
           </div>
         </div>
@@ -165,7 +185,7 @@ export default function Home() {
               to="/explore"
               className="btn-quiet inline-flex items-center gap-2 rounded-lg px-4 py-2.5 text-xs font-bold"
             >
-              Explore specialties
+              {uiText(isArabic, "Explore specialties", "استكشف التخصصات")}
             </Link>
           )}
           {FEATURE_VISIBILITY.questions && (
@@ -173,7 +193,7 @@ export default function Home() {
               to="/questions"
               className="btn-quiet inline-flex items-center gap-2 rounded-lg px-4 py-2.5 text-xs font-bold"
             >
-              Ask a question
+              {uiText(isArabic, "Ask a question", "اطرح سؤالاً")}
             </Link>
           )}
           <Link
@@ -181,18 +201,23 @@ export default function Home() {
             className="btn-quiet inline-flex items-center gap-2 rounded-lg px-4 py-2.5 text-xs font-bold"
             data-testid="link-home-profile"
           >
-            <Compass size={14} /> Discover your pathway
+            <Compass size={14} />{" "}
+            {uiText(isArabic, "Discover your pathway", "اكتشف مسارك")}
           </Link>
           <Link
             to="/community"
             className="btn-quiet inline-flex items-center gap-2 rounded-lg px-4 py-2.5 text-xs font-bold"
             data-testid="link-home-community"
           >
-            <Users size={14} /> Community
+            <Users size={14} /> {uiText(isArabic, "Community", "المجتمع")}
           </Link>
         </div>
         <span className="text-xs font-bold text-muted-foreground">
-          A calm place to map your options
+          {uiText(
+            isArabic,
+            "A calm place to map your options",
+            "مساحة هادئة لرسم خياراتك"
+          )}
         </span>
       </div>
 
@@ -200,7 +225,12 @@ export default function Home() {
         <div className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {orderedCountries.map((country, index) => {
             return (
-              <CountryCard key={country.id} country={country} index={index} />
+              <CountryCard
+                key={country.id}
+                country={country}
+                index={index}
+                isArabic={isArabic}
+              />
             );
           })}
         </div>
@@ -208,10 +238,14 @@ export default function Home() {
 
       {/* A note on the numbers */}
       <p className="text-sm leading-6 text-muted-foreground">
-        <span className="font-bold">A note on the numbers:</span> Salary and
-        requirements vary by institution, year, visa, and licensing situation.
-        Verify current details with the official licensing body and individual
-        training program before making decisions.
+        <span className="font-bold">
+          {uiText(isArabic, "A note on the numbers:", "ملاحظة حول الأرقام:")}
+        </span>{" "}
+        {uiText(
+          isArabic,
+          "Salary and requirements vary by institution, year, visa, and licensing situation. Verify current details with the official licensing body and individual training program before making decisions.",
+          "تختلف الرواتب والمتطلبات حسب المؤسسة والسنة والتأشيرة ووضع الترخيص. تحقق من التفاصيل الحالية مع جهة الترخيص الرسمية وبرنامج التدريب المحدد قبل اتخاذ القرار."
+        )}
       </p>
     </div>
   );
