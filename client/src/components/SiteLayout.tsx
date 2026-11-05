@@ -160,11 +160,29 @@ export default function SiteLayout({
       ? location.pathname === "/"
       : location.pathname.startsWith(path);
 
+  const resetGoogleTranslate = () => {
+    const expired = "expires=Thu, 01 Jan 1970 00:00:00 GMT";
+    const hostname = window.location.hostname;
+    const domains = ["", `domain=${hostname}`, `domain=.${hostname}`];
+
+    domains.forEach((domain) => {
+      const suffix = domain ? `; ${domain}` : "";
+      document.cookie = `googtrans=; ${expired}; path=/${suffix}`;
+    });
+
+    // Google Translate may recreate a host-scoped cookie while its script is
+    // still unloading. Keep the page explicitly on English during the reload.
+    document.cookie = `googtrans=/en/en; path=/`;
+    document.cookie = `googtrans=/en/en; path=/; domain=${hostname}`;
+    document.cookie = `googtrans=/en/en; path=/; domain=.${hostname}`;
+  };
+
   const changeLanguage = (nextLanguage: "en" | "ar") => {
-    document.cookie =
-      nextLanguage === "ar"
-        ? "googtrans=/en/ar; path=/"
-        : "googtrans=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/";
+    if (nextLanguage === "ar") {
+      document.cookie = "googtrans=/en/ar; path=/";
+    } else {
+      resetGoogleTranslate();
+    }
     localStorage.setItem("medweg-language", nextLanguage);
     sessionStorage.removeItem("medweg-translated-path");
     setLanguage(nextLanguage);
