@@ -64,6 +64,14 @@ function loadJson<T>(key: string, fallback: T): T {
   }
 }
 
+function loadLanguage(): Language {
+  const storedLanguage = localStorage.getItem("medweg-language");
+  const googleLanguage = document.cookie.match(/(?:^|;\s*)googtrans=\/en\/(ar|en)/)?.[1];
+  return storedLanguage === "ar" || (storedLanguage !== "ar" && googleLanguage === "ar")
+    ? "ar"
+    : "en";
+}
+
 function localSnapshot(profile: Profile, savedSpecialtyIds: string[], savedCountryIds: string[], compareIds: string[]) {
   return { profile, savedSpecialtyIds, savedCountryIds, compareIds };
 }
@@ -85,9 +93,7 @@ function normalizeProfile(stored: Partial<Profile>, email = ""): Profile {
 
 export function AppProvider({ children }: { children: React.ReactNode }) {
   const { user } = useAuth();
-  const [language, setLanguage] = useState<Language>(() =>
-    localStorage.getItem("medweg-language") === "ar" ? "ar" : "en"
-  );
+  const [language, setLanguage] = useState<Language>(loadLanguage);
   const [profile, setProfile] = useState<Profile>(() => normalizeProfile(loadJson<Partial<Profile>>("medweg-profile", {})));
   const [savedSpecialtyIds, setSavedSpecialtyIds] = useState<string[]>(() => loadJson("medweg-saved-specialties", []));
   const [savedCountryIds, setSavedCountryIds] = useState<string[]>(() => loadJson("medweg-saved-countries", []));

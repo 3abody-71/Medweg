@@ -229,7 +229,7 @@ export default function SiteLayout({
           <div className="flex items-center gap-2">
             <button
               type="button"
-              className="inline-flex h-9 items-center gap-1.5 rounded-lg border border-border px-2.5 text-xs font-bold text-muted-foreground hover:border-primary hover:text-primary sm:px-3"
+              className="notranslate inline-flex h-9 items-center gap-1.5 rounded-lg border border-border px-2.5 text-xs font-bold text-muted-foreground hover:border-primary hover:text-primary sm:px-3"
               onClick={() => changeLanguage(language === "en" ? "ar" : "en")}
               aria-label={text("Switch to Arabic", "التبديل إلى الإنجليزية")}
               title={text("Switch to Arabic", "التبديل إلى الإنجليزية")}
@@ -335,7 +335,7 @@ export default function SiteLayout({
               <button
                 type="button"
                 onClick={() => changeLanguage(language === "en" ? "ar" : "en")}
-                className="topbar-link flex items-center gap-3 rounded-lg px-3 py-3 text-left"
+                className="notranslate topbar-link flex items-center gap-3 rounded-lg px-3 py-3 text-left"
                 aria-label={text("Switch to Arabic", "التبديل إلى الإنجليزية")}
               >
                 <Languages size={16} />
