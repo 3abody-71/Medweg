@@ -86,7 +86,7 @@ function normalizeProfile(stored: Partial<Profile>, email = ""): Profile {
 export function AppProvider({ children }: { children: React.ReactNode }) {
   const { user } = useAuth();
   const [language, setLanguage] = useState<Language>(() =>
-    loadJson<Language>("medweg-language", "en") === "ar" ? "ar" : "en"
+    localStorage.getItem("medweg-language") === "ar" ? "ar" : "en"
   );
   const [profile, setProfile] = useState<Profile>(() => normalizeProfile(loadJson<Partial<Profile>>("medweg-profile", {})));
   const [savedSpecialtyIds, setSavedSpecialtyIds] = useState<string[]>(() => loadJson("medweg-saved-specialties", []));
