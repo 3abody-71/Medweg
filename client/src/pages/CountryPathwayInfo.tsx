@@ -149,6 +149,40 @@ export default function CountryPathwayInfo() {
               </div>
             </Link>
           ) : null}
+          {country.id === "germany" ? (
+            <Link
+              to="/countries/germany/pathway-info/states-salaries-shifts"
+              className="group overflow-hidden rounded-2xl border border-border bg-card shadow-sm transition hover:-translate-y-0.5 hover:border-primary/40 hover:shadow-md"
+            >
+              <div className="h-28 bg-secondary">
+                <img
+                  src={assetPath("/assets/germany/states/germany-states-map.jpg")}
+                  alt="Map of the 16 German federal states"
+                  className="h-full w-full object-cover object-center"
+                />
+              </div>
+              <div className="p-5">
+                <div className="flex items-start justify-between gap-3">
+                  <div className="grid h-10 w-10 place-items-center rounded-xl bg-secondary text-primary">
+                    <FileText size={19} />
+                  </div>
+                  <ArrowRight
+                    size={17}
+                    className="text-primary transition group-hover:translate-x-1"
+                  />
+                </div>
+                <p className="mt-5 text-[10px] font-extrabold uppercase tracking-wider text-primary">
+                  Germany / Doctors and states
+                </p>
+                <h3 className="mt-1 text-lg font-extrabold">
+                  Salaries, states, night shifts, and holidays
+                </h3>
+                <p className="mt-2 text-sm leading-6 text-muted-foreground">
+                  Compare gross and net pay, the largest medical markets, duty types, and annual leave.
+                </p>
+              </div>
+            </Link>
+          ) : null}
           <div className="rounded-2xl border border-dashed border-border bg-card/60 p-5">
             <p className="text-sm font-extrabold">
               {uiText(

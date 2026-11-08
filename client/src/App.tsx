@@ -14,6 +14,7 @@ import Auth from "./pages/Auth";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import UsmleArticle from "./pages/UsmleArticle";
 import UkPrioritisationArticle from "./pages/UkPrioritisationArticle";
+import GermanyStatesArticle from "./pages/GermanyStatesArticle";
 import { FEATURE_VISIBILITY } from "./config/featureVisibility";
 
 export default function App() {
@@ -53,6 +54,10 @@ export default function App() {
         <Route
           path="/countries/uk/pathway-info/prioritisation-2026"
           element={<UkPrioritisationArticle />}
+        />
+        <Route
+          path="/countries/germany/pathway-info/states-salaries-shifts"
+          element={<GermanyStatesArticle />}
         />
         <Route
           path="/questions"
