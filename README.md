@@ -43,6 +43,9 @@ The app source uses permanent `/manus-storage/...` paths supplied by the Manus p
 
 Do not commit `node_modules`, `dist`, `.env` files, API keys, passwords, or private deployment metadata.
 
+## Community persistence
+The Community page now includes a simple feed, country/category search, profile cards, follows, comments, private-message UI, reports, and client-side spam protection. It works immediately with a local browser fallback. To enable shared persistence for signed-in users, apply [`supabase/community.sql`](supabase/community.sql) in the same Supabase project used by the site.
+
 ## Supabase authentication
 
 The `/auth` page uses Supabase Auth for email/password sign-up, sign-in, and password recovery. Configure the repository variables `VITE_SUPABASE_URL` and `VITE_SUPABASE_PUBLISHABLE_KEY` for the GitHub Pages workflow. In Supabase Authentication settings, set the site URL to `https://3abody-71.github.io/Medweg/` and add `https://3abody-71.github.io/Medweg/auth` to the redirect URLs.
