@@ -206,7 +206,32 @@ a {
   grid-template-columns: minmax(220px, 1.5fr) repeat(5, minmax(120px, 1fr));
   gap: 2rem;
 }
-
+.footer-navy {
+  background: #071f33;
+  border-color: #21435a;
+  color: #e5f3f7;
+}
+.footer-navy .text-muted-foreground {
+  color: #a8c3ce;
+}
+.footer-navy .footer-heading {
+  color: #f3fbfd;
+}
+.footer-navy .footer-heading svg {
+  color: #8dd8ed;
+}
+.footer-navy .footer-link {
+  color: #b7d0d9;
+}
+.footer-navy .footer-link:hover {
+  color: #8dd8ed;
+}
+.footer-navy .border-border {
+  border-color: #21435a;
+}
+.footer-navy .text-primary {
+  color: #8dd8ed;
+}
 .footer-column {
   display: flex;
   flex-direction: column;

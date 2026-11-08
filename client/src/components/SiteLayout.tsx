@@ -350,7 +350,7 @@ export default function SiteLayout({
         {children}
       </main>
 
-      <footer className="border-t border-border bg-card/60">
+      <footer className="footer-navy border-t border-border">
         <div className="mx-auto flex max-w-[1450px] flex-col gap-6 px-4 py-8 sm:px-6 lg:px-10">
           <div className="footer-grid">
             <div className="footer-brand">
