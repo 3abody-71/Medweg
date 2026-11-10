@@ -1332,3 +1332,39 @@ button:disabled {
 .community-trend strong { overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font-size:.72rem; }
 .community-trend small { color:hsl(var(--muted-foreground)); font-size:.62rem; }
 @media (max-width:720px) { .community-sort-row { align-items:stretch; flex-direction:column; } .community-composer-grid { grid-template-columns:1fr; } .community-tag-input { width:100%; } .community-composer .mt-3.flex { align-items:stretch; flex-direction:column; } .community-composer .mt-3.flex > .flex { justify-content:flex-end; } }
+
+/* Community simple mode */
+.community-page { --community-line: #e4ecee; }
+.community-intro { padding-bottom: 1.8rem; }
+.community-shell { grid-template-columns: 190px minmax(0, 760px); justify-content: center; gap: 2rem; }
+.community-right-rail { display: none !important; }
+.community-sidebar { opacity: 1; transform: none; }
+.community-profile-card, .community-feed-toolbar, .community-composer, .community-post-card { box-shadow: none; border-radius: .9rem; }
+.community-profile-card { padding: .9rem; }
+.community-topic-nav { padding: 1rem 0; }
+.community-topic-nav button { padding: .58rem .55rem; }
+.community-side-note { font-size: .65rem; }
+.community-feed-toolbar { padding: 1rem; }
+.community-post-card { padding: 1.35rem; }
+.community-post-card:hover { transform: none; box-shadow: 0 8px 22px rgba(31,77,93,.05); }
+.community-sort-row { margin-top: 1rem; }
+.community-tabs button { padding-inline: .55rem; }
+.community-type-chip { padding: .22rem .45rem; }
+.community-tag { display: none; }
+.community-action { padding: .3rem .35rem; }
+@media (max-width: 720px) {
+  .community-intro { gap: 1rem; padding-bottom: 1.1rem; }
+  .community-intro h1 { font-size: 1.8rem; line-height: 1.15; }
+  .community-intro p { margin-top: .55rem; }
+  .community-shell { display: block; }
+  .community-sidebar { margin: 0 0 .7rem; }
+  .community-profile-card { display: flex; align-items: center; justify-content: space-between; gap: .75rem; }
+  .community-profile-card > p, .community-profile-card > a { display: none; }
+  .community-topic-nav { display: flex; gap: .25rem; overflow-x: auto; padding: .45rem 0 .7rem; }
+  .community-nav-label, .community-side-note { display: none; }
+  .community-topic-nav button { width: auto; flex: 0 0 auto; white-space: nowrap; border: 1px solid var(--community-line); border-radius: 999px; padding: .45rem .7rem; font-size: .68rem; }
+  .community-topic-nav button.active { border-color: hsl(var(--primary)/.25); }
+  .community-feed-toolbar { padding: .85rem; }
+  .community-post-card { padding: 1rem; }
+  .community-feed-meta { margin: .55rem 0; }
+}
