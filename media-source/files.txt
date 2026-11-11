@@ -1,6 +1,7 @@
 cleveland-clinic.jpg
 country-australia_4dbe3131.jpg
 country-canada_b3c6f4ad.jpg
+country-germany-charite-berlin.jpg
 country-germany_c6217245.jpg
 country-ireland_e1ece753.jpg
 country-qatar_c6ddf5df.jpg
