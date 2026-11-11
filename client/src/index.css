@@ -391,6 +391,12 @@ a {
   object-position: center;
 }
 
+.country-card-image-uk {
+  object-fit: contain;
+  object-position: center;
+  background: hsl(var(--secondary) / 0.45);
+}
+
 .country-card-summary {
   display: -webkit-box;
   overflow: hidden;

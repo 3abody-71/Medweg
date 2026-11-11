@@ -61,7 +61,7 @@ function CountryCard({
         <img
           src={assetPath(country.image)}
           alt={`${displayName} medical pathway`}
-          className={`country-card-image-img ${country.id === "usa" ? "country-card-image-usa" : ""}`}
+          className={`country-card-image-img ${country.id === "usa" ? "country-card-image-usa" : ""} ${country.id === "uk" ? "country-card-image-uk" : ""}`}
           loading="lazy"
         />
       </Link>
