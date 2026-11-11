@@ -205,8 +205,8 @@ function vitePluginStorageProxy(): Plugin {
 const plugins = [react(), jsxLocPlugin(), vitePluginManusRuntime(), vitePluginManusDebugCollector(), vitePluginStorageProxy()];
 
 export default defineConfig({
-  // GitHub Pages serves this project from /Medweg/; local/Manus builds stay at /
-  base: process.env.GITHUB_ACTIONS ? "/Medweg/" : "/",
+  // GitHub Pages serves this project from /medvade/; local/Manus builds stay at /
+  base: process.env.GITHUB_ACTIONS ? "/medvade/" : "/",
   plugins,
   resolve: {
     alias: {

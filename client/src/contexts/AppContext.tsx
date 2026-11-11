@@ -65,7 +65,7 @@ function loadJson<T>(key: string, fallback: T): T {
 }
 
 function loadLanguage(): Language {
-  const storedLanguage = localStorage.getItem("medweg-language");
+  const storedLanguage = localStorage.getItem("medvade-language");
   const googleLanguage = document.cookie.match(/(?:^|;\s*)googtrans=\/en\/(ar|en)/)?.[1];
   return storedLanguage === "ar" || (storedLanguage !== "ar" && googleLanguage === "ar")
     ? "ar"
@@ -94,10 +94,10 @@ function normalizeProfile(stored: Partial<Profile>, email = ""): Profile {
 export function AppProvider({ children }: { children: React.ReactNode }) {
   const { user } = useAuth();
   const [language, setLanguage] = useState<Language>(loadLanguage);
-  const [profile, setProfile] = useState<Profile>(() => normalizeProfile(loadJson<Partial<Profile>>("medweg-profile", {})));
-  const [savedSpecialtyIds, setSavedSpecialtyIds] = useState<string[]>(() => loadJson("medweg-saved-specialties", []));
-  const [savedCountryIds, setSavedCountryIds] = useState<string[]>(() => loadJson("medweg-saved-countries", []));
-  const [compareIds, setCompareIds] = useState<string[]>(() => loadJson("medweg-compare", []));
+  const [profile, setProfile] = useState<Profile>(() => normalizeProfile(loadJson<Partial<Profile>>("medvade-profile", {})));
+  const [savedSpecialtyIds, setSavedSpecialtyIds] = useState<string[]>(() => loadJson("medvade-saved-specialties", []));
+  const [savedCountryIds, setSavedCountryIds] = useState<string[]>(() => loadJson("medvade-saved-countries", []));
+  const [compareIds, setCompareIds] = useState<string[]>(() => loadJson("medvade-compare", []));
   const [syncReady, setSyncReady] = useState(false);
   const activeUserId = useRef<string | null>(null);
   const saveTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -149,21 +149,21 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
   }, [user?.id]);
 
   useEffect(() => {
-    localStorage.setItem("medweg-profile", JSON.stringify(profile));
+    localStorage.setItem("medvade-profile", JSON.stringify(profile));
   }, [profile]);
   useEffect(() => {
-    localStorage.setItem("medweg-saved-specialties", JSON.stringify(savedSpecialtyIds));
+    localStorage.setItem("medvade-saved-specialties", JSON.stringify(savedSpecialtyIds));
   }, [savedSpecialtyIds]);
   useEffect(() => {
-    localStorage.setItem("medweg-saved-countries", JSON.stringify(savedCountryIds));
+    localStorage.setItem("medvade-saved-countries", JSON.stringify(savedCountryIds));
   }, [savedCountryIds]);
   useEffect(() => {
-    localStorage.setItem("medweg-compare", JSON.stringify(compareIds));
+    localStorage.setItem("medvade-compare", JSON.stringify(compareIds));
   }, [compareIds]);
   useEffect(() => {
     document.documentElement.lang = language;
     document.documentElement.dir = language === "ar" ? "rtl" : "ltr";
-    localStorage.setItem("medweg-language", language);
+    localStorage.setItem("medvade-language", language);
   }, [language]);
 
   useEffect(() => {
@@ -181,7 +181,7 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
   const toggleSpecialty = (id: string) => setSavedSpecialtyIds((prev) => prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id]);
   const toggleCountry = (id: string) => setSavedCountryIds((prev) => prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id]);
   const saveProfile = () => {
-    localStorage.setItem("medweg-profile", JSON.stringify(profile));
+    localStorage.setItem("medvade-profile", JSON.stringify(profile));
     if (activeUserId.current) void persistToCloud(localSnapshot(profile, savedSpecialtyIds, savedCountryIds, compareIds), activeUserId.current);
   };
 

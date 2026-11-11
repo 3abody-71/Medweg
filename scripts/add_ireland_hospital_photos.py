@@ -1,6 +1,6 @@
 from pathlib import Path
 
-root = Path('/home/ubuntu/Medweg')
+root = Path('/home/ubuntu/medvade')
 data = root / 'client/src/data/irelandPathway.ts'
 text = data.read_text()
 old = '  hospitals: ["Beaumont Hospital — Dublin", "Mater Misericordiae University Hospital — Dublin", "St James’s Hospital — Dublin", "St Vincent’s University Hospital — Dublin", "Tallaght University Hospital — Dublin", "Cork University Hospital — Cork", "University Hospital Galway — Galway", "University Hospital Limerick — Limerick", "University Hospital Waterford — Waterford"],'

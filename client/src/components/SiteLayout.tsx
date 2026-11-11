@@ -149,7 +149,7 @@ export default function SiteLayout({
 
   useEffect(() => {
     if (!isArabic) return;
-    const key = "medweg-translated-path";
+    const key = "medvade-translated-path";
     if (sessionStorage.getItem(key) === location.pathname) return;
     sessionStorage.setItem(key, location.pathname);
     window.location.reload();
@@ -183,8 +183,8 @@ export default function SiteLayout({
     } else {
       resetGoogleTranslate();
     }
-    localStorage.setItem("medweg-language", nextLanguage);
-    sessionStorage.removeItem("medweg-translated-path");
+    localStorage.setItem("medvade-language", nextLanguage);
+    sessionStorage.removeItem("medvade-translated-path");
     setLanguage(nextLanguage);
     window.location.reload();
   };

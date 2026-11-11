@@ -1,5 +1,5 @@
 /**
- * Temporary release switches for unfinished MedWeg areas.
+ * Temporary release switches for unfinished medvade areas.
  *
  * To restore a suspended area, change only the relevant flag or remove the
  * country from the hidden lists. The underlying data, pages, and assets stay

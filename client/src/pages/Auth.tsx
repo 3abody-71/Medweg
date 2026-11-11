@@ -134,7 +134,7 @@ export default function Auth() {
       if (mode === "reset") {
         const { error: resetError } = await supabase.auth.resetPasswordForEmail(
           email,
-          { redirectTo: `${siteUrl}/Medweg/auth?mode=reset` },
+          { redirectTo: `${siteUrl}/medvade/auth?mode=reset` },
         );
         if (resetError) throw resetError;
         setMessage("Check your email for a secure password reset link.");
@@ -229,7 +229,7 @@ export default function Auth() {
     setBusy(true);
     const { error: oauthError } = await supabase.auth.signInWithOAuth({
       provider: "google",
-      options: { redirectTo: `${siteUrl}/Medweg/auth` },
+      options: { redirectTo: `${siteUrl}/medvade/auth` },
     });
     if (oauthError) {
       setBusy(false);
@@ -455,7 +455,7 @@ export default function Auth() {
           <button type="button" disabled={busy || !configured || !email} className="btn-quiet mt-3 inline-flex w-full items-center justify-center gap-2 rounded-xl px-5 py-3 text-sm disabled:cursor-not-allowed disabled:opacity-60" onClick={async () => {
             if (!supabase || !email) return;
             setError(""); setMessage(""); setBusy(true);
-            const { error: linkError } = await supabase.auth.signInWithOtp({ email, options: { emailRedirectTo: `${siteUrl}/Medweg/auth` } });
+            const { error: linkError } = await supabase.auth.signInWithOtp({ email, options: { emailRedirectTo: `${siteUrl}/medvade/auth` } });
             setBusy(false);
             if (linkError) setError(linkError.message); else setMessage("Login link sent. Check your email and open the link on this device.");
           }}>Send me a login link</button>
