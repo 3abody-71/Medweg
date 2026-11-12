@@ -167,34 +167,35 @@ export default function Home() {
           aria-hidden="true"
         />
         <div className="home-hero-content relative mx-auto flex max-w-[1200px] flex-col items-start justify-between gap-6 lg:flex-row lg:items-center lg:gap-8">
-          <div>
-            <h1 className="mt-4 text-3xl font-extrabold leading-tight tracking-tight text-white sm:text-4xl md:text-[42px]">
+          <div className="home-hero-copy">
+            <p className="home-hero-welcome">
               {isArabic ? (
                 firstName ? (
-                  <>
-                    {`مرحباً د. ${firstName} في `}
-                    <span className="notranslate">medvade</span>
-                    {"، دليلك للحصول على تدريب طبي خارج بلدك."}
-                  </>
+                  `مرحباً د. ${firstName}`
                 ) : (
-                  <>
-                    مرحباً بك في <span className="notranslate">medvade</span>،
-                    دليلك للحصول على تدريب طبي خارج بلدك.
-                  </>
+                  "مرحباً بك"
                 )
               ) : firstName ? (
-                <>
-                  Welcome Dr {firstName} to{" "}
-                  <span className="notranslate">medvade</span>, your mentor for
-                  earning your medical residency abroad.
-                </>
+                `Welcome, Dr. ${firstName}`
+              ) : (
+                "Welcome, Doctor"
+              )}
+            </p>
+            <h1 className="home-hero-heading">
+              {isArabic ? (
+                "خطوتك نحو التدريب الطبي خارج بلدك"
               ) : (
                 <>
-                  Welcome to <span className="notranslate">medvade</span>, your
-                  mentor for earning your medical residency abroad.
+                  <span>Your path to</span>
+                  <span className="home-hero-highlight">Medical Residency Abroad.</span>
                 </>
               )}
             </h1>
+            <p className="home-hero-description">
+              {isArabic
+                ? "دليلك الموثوق لبناء مسيرة طبية ناجحة تتجاوز الحدود."
+                : "Your trusted guide to building a successful medical career beyond borders."}
+            </p>
           </div>
         </div>
       </section>

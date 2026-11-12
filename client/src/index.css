@@ -1,14 +1,13 @@
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500&family=Playfair+Display:wght@600&display=swap");
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
   --app-font-sans:
-    -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Inter",
-    "Helvetica Neue", Arial, sans-serif;
-  --app-font-serif:
-    -apple-system, BlinkMacSystemFont, "SF Pro Display", "Inter",
-    "Helvetica Neue", Arial, sans-serif;
+    "DM Sans", -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue",
+    Arial, sans-serif;
+  --app-font-serif: "Playfair Display", Georgia, "Times New Roman", serif;
   --app-font-mono: "SF Mono", "Roboto Mono", ui-monospace, monospace;
   --background: 210 33% 98%;
   --foreground: 215 28% 15%;
@@ -540,6 +539,52 @@ a {
   position: relative;
 }
 
+.home-hero-copy {
+  max-width: 46rem;
+}
+
+.home-hero-welcome {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.82);
+  font-family: var(--app-font-sans);
+  font-size: clamp(0.78rem, 1.3vw, 0.94rem);
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  line-height: 1.45;
+}
+
+.home-hero-heading {
+  display: flex;
+  flex-direction: column;
+  gap: 0.08em;
+  margin: 0.55rem 0 0;
+  color: #fff;
+  font-family: var(--app-font-sans);
+  font-size: clamp(2.25rem, 4.2vw, 3.5rem);
+  font-weight: 500;
+  letter-spacing: -0.045em;
+  line-height: 1.02;
+  text-wrap: balance;
+}
+
+.home-hero-highlight {
+  font-family: var(--app-font-serif);
+  font-weight: 600;
+  letter-spacing: -0.035em;
+  line-height: 1.07;
+}
+
+.home-hero-description {
+  max-width: 34rem;
+  margin: 1.15rem 0 0;
+  color: rgba(255, 255, 255, 0.82);
+  font-family: var(--app-font-sans);
+  font-size: clamp(0.9rem, 1.45vw, 1.05rem);
+  font-weight: 400;
+  letter-spacing: 0.005em;
+  line-height: 1.55;
+}
+
 .citizenship-card {
   background: linear-gradient(140deg, #efb46138, hsl(var(--card)));
   border: 1px solid #ea9c2e59;
@@ -819,8 +864,15 @@ a {
     padding: 1.25rem;
   }
 
-  .home-hero h1 {
-    font-size: clamp(1.9rem, 8vw, 2.5rem);
+  .home-hero-heading {
+    font-size: clamp(2rem, 8vw, 2.65rem);
+    line-height: 1.04;
+  }
+
+  .home-hero-description {
+    max-width: 24rem;
+    margin-top: 1rem;
+    font-size: 0.94rem;
   }
 
   .home-hero-photo {
