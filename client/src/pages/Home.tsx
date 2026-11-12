@@ -120,7 +120,11 @@ function CountryCard({
             data-testid={`link-main-route-${country.id}`}
           >
             <Route size={13} />{" "}
-            {uiText(isArabic, "Main route", "المسار الرئيسي")}
+            {uiText(
+              isArabic,
+              `Start the ${displayName} journey`,
+              `ابدأ رحلة ${displayName}`
+            )}
           </Link>
           <Link
             to={`/countries/${country.id}/pathway-info`}
