@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500&family=Playfair+Display:wght@600&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500&family=Lora:wght@600&display=swap");
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -7,7 +7,7 @@
   --app-font-sans:
     "DM Sans", -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue",
     Arial, sans-serif;
-  --app-font-serif: "Playfair Display", Georgia, "Times New Roman", serif;
+  --app-font-serif: "Lora", Georgia, "Times New Roman", serif;
   --app-font-mono: "SF Mono", "Roboto Mono", ui-monospace, monospace;
   --background: 210 33% 98%;
   --foreground: 215 28% 15%;
