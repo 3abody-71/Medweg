@@ -176,9 +176,9 @@ export default function Home() {
                   "مرحباً بك"
                 )
               ) : firstName ? (
-                `Welcome, Dr. ${firstName}`
+                `Welcome, Dr. ${firstName}, to medvade`
               ) : (
-                "Welcome, Doctor"
+                "Welcome to medvade"
               )}
             </p>
             <h1 className="home-hero-heading">
@@ -186,7 +186,7 @@ export default function Home() {
                 "خطوتك نحو التدريب الطبي خارج بلدك"
               ) : (
                 <>
-                  <span>Your path to</span>
+                  <span>Your mentor for</span>
                   <span className="home-hero-highlight">Medical Residency Abroad.</span>
                 </>
               )}
