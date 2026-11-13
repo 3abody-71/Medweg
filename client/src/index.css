@@ -396,8 +396,9 @@ a {
 }
 
 .country-card-image-australia {
-  object-fit: contain;
-  background: hsl(var(--secondary));
+  height: auto;
+  object-fit: initial;
+  background: transparent;
 }
 
 .country-card-summary {
