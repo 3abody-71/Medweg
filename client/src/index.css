@@ -395,6 +395,11 @@ a {
   object-position: center;
 }
 
+.country-card-image-australia {
+  object-fit: contain;
+  background: hsl(var(--secondary));
+}
+
 .country-card-summary {
   display: -webkit-box;
   overflow: hidden;
